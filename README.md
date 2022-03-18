@@ -8,7 +8,7 @@ pip install django-simpleui
 # Above all are mainly for the env and components here.
 ```
 
-> Note: The edition of Django is better to use >4.0 because of the admin-sys has some bugs before 4.0
+> Note: The edition of Django is better to use >4.0 because the admin-sys has some bugs before 4.0
 
 ## Step
 
