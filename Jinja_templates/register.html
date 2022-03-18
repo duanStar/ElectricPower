@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>系统注册</title>
+	<link rel="stylesheet" href="{{ static('css/global.css') }}">
+	<link rel="stylesheet" href="{{ static('css/btn.css') }}">
+	<link rel="stylesheet" href="{{ static('css/plc.css') }}">
+	<link rel="stylesheet" href="{{ static('css/cpn.css') }}">
+	<link rel="stylesheet" href="{{ static('plg/sweetalert.css') }}">
+	<link rel="stylesheet" href="{{ static('plg/bootstrap-3.4.1-dist/css/bootstrap.min.css') }}">
+	<link rel="stylesheet" href="{{ static('plg/font-awesome-4.7.0/css/font-awesome.min.css') }}">
+    <style>
+        body {
+            background: url("{{ static('img/login.jpg') }}") no-repeat fixed !important;
+            background-size: cover !important;
+        }
+    </style>
+</head>
+<body>
+
+
+<div>
+	<div class="login_penal" style="background: rgba(255,255,255,0.8); border-radius: 9px; padding:20px 60px 20px 60px; margin-top: -100px; width: 550px; margin-left: -275px">
+        <h2 class="text-center text-primary">欢迎注册</h2><br>
+		<h5 class="text-warning"> ⚠️ 以下个人信息请认真仔细填写，每填完一类将自动锁定且无法修改。（友情提示：请在输入框处于激活状态下修改内容，点击空白处将自动锁定！）</h5>
+		<div class="input-group ">
+			<span id="uname_sign" class="input-group-addon">用户姓名</span>
+			<input id="uname" type="text" class="form-control" placeholder="请输入用户名，长度不超过8个汉字，不能为空">
+		</div>
+		<br>
+		<div class="input-group">
+			<span class="input-group-addon" id="basic-addon1">用户密码</span>
+			<input id="upass" type="password" class="form-control" placeholder="请输入至少8位，且同时包含字母、数字、特殊字符">
+		</div>
+		<br>
+		<div class="input-group">
+			<span class="input-group-addon" id="basic-addon1">确认密码</span>
+			<input id="cpass" type="password" class="form-control" placeholder="请再输入一次密码，确保输入无误">
+		</div>
+		<br>
+		<div class="input-group">
+			<span class="input-group-addon" id="basic-addon1">婚姻状况</span>
+			<input id="umarry" type="text" class="form-control" placeholder="未婚/已婚/保密">
+		</div>
+		<br>
+		<div class="input-group">
+			<span class="input-group-addon" id="basic-addon1">籍&emsp;&emsp;贯</span>
+			<input id="usource" type="text" class="form-control" placeholder="请输入籍贯信息">
+		</div>
+		<br>
+		<div class="input-group">
+			<span class="input-group-addon" id="basic-addon1">民&emsp;&emsp;族</span>
+			<input id="ulabel" type="text" class="form-control" placeholder="如'汉族'等">
+		</div>
+		<br>
+		<div>
+			<h5 id="s_alert" class="text-center"></h5>
+			<div class="progress">
+				<div id="status" class="progress-bar progress-bar-success" role="progressbar"
+					 aria-valuemax="100" style="width: 0%">
+				</div>
+			</div>
+		</div>
+		<br>
+
+		<div class="flex_around">
+			<button disabled=true id="register" class="login_button btn btn-success "><i class="fa fa-check"></i> 立即注册
+			</button>
+		</div>
+		<h5 class="text-right"><a type="button" href="/login/">返回登录 🚀</a></h5>
+	</div>
+</div>
+
+
+<script src="{{ static('plg/jquery-3.6.0.min.js') }}"></script>
+<script src="{{ static('plg/sweetalert.min.js') }}"></script>
+<script>
+    // 输入信息检查
+    let process = 0;
+
+    $('#uname').on('change', function () {
+        let name = $('#uname').val()
+        let length = name.length
+        if (length >= 2 && /^[\u4e00-\u9fa5]{2,15}$/i.test(name)) {
+            process += 20;
+            $('#s_alert').text('')
+            $('#status').css('width', process + '%')
+            $('#uname').attr('disabled', true)
+
+        } else {
+            $('#s_alert').text('请输入正确的用户名').addClass('text-danger')
+        }
+        if (process === 100) {
+            $('#register').attr('disabled', false)
+        }
+    })
+
+    $('#upass').on('change', function () {
+        let password = $('#upass').val()
+        let length = password.length
+        if (length >= 8 && length <= 30 && RegExp('(?=.*[0-9])(?=.*[a-zA-Z])(?=.*[^a-zA-Z0-9]).{8,30}').test(password)) {
+            $('#s_alert').text('')
+        } else {
+            $('#s_alert').text('输入的密码太简单了！我猜都猜得到……').addClass('text-danger')
+        }
+        if (process === 100) {
+            $('#register').attr('disabled', false)
+        }
+
+    })
+
+    $('#cpass').on('change', function () {
+        let s_password = $('#upass').val()
+        let c_password = $('#cpass').val()
+        let length = c_password.length
+        if (s_password === c_password && length >= 8 && length <= 30 && RegExp('(?=.*[0-9])(?=.*[a-zA-Z])(?=.*[^a-zA-Z0-9]).{8,30}').test(c_password)) {
+            $('#cpass').attr('disabled', true)
+            $('#upass').attr('disabled', true)
+            process += 20;
+            $('#status').css('width', process + '%')
+
+
+        } else {
+            $('#s_alert').text('密码检查不通过，重新填一下').addClass('text-danger')
+        }
+        if (process === 100) {
+            $('#register').attr('disabled', false)
+        }
+
+    })
+
+    $('#umarry').on('change', function () {
+        let info = $('#umarry').val()
+        if (info === '未婚' || info === '已婚' || info === '保密') {
+            $('#s_alert').text('')
+            $('#umarry').attr('disabled', true)
+            process += 20;
+            $('#status').css('width', process + '%')
+        } else {
+            $('#s_alert').text('未婚？已婚？保密？选一个写上去呀').addClass('text-danger')
+        }
+        if (process === 100) {
+            $('#register').attr('disabled', false)
+        }
+
+    })
+
+    $('#usource').on('change', function () {
+        let info = $('#usource').val()
+        if (info.length >= 3) {
+            $('#s_alert').text('')
+            $('#usource').attr('disabled', true)
+            process += 20;
+            $('#status').css('width', process + '%')
+        } else {
+            $('#s_alert').text('你确定你的籍贯信息正确吗？').addClass('text-danger')
+        }
+        if (process === 100) {
+            $('#register').attr('disabled', false)
+        }
+
+    })
+
+    $('#ulabel').on('change', function () {
+        let info = $('#ulabel').val()
+        if (info.length >= 2) {
+            $('#s_alert').text('')
+            $('#ulabel').attr('disabled', true)
+            process += 20;
+            $('#status').css('width', process + '%')
+        } else {
+            $('#s_alert').text('你确定你的民族信息正确吗？').addClass('text-danger')
+        }
+        if (process === 100) {
+            $('#register').attr('disabled', false)
+        }
+
+    })
+
+    $('#register').click(function () {
+        swal({
+            title: "你确定就这样注册吗?",
+            text: "如果取消，你需要刷新页面重新填写",
+            type: "info",
+            showCancelButton: true,
+            closeOnConfirm: false,
+            showLoaderOnConfirm: true,
+            confirmButtonText: "是的，立即注册",
+            cancelButtonText: "不，我再想想",
+        }, function () {
+            // Ajax to send info to the server.
+
+
+            $.ajax({
+				url: '',
+				type: 'POST',
+				data: {
+					'uname': $('#uname').val(),
+					'cpass': $('#cpass').val(),
+					'umarry': $('#umarry').val(),
+					'usource': $('#usource').val(),
+					'ulabel': $('#ulabel').val(),
+				},
+				success : function () {
+					location.href = '/login/'
+                }
+			})
+
+
+        });
+    })
+
+
+
+</script>
+</body>
+</html>

@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>主页</title>
+	<link rel="stylesheet" href="{{ static('css/btn.css') }}">
+	<link rel="stylesheet" href="{{ static('css/plc.css') }}">
+	<link rel="stylesheet" href="{{ static('plg/bootstrap-3.4.1-dist/css/bootstrap.min.css') }}">
+	<link rel="stylesheet" href="{{ static('plg/font-awesome-4.7.0/css/font-awesome.min.css') }}">
+	<style>
+		body {
+			background: url("{{ static('img/index.png') }}") no-repeat fixed !important;
+			background-size: cover !important;
+			overflow: hidden;
+		}
+
+		.flex_around > input {
+			width: 250px;
+		}
+
+		.btn_in {
+			background: rgba(255, 255, 255, 1);
+			width: 240px;
+			height: 180px;
+			border-radius: 9px;
+			border: none;
+			margin: 10px;
+			color: #235487;
+			font-size: 2.3rem !important;
+			font-weight: 600;
+			transition: .6s;
+		}
+
+		.btn_in:hover {
+			box-shadow: #235487 0px 0px 10px 5px;
+		}
+
+		.details, #title {
+			transition: 1s;
+		}
+
+		.btn_in > span {
+			font-size: 6rem;
+			margin-bottom: 20px;
+		}
+
+		#board {
+			transition: 1s;
+		}
+
+		#chartdiv {
+			width: 100%;
+			height: 300px;
+			max-width: 100%;
+		}
+	</style>
+</head>
+<body>
+
+
+<!--           系统入口            -->
+
+{% if 1 %}
+	<div>
+		<a class="navbar-brand" style="padding: 5px; padding-left: 10px; padding-top: 0;" href="#"><img src="{{ static('img/logo.png') }}" width="160"
+																										style="vertical-align: -10px"></a>
+	</div>
+	<div>
+		<div style="color: #062957; background: rgba(255,255,255,0.16); padding: 70px">
+			<h1 class="text-center" style="font-size: 4.6rem; font-weight: 600; color: rgb(3,51,75); text-shadow:2px 2px 1px #a3c0ff">轻量级塔式智能化“经济+电网”数据统计分析平台</h1>
+{#			<h3 class="text-center" style="color: rgb(184,226,255); text-shadow:2px 2px 1px #082876">Lightweight Industrial-grade Tower Intelligent "Economy + Power Grid" Data Statistical Analysis Platform</h3>#}
+			<h4 class="text-center" style="color: rgb(184,226,255); text-shadow:2px 2px 1px #082876"> 2022 02  ·  中国南方电网  ·  Beta 1.0</h4>
+		</div>
+		<div class="container flex_around " style="margin-top: 50px;margin-bottom: 20px">
+			<button class="btn_in" onclick="to_function('mul_source/')"><span class="fa fa-database"></span><br>数据融合感知</button>          <!-- mul_source -->
+			<button class="btn_in" onclick="to_function('eco_evolution/')"><span class="fa fa-line-chart"></span><br>经济演化分析</button>        <!-- eco_evolution -->
+			<button class="btn_in" onclick="to_function('dpm_warning/')"><span class="fa fa-bell"></span><br>经济发展预警</button>          <!-- dpm_warning -->
+			<button class="btn_in" onclick="to_function('lod_warning/')"><span class="fa fa-cubes"></span><br>中长期负荷预警</button>     <!-- lod_warning -->
+			<button class="btn_in" onclick="to_function('res_analysis/')"><span class="fa fa-id-card-o"></span><br>简历数据可视化</button>    <!-- res_analysis -->
+
+		</div>
+	</div>
+
+	<div class="container details" style=" background: rgba(255,255,255,0.92); height: 0;opacity: 0; border-radius: 15px; box-shadow: 0 5px 10px 5px silver">
+		<div id="title" style="color: #104b92; opacity: 0; padding: 20px; font-size: 1.8rem">
+			<h3 id="head"></h3>
+		</div>
+	</div>
+
+	<div class="container" id="board" style="height: 320px; background: white; float: bottom; border-radius: 10px; padding: 5px; border: #4c89c2 3px solid; box-shadow: 0 5px 10px 5px silver">
+		<div class="row">
+			<div class="col-md-9" style="padding: 5px">
+				<div id="chartdiv"></div>
+			</div>
+			<div class="col-md-3" style="padding: 10px">
+				<h4>可分析电网数据量：<span style="color: deepskyblue; font-size: 3rem">36008</span> 条</h4>
+				<h4>可预测的经济水平：<span style="color: deepskyblue; font-size: 3rem">5～15</span> 年</h4>
+				<h4>可建模的求职数据：<span style="color: deepskyblue; font-size: 3rem">12.8</span> 万</h4>
+				<h4>已存储的操作日志：<span style="color: deepskyblue; font-size: 3rem">1024</span> 条</h4>
+				<h4>已注册的用户数量：<span style="color: deepskyblue; font-size: 3rem">4</span> 位</h4>
+				<hr/>
+				<h4>可用系统负载：<span class="text-success" style="font-size: 3rem">100</span> %</h4>
+
+			</div>
+		</div>
+	</div>
+
+	<div class="container" style="position: absolute; bottom: 10px; left:0; right: 0">
+		{#		<img src="{{ static('img/dog.png') }}" alt="" width="300">#}
+		<p class="text-center">版权所有&copy;中国南方电网 2022 云南省昆明市</p>
+	</div>
+
+	<script src="{{ static('plg/jquery-3.6.0.min.js') }}"></script>
+	<script>
+        $('.btn_in').hover(function () {
+            $('.details').css('height', '270px')
+            $('.details').css('opacity', '1')
+            $('#head').text($(this).text())
+            $('#title').css('opacity', '1')
+            $('#board').css('opacity', '0')
+        }, function () {
+            $('.details').css('height', '0')
+            $('#title').css('opacity', '0')
+            $('.details').css('opacity', '0')
+            $('#board').css('opacity', '1')
+        })
+
+
+	</script>
+
+
+
+{% else %}
+
+	<div>
+		<h1 class="B_color_r text-center mb_D mt_100">系统检测不到你的账户状态，请登录！</h1>
+		<div class="flex_around">
+			<input id="into_login" class="btn bg-primary trs_5" type="button" value="前往登录 >>" onclick="to_function('login/')"/>
+		</div>
+	</div>
+{% endif %}
+
+
+<script>
+    function to_function(args) {
+        location.href = args
+    }
+</script>
+
+<!-- Resources -->
+<script src="https://cdn.amcharts.com/lib/5/index.js"></script>
+<script src="https://cdn.amcharts.com/lib/5/xy.js"></script>
+<script src="https://cdn.amcharts.com/lib/5/themes/Animated.js"></script>
+
+<!-- Chart code -->
+<script>
+    am5.ready(function () {
+
+// Create root element
+// https://www.amcharts.com/docs/v5/getting-started/#Root_element
+        var root = am5.Root.new("chartdiv");
+
+
+// Set themes
+// https://www.amcharts.com/docs/v5/concepts/themes/
+        root.setThemes([
+            am5themes_Animated.new(root)
+        ]);
+
+
+// Generate random data
+        var value = 100;
+
+        function generateChartData() {
+            var chartData = [];
+            var firstDate = new Date();
+            firstDate.setDate(firstDate.getDate() - 1000);
+            firstDate.setHours(0, 0, 0, 0);
+
+            for (var i = 0; i < 50; i++) {
+                var newDate = new Date(firstDate);
+                newDate.setSeconds(newDate.getSeconds() + i);
+
+                value += (Math.random() < 0.5 ? 1 : -1) * Math.random() * 10;
+
+                chartData.push({
+                    date: newDate.getTime(),
+                    value: value
+                });
+            }
+            return chartData;
+        }
+
+        var data = generateChartData();
+
+
+// Create chart
+// https://www.amcharts.com/docs/v5/charts/xy-chart/
+        var chart = root.container.children.push(am5xy.XYChart.new(root, {
+            focusable: true,
+            panX: true,
+            panY: true,
+            wheelX: "panX",
+            wheelY: "zoomX"
+        }));
+
+        var easing = am5.ease.linear;
+
+
+// Create axes
+// https://www.amcharts.com/docs/v5/charts/xy-chart/axes/
+        var xAxis = chart.xAxes.push(am5xy.DateAxis.new(root, {
+            maxDeviation: 0.5,
+            groupData: false,
+            extraMax: 0.1, // this adds some space in front
+            extraMin: -0.1,  // this removes some space form th beginning so that the line would not be cut off
+            baseInterval: {
+                timeUnit: "second",
+                count: 1
+            },
+            renderer: am5xy.AxisRendererX.new(root, {
+                minGridDistance: 50
+            }),
+            tooltip: am5.Tooltip.new(root, {})
+        }));
+
+        var yAxis = chart.yAxes.push(am5xy.ValueAxis.new(root, {
+            renderer: am5xy.AxisRendererY.new(root, {})
+        }));
+
+
+// Add series
+// https://www.amcharts.com/docs/v5/charts/xy-chart/series/
+        var series = chart.series.push(am5xy.LineSeries.new(root, {
+            name: "Series 1",
+            xAxis: xAxis,
+            yAxis: yAxis,
+            valueYField: "value",
+            valueXField: "date",
+            tooltip: am5.Tooltip.new(root, {
+                pointerOrientation: "horizontal",
+                labelText: "{valueY}"
+            })
+        }));
+
+// tell that the last data item must create bullet
+        data[data.length - 1].bullet = true;
+        series.data.setAll(data);
+
+
+// Create animating bullet by adding two circles in a bullet container and
+// animating radius and opacity of one of them.
+        series.bullets.push(function (root, series, dataItem) {
+            // only create sprite if bullet == true in data context
+            if (dataItem.dataContext.bullet) {
+                var container = am5.Container.new(root, {});
+                var circle0 = container.children.push(am5.Circle.new(root, {
+                    radius: 5,
+                    fill: am5.color(0xff0000)
+                }));
+                var circle1 = container.children.push(am5.Circle.new(root, {
+                    radius: 5,
+                    fill: am5.color(0xff0000)
+                }));
+
+                circle1.animate({
+                    key: "radius",
+                    to: 20,
+                    duration: 1000,
+                    easing: am5.ease.out(am5.ease.cubic),
+                    loops: Infinity
+                });
+                circle1.animate({
+                    key: "opacity",
+                    to: 0,
+                    from: 1,
+                    duration: 1000,
+                    easing: am5.ease.out(am5.ease.cubic),
+                    loops: Infinity
+                });
+
+                return am5.Bullet.new(root, {
+                    locationX: undefined,
+                    sprite: container
+                })
+            }
+        })
+
+
+// Add cursor
+// https://www.amcharts.com/docs/v5/charts/xy-chart/cursor/
+        var cursor = chart.set("cursor", am5xy.XYCursor.new(root, {
+            xAxis: xAxis
+        }));
+        cursor.lineY.set("visible", false);
+
+
+// Update data every second
+        setInterval(function () {
+            addData();
+        }, 1000)
+
+
+        function addData() {
+            var lastDataItem = series.dataItems[series.dataItems.length - 1];
+
+            var lastValue = lastDataItem.get("valueY");
+            var newValue = value + ((Math.random() < 0.5 ? 1 : -1) * Math.random() * 5);
+            var lastDate = new Date(lastDataItem.get("valueX"));
+            var time = am5.time.add(new Date(lastDate), "second", 1).getTime();
+            series.data.removeIndex(0);
+            series.data.push({
+                date: time,
+                value: newValue
+            })
+
+            var newDataItem = series.dataItems[series.dataItems.length - 1];
+            newDataItem.animate({
+                key: "valueYWorking",
+                to: newValue,
+                from: lastValue,
+                duration: 600,
+                easing: easing
+            });
+
+            // use the bullet of last data item so that a new sprite is not created
+            newDataItem.bullets = [];
+            newDataItem.bullets[0] = lastDataItem.bullets[0];
+            newDataItem.bullets[0].get("sprite").dataItem = newDataItem;
+            // reset bullets
+            lastDataItem.dataContext.bullet = false;
+            lastDataItem.bullets = [];
+
+
+            var animation = newDataItem.animate({
+                key: "locationX",
+                to: 0.5,
+                from: -0.5,
+                duration: 600
+            });
+            if (animation) {
+                var tooltip = xAxis.get("tooltip");
+                if (tooltip && !tooltip.isHidden()) {
+                    animation.events.on("stopped", function () {
+                        xAxis.updateTooltip();
+                    })
+                }
+            }
+        }
+
+
+// Make stuff animate on load
+// https://www.amcharts.com/docs/v5/concepts/animations/
+        chart.appear(1000, 100);
+
+    }); // end am5.ready()
+</script>
+</body>
+</html>

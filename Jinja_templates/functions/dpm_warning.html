@@ -1,0 +1,919 @@
+{% extends 'functions/base.html' %}
+
+<!-- ---------------------------------------------------------------------------------------------------- -->
+
+{% block title %} 社会经济发展预警系统 {% endblock %}
+
+<!-- ---------------------------------------------------------------------------------------------------- -->
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ static('plg/sweetalert.css') }}">
+    <link rel="stylesheet" href="{{ static('plg/bootstrap-3.4.1-dist/css/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{ static('plg/font-awesome-4.7.0/css/font-awesome.min.css') }}">
+    <style>
+        body {
+            background: #337ab7;
+        }
+
+        h5 {
+            color: #d4d1d1;
+        }
+
+        label {
+            font-weight: 300;
+        }
+
+        .fa {
+            margin-left: 8px;
+        }
+
+        .text-blue {
+            color: #153974 !important;
+            font-weight: 500;
+            font-size: 1.6rem;
+        }
+    </style>
+    <style>
+        #dynamic_dash {
+            width: 100%;
+            height: 500px;
+            border-radius: 9px;
+            border: 1px silver solid;
+        }
+    </style>
+    <style>
+        #line_dash {
+            margin-top: 10px;
+            width: 100%;
+            height: 500px;
+            border-radius: 9px;
+            border: 1px silver solid;
+        }
+    </style>
+    <style>
+        #pie_dash {
+            margin-top: 10px;
+            width: 100%;
+            height: 500px;
+            border-radius: 9px;
+            border: 1px silver solid;
+        }
+    </style>
+
+{% endblock %}
+
+
+{% block content %}
+    <div>
+        {# 导航栏 #}
+        <nav class="navbar navbar-default" style="border-radius: 0; margin-bottom: 0">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <a class="navbar-brand" style="padding: 5px; padding-left: 10px; padding-top: 0;" href="#"><img src="{{ static('img/logo.png') }}" width="160" style="vertical-align: -10px"></a>
+                    <a class="navbar-brand" href="#"><small>（Beta 1.0）</small></a>
+                </div>
+
+                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                    <ul class="nav navbar-nav">
+                        <li><a class="text-blue" href="/"><span class="fa fa-home"></span> 系统主页</a></li>
+                        <li><a class="text-blue" href="/mul_source/"><span class="fa fa-database"></span> 多源数据融合感知系统</a></li>
+                        <li><a class="text-blue" href="/eco_evolution/"><span class="fa fa-line-chart"></span> 社会经济演化分析系统</a></li>
+                        <li><a class="text-blue" href="/dpm_warning/"><span class="fa fa-bell"></span> 社会经济发展预警系统</a></li>
+                        <li><a class="text-blue" href="/lod_warning/"><b style="color: dodgerblue"><span class="fa fa-cubes"></span> 中长期负荷预警系统</b></a></li>
+                        <li><a class="text-blue" href="/res_analysis/"><span class="fa fa-id-card-o"></span> 社会求职简历数据可视化平台</a></li>
+                    </ul>
+                    <p class="navbar-text navbar-right"><a type="button" style="color: midnightblue" href="#"><span class="fa fa-user-circle"></span> 蒲应明 <small>[注销]</small></a></p>
+                </div>
+            </div>
+        </nav>
+
+        {# 主框架 #}
+
+        <div>
+
+            {# 控制栏 #}
+            <div class="container-fluid" style="">
+                <div class="row">
+                    <div class="col-md-12" style="height: 80vh; padding: 0">
+                        <div class="panel panel-primary">
+                            <div class="panel-heading">数据可视化</div>
+                            <div class="panel-body" style="height: 76vh">
+                                <div class="row">
+                                    <div id="dynamic_dash"></div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-8">
+                                        <div id="line_dash"></div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div id="pie_dash"></div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12" style="height: 15vh">
+                        {# 状态栏 #}
+                        <div>
+                            <div class="container-fluid" style="color: white; background: rgba(255,255,255,0.3); height: 190px; margin-top: 20px; border-radius: 9px; padding: 10px">
+                                <div class="col-md-3">目前输入数据：</div>
+                                <div class="col-md-3">采用分析模型：</div>
+                                <div class="col-md-3">分析所用数据量：</div>
+                                <div class="col-md-3">系统负载：</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+{% endblock %}
+
+{% block scripts %}
+    <!-- Resources -->
+    <script src="https://cdn.amcharts.com/lib/5/index.js"></script>
+    <script src="https://cdn.amcharts.com/lib/5/xy.js"></script>
+    <script src="https://cdn.amcharts.com/lib/5/themes/Animated.js"></script>
+    <script src="https://cdn.amcharts.com/lib/5/percent.js"></script>
+
+    <script>
+        am5.ready(function () {
+
+// Data
+            var allData = {
+                "2002": {
+                    "Friendster": 0,
+                    "Facebook": 0,
+                    "Flickr": 0,
+                    "Google Buzz": 0,
+                    "Google+": 0,
+                    "Hi5": 0,
+                    "Instagram": 0,
+                    "MySpace": 0,
+                    "Orkut": 0,
+                    "Pinterest": 0,
+                    "Reddit": 0,
+                    "Snapchat": 0,
+                    "TikTok": 0,
+                    "Tumblr": 0,
+                    "Twitter": 0,
+                    "WeChat": 0,
+                    "Weibo": 0,
+                    "Whatsapp": 0,
+                    "YouTube": 0
+                },
+                "2003": {
+                    "Friendster": 4470000,
+                    "Facebook": 0,
+                    "Flickr": 0,
+                    "Google Buzz": 0,
+                    "Google+": 0,
+                    "Hi5": 0,
+                    "Instagram": 0,
+                    "MySpace": 0,
+                    "Orkut": 0,
+                    "Pinterest": 0,
+                    "Reddit": 0,
+                    "Snapchat": 0,
+                    "TikTok": 0,
+                    "Tumblr": 0,
+                    "Twitter": 0,
+                    "WeChat": 0,
+                    "Weibo": 0,
+                    "Whatsapp": 0,
+                    "YouTube": 0
+                },
+                "2004": {
+                    "Friendster": 5970054,
+                    "Facebook": 0,
+                    "Flickr": 3675135,
+                    "Google Buzz": 0,
+                    "Google+": 0,
+                    "Hi5": 0,
+                    "Instagram": 0,
+                    "MySpace": 980036,
+                    "Orkut": 4900180,
+                    "Pinterest": 0,
+                    "Reddit": 0,
+                    "Snapchat": 0,
+                    "TikTok": 0,
+                    "Tumblr": 0,
+                    "Twitter": 0,
+                    "WeChat": 0,
+                    "Weibo": 0,
+                    "Whatsapp": 0,
+                    "YouTube": 0
+                },
+                "2005": {
+                    "Friendster": 7459742,
+                    "Facebook": 0,
+                    "Flickr": 7399354,
+                    "Google Buzz": 0,
+                    "Google+": 0,
+                    "Hi5": 9731610,
+                    "Instagram": 0,
+                    "MySpace": 19490059,
+                    "Orkut": 9865805,
+                    "Pinterest": 0,
+                    "Reddit": 0,
+                    "Snapchat": 0,
+                    "TikTok": 0,
+                    "Tumblr": 0,
+                    "Twitter": 0,
+                    "WeChat": 0,
+                    "Weibo": 0,
+                    "Whatsapp": 0,
+                    "YouTube": 1946322
+                },
+                "2006": {
+                    "Friendster": 8989854,
+                    "Facebook": 0,
+                    "Flickr": 14949270,
+                    "Google Buzz": 0,
+                    "Google+": 0,
+                    "Hi5": 19932360,
+                    "Instagram": 0,
+                    "MySpace": 54763260,
+                    "Orkut": 14966180,
+                    "Pinterest": 0,
+                    "Reddit": 248309,
+                    "Snapchat": 0,
+                    "TikTok": 0,
+                    "Tumblr": 0,
+                    "Twitter": 0,
+                    "WeChat": 0,
+                    "Weibo": 0,
+                    "Whatsapp": 0,
+                    "YouTube": 19878248
+                },
+                "2007": {
+                    "Friendster": 24253200,
+                    "Facebook": 0,
+                    "Flickr": 29299875,
+                    "Google Buzz": 0,
+                    "Google+": 0,
+                    "Hi5": 29533250,
+                    "Instagram": 0,
+                    "MySpace": 69299875,
+                    "Orkut": 26916562,
+                    "Pinterest": 0,
+                    "Reddit": 488331,
+                    "Snapchat": 0,
+                    "TikTok": 0,
+                    "Tumblr": 0,
+                    "Twitter": 0,
+                    "WeChat": 0,
+                    "Weibo": 0,
+                    "Whatsapp": 0,
+                    "YouTube": 143932250
+                },
+                "2008": {
+                    "Friendster": 51008911,
+                    "Facebook": 100000000,
+                    "Flickr": 30000000,
+                    "Google Buzz": 0,
+                    "Google+": 0,
+                    "Hi5": 55045618,
+                    "Instagram": 0,
+                    "MySpace": 72408233,
+                    "Orkut": 44357628,
+                    "Pinterest": 0,
+                    "Reddit": 1944940,
+                    "Snapchat": 0,
+                    "TikTok": 0,
+                    "Tumblr": 0,
+                    "Twitter": 0,
+                    "WeChat": 0,
+                    "Weibo": 0,
+                    "Whatsapp": 0,
+                    "YouTube": 294493950
+                },
+                "2009": {
+                    "Friendster": 28804331,
+                    "Facebook": 276000000,
+                    "Flickr": 41834525,
+                    "Google Buzz": 0,
+                    "Google+": 0,
+                    "Hi5": 57893524,
+                    "Instagram": 0,
+                    "MySpace": 70133095,
+                    "Orkut": 47366905,
+                    "Pinterest": 0,
+                    "Reddit": 3893524,
+                    "Snapchat": 0,
+                    "TikTok": 0,
+                    "Tumblr": 0,
+                    "Twitter": 0,
+                    "WeChat": 0,
+                    "Weibo": 0,
+                    "Whatsapp": 0,
+                    "YouTube": 413611440
+                },
+                "2010": {
+                    "Friendster": 0,
+                    "Facebook": 517750000,
+                    "Flickr": 54708063,
+                    "Google Buzz": 166029650,
+                    "Google+": 0,
+                    "Hi5": 59953290,
+                    "Instagram": 0,
+                    "MySpace": 68046710,
+                    "Orkut": 49941613,
+                    "Pinterest": 0,
+                    "Reddit": 0,
+                    "Snapchat": 0,
+                    "TikTok": 0,
+                    "Tumblr": 0,
+                    "Twitter": 43250000,
+                    "WeChat": 0,
+                    "Weibo": 19532900,
+                    "Whatsapp": 0,
+                    "YouTube": 480551990
+                },
+                "2011": {
+                    "Friendster": 0,
+                    "Facebook": 766000000,
+                    "Flickr": 66954600,
+                    "Google Buzz": 170000000,
+                    "Google+": 0,
+                    "Hi5": 46610848,
+                    "Instagram": 0,
+                    "MySpace": 46003536,
+                    "Orkut": 47609080,
+                    "Pinterest": 0,
+                    "Reddit": 0,
+                    "Snapchat": 0,
+                    "TikTok": 0,
+                    "Tumblr": 0,
+                    "Twitter": 92750000,
+                    "WeChat": 47818400,
+                    "Weibo": 48691040,
+                    "Whatsapp": 0,
+                    "YouTube": 642669824
+                },
+                "2012": {
+                    "Friendster": 0,
+                    "Facebook": 979750000,
+                    "Flickr": 79664888,
+                    "Google Buzz": 170000000,
+                    "Google+": 107319100,
+                    "Hi5": 0,
+                    "Instagram": 0,
+                    "MySpace": 0,
+                    "Orkut": 45067022,
+                    "Pinterest": 0,
+                    "Reddit": 0,
+                    "Snapchat": 0,
+                    "TikTok": 0,
+                    "Tumblr": 146890156,
+                    "Twitter": 160250000,
+                    "WeChat": 118123370,
+                    "Weibo": 79195730,
+                    "Whatsapp": 0,
+                    "YouTube": 844638200
+                },
+                "2013": {
+                    "Friendster": 0,
+                    "Facebook": 1170500000,
+                    "Flickr": 80000000,
+                    "Google Buzz": 170000000,
+                    "Google+": 205654700,
+                    "Hi5": 0,
+                    "Instagram": 117500000,
+                    "MySpace": 0,
+                    "Orkut": 0,
+                    "Pinterest": 0,
+                    "Reddit": 0,
+                    "Snapchat": 0,
+                    "TikTok": 0,
+                    "Tumblr": 293482050,
+                    "Twitter": 223675000,
+                    "WeChat": 196523760,
+                    "Weibo": 118261880,
+                    "Whatsapp": 300000000,
+                    "YouTube": 1065223075
+                },
+                "2014": {
+                    "Friendster": 0,
+                    "Facebook": 1334000000,
+                    "Flickr": 0,
+                    "Google Buzz": 170000000,
+                    "Google+": 254859015,
+                    "Hi5": 0,
+                    "Instagram": 250000000,
+                    "MySpace": 0,
+                    "Orkut": 0,
+                    "Pinterest": 0,
+                    "Reddit": 135786956,
+                    "Snapchat": 0,
+                    "TikTok": 0,
+                    "Tumblr": 388721163,
+                    "Twitter": 223675000,
+                    "WeChat": 444232415,
+                    "Weibo": 154890345,
+                    "Whatsapp": 498750000,
+                    "YouTube": 1249451725
+                },
+                "2015": {
+                    "Friendster": 0,
+                    "Facebook": 1516750000,
+                    "Flickr": 0,
+                    "Google Buzz": 170000000,
+                    "Google+": 298950015,
+                    "Hi5": 0,
+                    "Instagram": 400000000,
+                    "MySpace": 0,
+                    "Orkut": 0,
+                    "Pinterest": 0,
+                    "Reddit": 163346676,
+                    "Snapchat": 0,
+                    "TikTok": 0,
+                    "Tumblr": 475923363,
+                    "Twitter": 304500000,
+                    "WeChat": 660843407,
+                    "Weibo": 208716685,
+                    "Whatsapp": 800000000,
+                    "YouTube": 1328133360
+                },
+                "2016": {
+                    "Friendster": 0,
+                    "Facebook": 1753500000,
+                    "Flickr": 0,
+                    "Google Buzz": 0,
+                    "Google+": 398648000,
+                    "Hi5": 0,
+                    "Instagram": 550000000,
+                    "MySpace": 0,
+                    "Orkut": 0,
+                    "Pinterest": 143250000,
+                    "Reddit": 238972480,
+                    "Snapchat": 238648000,
+                    "TikTok": 0,
+                    "Tumblr": 565796720,
+                    "Twitter": 314500000,
+                    "WeChat": 847512320,
+                    "Weibo": 281026560,
+                    "Whatsapp": 1000000000,
+                    "YouTube": 1399053600
+                },
+                "2017": {
+                    "Friendster": 0,
+                    "Facebook": 2035750000,
+                    "Flickr": 0,
+                    "Google Buzz": 0,
+                    "Google+": 495657000,
+                    "Hi5": 0,
+                    "Instagram": 750000000,
+                    "MySpace": 0,
+                    "Orkut": 0,
+                    "Pinterest": 195000000,
+                    "Reddit": 297394200,
+                    "Snapchat": 0,
+                    "TikTok": 239142500,
+                    "Tumblr": 593783960,
+                    "Twitter": 328250000,
+                    "WeChat": 921742750,
+                    "Weibo": 357569030,
+                    "Whatsapp": 1333333333,
+                    "YouTube": 1495657000
+                },
+                "2018": {
+                    "Friendster": 0,
+                    "Facebook": 2255250000,
+                    "Flickr": 0,
+                    "Google Buzz": 0,
+                    "Google+": 430000000,
+                    "Hi5": 0,
+                    "Instagram": 1000000000,
+                    "MySpace": 0,
+                    "Orkut": 0,
+                    "Pinterest": 246500000,
+                    "Reddit": 355000000,
+                    "Snapchat": 0,
+                    "TikTok": 500000000,
+                    "Tumblr": 624000000,
+                    "Twitter": 329500000,
+                    "WeChat": 1000000000,
+                    "Weibo": 431000000,
+                    "Whatsapp": 1433333333,
+                    "YouTube": 1900000000
+                }
+            };
+
+
+// Create root element
+// https://www.amcharts.com/docs/v5/getting-started/#Root_element
+            var root = am5.Root.new("dynamic_dash");
+
+            root.numberFormatter.setAll({
+                numberFormat: "#a",
+
+                // Group only into M (millions), and B (billions)
+                bigNumberPrefixes: [
+                    {number: 1e6, suffix: "M"},
+                    {number: 1e9, suffix: "B"}
+                ],
+
+                // Do not use small number prefixes at all
+                smallNumberPrefixes: []
+            });
+
+            var stepDuration = 2000;
+
+
+// Set themes
+// https://www.amcharts.com/docs/v5/concepts/themes/
+            root.setThemes([am5themes_Animated.new(root)]);
+
+
+// Create chart
+// https://www.amcharts.com/docs/v5/charts/xy-chart/
+            var chart = root.container.children.push(am5xy.XYChart.new(root, {
+                panX: true,
+                panY: true,
+                wheelX: "none",
+                wheelY: "none"
+            }));
+
+
+// We don't want zoom-out button to appear while animating, so we hide it at all
+            chart.zoomOutButton.set("forceHidden", true);
+
+
+// Create axes
+// https://www.amcharts.com/docs/v5/charts/xy-chart/axes/
+            var yRenderer = am5xy.AxisRendererY.new(root, {
+                minGridDistance: 20,
+                inversed: true
+            });
+// hide grid
+            yRenderer.grid.template.set("visible", false);
+
+            var yAxis = chart.yAxes.push(am5xy.CategoryAxis.new(root, {
+                maxDeviation: 0,
+                categoryField: "network",
+                renderer: yRenderer
+            }));
+
+            var xAxis = chart.xAxes.push(am5xy.ValueAxis.new(root, {
+                maxDeviation: 0,
+                min: 0,
+                strictMinMax: true,
+                extraMax: 0.1,
+                renderer: am5xy.AxisRendererX.new(root, {})
+            }));
+
+            xAxis.set("interpolationDuration", stepDuration / 10);
+            xAxis.set("interpolationEasing", am5.ease.linear);
+
+
+// Add series
+// https://www.amcharts.com/docs/v5/charts/xy-chart/series/
+            var series = chart.series.push(am5xy.ColumnSeries.new(root, {
+                xAxis: xAxis,
+                yAxis: yAxis,
+                valueXField: "value",
+                categoryYField: "network"
+            }));
+
+// Rounded corners for columns
+            series.columns.template.setAll({cornerRadiusBR: 5, cornerRadiusTR: 5});
+
+// Make each column to be of a different color
+            series.columns.template.adapters.add("fill", function (fill, target) {
+                return chart.get("colors").getIndex(series.columns.indexOf(target));
+            });
+
+            series.columns.template.adapters.add("stroke", function (stroke, target) {
+                return chart.get("colors").getIndex(series.columns.indexOf(target));
+            });
+
+// Add label bullet
+            series.bullets.push(function () {
+                return am5.Bullet.new(root, {
+                    locationX: 1,
+                    sprite: am5.Label.new(root, {
+                        text: "{valueXWorking.formatNumber('#.# a')}",
+                        fill: root.interfaceColors.get("alternativeText"),
+                        centerX: am5.p100,
+                        centerY: am5.p50,
+                        populateText: true
+                    })
+                });
+            });
+
+            var label = chart.plotContainer.children.push(am5.Label.new(root, {
+                text: "2002",
+                fontSize: "8em",
+                opacity: 0.2,
+                x: am5.p100,
+                y: am5.p100,
+                centerY: am5.p100,
+                centerX: am5.p100
+            }));
+
+// Get series item by category
+            function getSeriesItem(category) {
+                for (var i = 0; i < series.dataItems.length; i++) {
+                    var dataItem = series.dataItems[i];
+                    if (dataItem.get("categoryY") == category) {
+                        return dataItem;
+                    }
+                }
+            }
+
+// Axis sorting
+            function sortCategoryAxis() {
+                // sort by value
+                series.dataItems.sort(function (x, y) {
+                    return y.get("valueX") - x.get("valueX"); // descending
+                    //return x.get("valueX") - y.get("valueX"); // ascending
+                });
+
+                // go through each axis item
+                am5.array.each(yAxis.dataItems, function (dataItem) {
+                    // get corresponding series item
+                    var seriesDataItem = getSeriesItem(dataItem.get("category"));
+
+                    if (seriesDataItem) {
+                        // get index of series data item
+                        var index = series.dataItems.indexOf(seriesDataItem);
+                        // calculate delta position
+                        var deltaPosition =
+                            (index - dataItem.get("index", 0)) / series.dataItems.length;
+                        // set index to be the same as series data item index
+                        if (dataItem.get("index") != index) {
+                            dataItem.set("index", index);
+                            // set deltaPosition instanlty
+                            dataItem.set("deltaPosition", -deltaPosition);
+                            // animate delta position to 0
+                            dataItem.animate({
+                                key: "deltaPosition",
+                                to: 0,
+                                duration: stepDuration / 2,
+                                easing: am5.ease.out(am5.ease.cubic)
+                            });
+                        }
+                    }
+                });
+                // sort axis items by index.
+                // This changes the order instantly, but as deltaPosition is set, they keep in the same places and then animate to true positions.
+                yAxis.dataItems.sort(function (x, y) {
+                    return x.get("index") - y.get("index");
+                });
+            }
+
+            var year = 2002;
+
+// update data with values each 1.5 sec
+            var interval = setInterval(function () {
+                year++;
+
+                if (year > 2018) {
+                    clearInterval(interval);
+                    clearInterval(sortInterval);
+                }
+
+                updateData();
+            }, stepDuration);
+
+            var sortInterval = setInterval(function () {
+                sortCategoryAxis();
+            }, 100);
+
+            function setInitialData() {
+                var d = allData[year];
+
+                for (var n in d) {
+                    series.data.push({network: n, value: d[n]});
+                    yAxis.data.push({network: n});
+                }
+            }
+
+            function updateData() {
+                var itemsWithNonZero = 0;
+
+                if (allData[year]) {
+                    label.set("text", year.toString());
+
+                    am5.array.each(series.dataItems, function (dataItem) {
+                        var category = dataItem.get("categoryY");
+                        var value = allData[year][category];
+
+                        if (value > 0) {
+                            itemsWithNonZero++;
+                        }
+
+                        dataItem.animate({
+                            key: "valueX",
+                            to: value,
+                            duration: stepDuration,
+                            easing: am5.ease.linear
+                        });
+                        dataItem.animate({
+                            key: "valueXWorking",
+                            to: value,
+                            duration: stepDuration,
+                            easing: am5.ease.linear
+                        });
+                    });
+
+                    yAxis.zoom(0, itemsWithNonZero / yAxis.dataItems.length);
+                }
+            }
+
+            setInitialData();
+            setTimeout(function () {
+                year++;
+                updateData();
+            }, 50);
+
+// Make stuff animate on load
+// https://www.amcharts.com/docs/v5/concepts/animations/
+            series.appear(1000);
+            chart.appear(1000, 100);
+
+        }); // end am5.ready()
+    </script>
+    <script>
+        am5.ready(function () {
+
+// Create root element
+// https://www.amcharts.com/docs/v5/getting-started/#Root_element
+            var root = am5.Root.new("line_dash");
+
+// Set themes
+// https://www.amcharts.com/docs/v5/concepts/themes/
+            root.setThemes([
+                am5themes_Animated.new(root)
+            ]);
+
+// Create chart
+// https://www.amcharts.com/docs/v5/charts/xy-chart/
+            var chart = root.container.children.push(am5xy.XYChart.new(root, {
+                panX: true,
+                panY: true,
+                wheelX: "panX",
+                wheelY: "zoomX",
+                pinchZoomX: true
+            }));
+
+// Add cursor
+// https://www.amcharts.com/docs/v5/charts/xy-chart/cursor/
+            var cursor = chart.set("cursor", am5xy.XYCursor.new(root, {
+                behavior: "none"
+            }));
+            cursor.lineY.set("visible", false);
+
+// Generate random data
+            var date = new Date();
+            date.setHours(0, 0, 0, 0);
+            var value = 100;
+
+            function generateData() {
+                value = Math.round(Math.random() * 10 - 5 + value);
+
+                am5.time.add(date, "day", 1);
+                return {date: date.getTime(), value: value};
+            }
+
+            function generateDatas(count) {
+                var data = [];
+                for (var i = 0; i < count; ++i) {
+                    data.push(generateData());
+                }
+                return data;
+            }
+
+// Create axes
+// https://www.amcharts.com/docs/v5/charts/xy-chart/axes/
+            var xAxis = chart.xAxes.push(am5xy.DateAxis.new(root, {
+                baseInterval: {timeUnit: "day", count: 1},
+                renderer: am5xy.AxisRendererX.new(root, {}),
+                tooltip: am5.Tooltip.new(root, {})
+            }));
+
+            var yAxis = chart.yAxes.push(am5xy.ValueAxis.new(root, {
+                renderer: am5xy.AxisRendererY.new(root, {})
+            }));
+
+// Add series
+// https://www.amcharts.com/docs/v5/charts/xy-chart/series/
+            var series = chart.series.push(am5xy.LineSeries.new(root, {
+                name: "Series",
+                xAxis: xAxis,
+                yAxis: yAxis,
+                valueYField: "value",
+                valueXField: "date",
+                tooltip: am5.Tooltip.new(root, {
+                    labelText: "{valueY}"
+                })
+            }));
+
+
+// Add scrollbar
+// https://www.amcharts.com/docs/v5/charts/xy-chart/scrollbars/
+            var scrollbar = chart.set("scrollbarX", am5xy.XYChartScrollbar.new(root, {
+                orientation: "horizontal",
+                height: 60
+            }));
+
+            var sbDateAxis = scrollbar.chart.xAxes.push(am5xy.DateAxis.new(root, {
+                baseInterval: {
+                    timeUnit: "day",
+                    count: 1
+                },
+                renderer: am5xy.AxisRendererX.new(root, {})
+            }));
+
+            var sbValueAxis = scrollbar.chart.yAxes.push(
+                am5xy.ValueAxis.new(root, {
+                    renderer: am5xy.AxisRendererY.new(root, {})
+                })
+            );
+
+            var sbSeries = scrollbar.chart.series.push(am5xy.LineSeries.new(root, {
+                valueYField: "value",
+                valueXField: "date",
+                xAxis: sbDateAxis,
+                yAxis: sbValueAxis
+            }));
+
+            var data = generateDatas(2000);
+            series.data.setAll(data);
+            sbSeries.data.setAll(data);
+
+// Make stuff animate on load
+// https://www.amcharts.com/docs/v5/concepts/animations/
+            series.appear(1000);
+            chart.appear(1000, 100);
+
+        }); // end am5.ready()
+    </script>
+    <script>
+        am5.ready(function () {
+
+// Create root element
+// https://www.amcharts.com/docs/v5/getting-started/#Root_element
+            var root = am5.Root.new("pie_dash");
+
+
+// Set themes
+// https://www.amcharts.com/docs/v5/concepts/themes/
+            root.setThemes([
+                am5themes_Animated.new(root)
+            ]);
+
+
+// Create chart
+// https://www.amcharts.com/docs/v5/charts/percent-charts/pie-chart/
+            var chart = root.container.children.push(am5percent.PieChart.new(root, {
+                layout: root.verticalLayout
+            }));
+
+
+// Create series
+// https://www.amcharts.com/docs/v5/charts/percent-charts/pie-chart/#Series
+            var series = chart.series.push(am5percent.PieSeries.new(root, {
+                valueField: "value",
+                categoryField: "category"
+            }));
+
+
+// Set data
+// https://www.amcharts.com/docs/v5/charts/percent-charts/pie-chart/#Setting_data
+            series.data.setAll([
+                {value: 10, category: "One"},
+                {value: 9, category: "Two"},
+                {value: 6, category: "Three"},
+                {value: 5, category: "Four"},
+                {value: 4, category: "Five"},
+                {value: 3, category: "Six"},
+                {value: 1, category: "Seven"},
+            ]);
+
+
+// Create legend
+// https://www.amcharts.com/docs/v5/charts/percent-charts/legend-percent-series/
+            var legend = chart.children.push(am5.Legend.new(root, {
+                centerX: am5.percent(50),
+                x: am5.percent(50),
+                marginTop: 15,
+                marginBottom: 15
+            }));
+
+            legend.data.setAll(series.dataItems);
+
+
+// Play initial series animation
+// https://www.amcharts.com/docs/v5/concepts/animations/#Animation_of_series
+            series.appear(1000, 100);
+
+        }); // end am5.ready()
+    </script>
+
+{% endblock %}

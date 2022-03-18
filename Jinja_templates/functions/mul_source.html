@@ -1,0 +1,189 @@
+{% extends 'functions/base.html' %}
+
+<!-- ---------------------------------------------------------------------------------------------------- -->
+
+{% block title %} 多源数据融合感知系统 {% endblock %}
+
+<!-- ---------------------------------------------------------------------------------------------------- -->
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ static('plg/sweetalert.css') }}">
+    <link rel="stylesheet" href="{{ static('plg/bootstrap-3.4.1-dist/css/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{ static('plg/font-awesome-4.7.0/css/font-awesome.min.css') }}">
+    <style>
+        body {
+            background: white;
+        }
+
+        h5 {
+            color: #d4d1d1;
+        }
+
+        label {
+            font-weight: 300;
+        }
+
+        .fa {
+            margin-left: 8px;
+        }
+
+        .text-blue {
+            color: #153974 !important;
+            font-weight: 500;
+            font-size: 1.6rem;
+        }
+
+        .ctl_data {
+            color: whitesmoke;
+            padding: 0 40px 40px;
+            margin: 10px;
+        }
+        ul{
+            list-style: none;
+        }
+
+        .ctl_data > li {
+            background: rgba(255, 255, 255, 0.17);
+            width: 100%;
+            margin-top: 40px;
+            padding: 15px;
+            border-radius: 9px;
+            transition: .5s;
+        }
+
+        .ctl_data > li:hover {
+            box-shadow: rgba(192, 192, 192, 0.6) 0 0 10px 5px;
+        }
+
+    </style>
+{% endblock %}
+
+
+{% block content %}
+    <div>
+        {# 导航栏 #}
+        <nav class="navbar navbar-default" style="border-radius: 0; margin-bottom: 0">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <a class="navbar-brand" style="padding: 0 5px 5px 10px;" href="#"><img src="{{ static('img/logo.png') }}" width="160" style="vertical-align: -10px"></a>
+                    <a class="navbar-brand" href="#"><small>（Beta 1.0）</small></a>
+                </div>
+
+                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                    <ul class="nav navbar-nav">
+                        <li><a class="text-blue" href="/"><span class="fa fa-home"></span> 系统主页</a></li>
+                        <li><a class="text-blue" href="/mul_source/"><span class="fa fa-database"></span> 多源数据融合感知系统</a></li>
+                        <li><a class="text-blue" href="/eco_evolution/"><span class="fa fa-line-chart"></span> 社会经济演化分析系统</a></li>
+                        <li><a class="text-blue" href="/dpm_warning/"><span class="fa fa-bell"></span> 社会经济发展预警系统</a></li>
+                        <li><a class="text-blue" href="/lod_warning/"><span class="fa fa-cubes"></span> 中长期负荷预警系统</a></li>
+                        <li><a class="text-blue" href="/res_analysis/"><span class="fa fa-id-card-o"></span> 社会求职简历数据可视化平台</a></li>
+                    </ul>
+                    <p class="navbar-text navbar-right"><a type="button" style="color: midnightblue" href="#"><span class="fa fa-user-circle"></span> 蒲应明 <small>[注销]</small></a></p>
+                </div>
+            </div>
+        </nav>
+
+        {# 主框架 #}
+
+        <div>
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-md-2" style="height: 95vh; background: #104b92; padding: 0">
+                        <h3 class="text-center" style="color: white;margin: 0; padding: 60px 40px;background: rgba(255, 255, 255, 0.17);font-weight: 600"><span class="fa fa-database"></span> 南方电网数据源管理
+                        </h3>
+                        <div class="row">
+                            <ul class="ctl_data">
+                                <li><span class="fa fa-laptop"></span> 本地已导入数据</li>
+                                <li><span class="fa fa-internet-explorer"></span> 国家统计局外网数据</li>
+                                <li><span class="fa fa-internet-explorer"></span> 国家经济开发中心公开数据</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-md-10" style="height: 95vh; background: #e7e7e7">
+                        <div class="container-fluid" style="height: 92vh; margin-top: 15px">
+                            <div class="panel panel-primary">
+                                <div class="panel-heading"><span class="fa fa-navicon"></span> 分析系统 - 输入数据管理</div>
+                                <div class="panel-body">
+                                    <div class="row">
+                                        <div class="col-md-3">
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" value="" id="local_data">
+                                                <label class="form-check-label" for="local_data" style="vertical-align: 2px">已存储于本地的电网相关数据（约1,200,000条）</label>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" value="" id="web_data_1">
+                                                <label class="form-check-label" for="web_data_1" style="vertical-align: 2px">（www.baidu.com）获取的数据（约3,100,000条）</label>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-5">
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" value="" id="web_data_2">
+                                                <label class="form-check-label" for="web_data_2" style="vertical-align: 2px">人工通过（www.baidu.com）获取的已清洗的电网数据</label>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-1">
+                                            <div class="form-check">
+                                                <button class="btn btn-primary" style="vertical-align: 10px">提交并同步</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="panel panel-default">
+                                <div class="panel-heading">本地数据</div>
+                                <div style="height:75vh; overflow-y: scroll;">
+                                    <div class="panel-body">
+                                        <div class="row">
+                                            <div class="col-md-3">
+                                                <div class="input-group">
+                                                    <input type="text" class="form-control" placeholder="请输入数据量以加载更多">
+                                                    <span class="input-group-btn">
+                                                        <button class="btn btn-default" type="button">确定</button>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="" style="border-radius: 9px; margin-top: 10px">
+                                            <div class="table-responsive">
+                                                <table class="table table-bordered table-hover">
+                                                    <thead class="" style="background: rgba(201,201,201,0.28)">
+                                                    <tr>
+                                                        <th>#</th>
+                                                        <th>Table heading</th>
+                                                        <th>Table heading</th>
+                                                        <th>Table heading</th>
+                                                        <th>Table heading</th>
+                                                        <th>Table heading</th>
+                                                        <th>Table heading</th>
+                                                    </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                    <tr>
+                                                        <th scope="row">1</th>
+                                                        <td>Table cell</td>
+                                                        <td>Table cell</td>
+                                                        <td>Table cell</td>
+                                                        <td>Table cell</td>
+                                                        <td>Table cell</td>
+                                                        <td>Table cell</td>
+                                                    </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+
+    </div>
+{% endblock %}

@@ -1,0 +1,14 @@
+.login_penal {
+    width: 500px;
+    position: absolute;
+    top: 28%;
+    left: 50%;
+    margin-left: -250px;
+}
+
+.login_button {
+    width: 150px;
+    height: 40px;
+    border-radius: 99999px;
+    border: 2px royalblue solid
+}

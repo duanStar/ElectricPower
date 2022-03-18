@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>登录</title>
+
+    <link rel="stylesheet" href="{{ static('css/global.css') }}">
+    <link rel="stylesheet" href="{{ static('css/btn.css') }}">
+    <link rel="stylesheet" href="{{ static('css/plc.css') }}">
+    <link rel="stylesheet" href="{{ static('css/cpn.css') }}">
+    <link rel="stylesheet" href="{{ static('plg/bootstrap-3.4.1-dist/css/bootstrap.min.css') }}">
+    <style>
+        body {
+            background: url("{{ static('img/login.jpg') }}") no-repeat fixed !important;
+            background-size: cover !important;
+        }
+        #upass, #uname {
+            background: none;
+        }
+
+    </style>
+</head>
+<body>
+
+<div>
+
+    <div class="login_penal" style="background: rgba(255,255,255,0.8); border-radius: 9px; padding:10px 30px 30px 30px">
+        <h2 class="text-center text-primary">欢迎登录系统</h2><br>
+        <div class="input-group ">
+            <span class="input-group-addon"><span class="fa fa-user-circle"></span> 姓名</span>
+            <input id="uname" type="text" class="form-control" placeholder="请输入用户名">
+        </div>
+        <br>
+        <div class="input-group">
+            <span class="input-group-addon" id="basic-addon1">密码</span>
+            <input id="upass" type="password" class="form-control" placeholder="请输入密码">
+        </div>
+        <br>
+        <div class="flex_around">
+            <button id="login" class="login_button btn btn-primary ">立即登录️</button>
+        </div>
+        <h5 class="text-right"><a type="button" href="/register/">返回注册 >></a></h5>
+    </div>
+</div>
+
+
+
+<script src="{{ static('plg/jquery-3.6.0.min.js') }}"></script>
+<script>
+	$('#login').click(function () {
+	    console.log("...")
+		$.ajax({
+			url: '/login/',
+			type: 'POST',
+			data: {
+			    'uname': $('#uname').val(),
+			    'upass': $('#upass').val(),
+			},
+			success: function (info) {
+				if(info.status){
+				    location.href = '/'
+				} else {
+				    alert(info.args[0])
+				}
+            }
+		})
+    })
+</script>
+
+
+</body>
+</html>

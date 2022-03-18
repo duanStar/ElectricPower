@@ -1,0 +1,29 @@
+.flex_between {
+    display: flex;
+    justify-content: space-between;
+}
+
+.flex_around {
+    display: flex;
+    justify-content: space-around;
+}
+
+
+
+
+
+.mb_D {
+    margin-bottom: 80px !important;
+}
+
+.mt_D {
+    margin-top: 80px !important;
+}
+
+/*.mt_50 {*/
+/*    margin-top: 50px !important;*/
+/*}*/
+
+/*.mb_50 {*/
+/*    margin-bottom: 50px !important;*/
+/*}*/
