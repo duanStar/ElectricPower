@@ -47,10 +47,11 @@ MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
-    # 'django.middleware.csrf.CsrfViewMiddleware',
+    'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'app.middleware.middlewares.ExceptionMiddleware'
 ]
 
 ROOT_URLCONF = 'ElectricPower.urls'
@@ -105,9 +106,9 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'electric2022',
         'USER': 'root',
-        'PASSWORD': 'absurd',
+        'PASSWORD': 'root',
         'HOST': '127.0.0.1',
-        'PORT': '3307',
+        'PORT': '3306',
         'OPTIONS': {'charset': 'utf8'}
     }
 }

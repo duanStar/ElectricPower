@@ -1,7 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="218d4064-e44b-425b-b47c-175e4e2ee23d" name="Default Changelist" comment="" />
+    <list default="true" id="218d4064-e44b-425b-b47c-175e4e2ee23d" name="Default Changelist" comment="init">
+      <change beforePath="$PROJECT_DIR$/.idea/ElectricPower.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/ElectricPower.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ElectricPower/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/ElectricPower/settings.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ElectricPower/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/ElectricPower/urls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Jinja_templates/functions/base.html" beforeDir="false" afterPath="$PROJECT_DIR$/Jinja_templates/functions/base.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Jinja_templates/functions/dpm_warning.html" beforeDir="false" afterPath="$PROJECT_DIR$/Jinja_templates/functions/dpm_warning.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Jinja_templates/functions/eco_evolution.html" beforeDir="false" afterPath="$PROJECT_DIR$/Jinja_templates/functions/eco_evolution.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Jinja_templates/functions/lod_warning.html" beforeDir="false" afterPath="$PROJECT_DIR$/Jinja_templates/functions/lod_warning.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Jinja_templates/functions/mul_source.html" beforeDir="false" afterPath="$PROJECT_DIR$/Jinja_templates/functions/mul_source.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Jinja_templates/functions/res_analysis.html" beforeDir="false" afterPath="$PROJECT_DIR$/Jinja_templates/functions/res_analysis.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Jinja_templates/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/Jinja_templates/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/views.py" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -13,10 +28,10 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Python Script" />
         <option value="CSS File" />
         <option value="HTML File" />
         <option value="JavaScript File" />
+        <option value="Python Script" />
       </list>
     </option>
   </component>
@@ -42,21 +57,26 @@
       <filtered-out-file-type name="COMMIT_BY_MESSAGE" />
     </file-type-list>
   </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
   <component name="ProjectId" id="24zp5AlebbiejUxfr0QqJGQwdpu" />
-  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="1" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
-    <property name="DatabaseDriversLRU" value="mariadb" />
+    <property name="DatabaseDriversLRU" value="mariadb&#10;mysql" />
     <property name="DefaultHtmlFileTemplate" value="HTML File" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="list.type.of.created.stylesheet" value="CSS" />
-    <property name="settings.editor.selected.configurable" value="project.propVCSSupport.CommitDialog" />
+    <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
     <property name="settings.editor.splitter.proportion" value="0.23517588" />
   </component>
   <component name="RecentsManager">
@@ -68,9 +88,11 @@
       <recent name="$PROJECT_DIR$/app/static/plg/swal" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\projects\python\ElectricPower\app\middleware" />
+      <recent name="D:\projects\python\ElectricPower\app\utils" />
+      <recent name="D:\projects\python\ElectricPower\app" />
       <recent name="$PROJECT_DIR$/app" />
       <recent name="$PROJECT_DIR$" />
-      <recent name="$PROJECT_DIR$/templates" />
     </key>
   </component>
   <component name="RunManager" selected="Django Server.ElectricPower">
@@ -87,7 +109,7 @@
       </envs>
       <option name="SDK_HOME" value="" />
       <option name="WORKING_DIRECTORY" value="" />
-      <option name="IS_MODULE_SDK" value="false" />
+      <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <option name="launchJavascriptDebuger" value="false" />
@@ -101,6 +123,10 @@
       <option name="customRunCommand" value="" />
       <method v="2" />
     </configuration>
+    <list>
+      <item itemvalue="Django Server.ElectricPower" />
+      <item itemvalue="JavaScript Debug.index.html" />
+    </list>
     <recent_temporary>
       <list>
         <item itemvalue="JavaScript Debug.index.html" />
@@ -141,6 +167,17 @@
       <workItem from="1647501232125" duration="1614000" />
       <workItem from="1647581223031" duration="1023000" />
       <workItem from="1647582263570" duration="2295000" />
+      <workItem from="1647591297060" duration="1239000" />
+      <workItem from="1647592569188" duration="22000" />
+      <workItem from="1647597428910" duration="63000" />
+      <workItem from="1647602739113" duration="1602000" />
+      <workItem from="1647608938088" duration="99000" />
+      <workItem from="1647609048152" duration="391000" />
+      <workItem from="1647680934148" duration="4631000" />
+      <workItem from="1647685636508" duration="349000" />
+      <workItem from="1647744296664" duration="14725000" />
+      <workItem from="1648051382910" duration="301000" />
+      <workItem from="1648051774559" duration="395000" />
     </task>
     <task id="LOCAL-00001" summary="init">
       <created>1647581496714</created>
@@ -172,10 +209,20 @@
         </entry>
       </map>
     </option>
-    <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="init" />
     <option name="LAST_COMMIT_MESSAGE" value="init" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/app/models.py</url>
+          <line>13</line>
+          <option name="timeStamp" value="2" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>

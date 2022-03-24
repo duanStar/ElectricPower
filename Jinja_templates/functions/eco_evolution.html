@@ -40,30 +40,50 @@
     </style>
 {% endblock %}
 
+{% block nav %}
+    {# 导航栏 #}
+    <nav class="navbar navbar-default" style="border-radius: 0; margin-bottom: 0">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <a class="navbar-brand" style="padding: 5px; padding-left: 10px; padding-top: 0;" href="#"><img
+                        src="{{ static('img/logo.png') }}" width="160" style="vertical-align: -10px"></a>
+                <a class="navbar-brand" href="#"><small>（Beta 1.0）</small></a>
+            </div>
+
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                    <li><a class="text-blue" href="/"><span class="fa fa-home"></span> 系统主页</a></li>
+                    <li><a class="text-blue" href="/mul_source/"><span {% if path == 'mul_source' %}
+                        style="color: dodgerblue;font-weight: bold"
+                    {% endif %}><span class="fa fa-database"></span> 多源数据融合感知系统</span></a>
+                    </li>
+                    <li><a class="text-blue" href="/eco_evolution/"><span {% if path == 'eco_evolution' %}
+                        style="color: dodgerblue;font-weight: bold"
+                    {% endif %}><span class="fa fa-line-chart"></span>
+                            社会经济演化分析系统</span></a></li>
+                    <li><a class="text-blue" href="/dpm_warning/"><span {% if path == 'dpm_warning' %}
+                        style="color: dodgerblue;font-weight: bold"
+                    {% endif %}><span class="fa fa-bell"></span> 社会经济发展预警系统</span></a>
+                    </li>
+                    <li><a class="text-blue" href="/lod_warning/"><span {% if path == 'lod_warning' %}
+                        style="color: dodgerblue;font-weight: bold"
+                    {% endif %}
+                    ><span
+                            class="fa fa-cubes"></span> 中长期负荷预警系统</span></a></li>
+                    <li><a class="text-blue" href="/res_analysis/"><span {% if path == 'res_analysis' %}
+                        style="color: dodgerblue;font-weight: bold"
+                    {% endif %}><span class="fa fa-id-card-o"></span>
+                        社会求职简历数据可视化平台</span></a></li>
+                </ul>
+                <p class="navbar-text navbar-right"><a type="button" style="color: midnightblue" href="#"><span
+                        class="fa fa-user-circle"></span> 蒲应明 <small>[注销]</small></a></p>
+            </div>
+        </div>
+    </nav>
+{% endblock %}
 
 {% block content %}
     <div>
-        {# 导航栏 #}
-        <nav class="navbar navbar-default" style="border-radius: 0; margin-bottom: 0">
-            <div class="container-fluid">
-                <div class="navbar-header">
-                    <a class="navbar-brand" style="padding: 5px; padding-left: 10px; padding-top: 0;" href="#"><img src="{{ static('img/logo.png') }}" width="160" style="vertical-align: -10px"></a>
-                    <a class="navbar-brand" href="#"><small>（Beta 1.0）</small></a>
-                </div>
-
-                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                    <ul class="nav navbar-nav">
-                        <li><a class="text-blue" href="/"><span class="fa fa-home"></span> 系统主页</a></li>
-                        <li><a class="text-blue" href="/mul_source/"><span class="fa fa-database"></span> 多源数据融合感知系统</a></li>
-                        <li><a class="text-blue" href="/eco_evolution/"><span class="fa fa-line-chart"></span> 社会经济演化分析系统</a></li>
-                        <li><a class="text-blue" href="/dpm_warning/"><span class="fa fa-bell"></span> 社会经济发展预警系统</a></li>
-                        <li><a class="text-blue" href="/lod_warning/"><span class="fa fa-cubes"></span> 中长期负荷预警系统</a></li>
-                        <li><a class="text-blue" href="/res_analysis/"><span class="fa fa-id-card-o"></span> 社会求职简历数据可视化平台</a></li>
-                    </ul>
-                    <p class="navbar-text navbar-right"><a type="button" style="color: midnightblue" href="#"><span class="fa fa-user-circle"></span> 蒲应明 <small>[注销]</small></a></p>
-                </div>
-            </div>
-        </nav>
 
         {# 主框架 #}
 

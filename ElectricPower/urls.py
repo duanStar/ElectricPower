@@ -33,8 +33,10 @@ urlpatterns = [
     path('dpm_warning/', v4.dpm_warning),
     path('lod_warning/', v4.lod_warning),
     path('res_analysis/', v4.res_analysis),
-
-
+    path('edata_year/', v4.edata_year),
+    path('edata_predict/', v4.edata_predict),
+    path('edata_every/', v4.edata_every),
+    path('edata_category/', v4.edata_category),
 
 ]
 

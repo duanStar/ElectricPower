@@ -1,59 +1,63 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<meta charset="UTF-8">
-	<title>主页</title>
-	<link rel="stylesheet" href="{{ static('css/btn.css') }}">
-	<link rel="stylesheet" href="{{ static('css/plc.css') }}">
-	<link rel="stylesheet" href="{{ static('plg/bootstrap-3.4.1-dist/css/bootstrap.min.css') }}">
-	<link rel="stylesheet" href="{{ static('plg/font-awesome-4.7.0/css/font-awesome.min.css') }}">
-	<style>
-		body {
-			background: url("{{ static('img/index.png') }}") no-repeat fixed !important;
-			background-size: cover !important;
-			overflow: hidden;
-		}
+    <meta charset="UTF-8">
+    <title>主页</title>
+    <link rel="stylesheet" href="{{ static('css/btn.css') }}">
+    <link rel="stylesheet" href="{{ static('css/plc.css') }}">
+    <link rel="stylesheet" href="{{ static('plg/bootstrap-3.4.1-dist/css/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{ static('plg/font-awesome-4.7.0/css/font-awesome.min.css') }}">
+    <style>
+        body {
+            background: url("{{ static('img/index.png') }}") no-repeat fixed !important;
+            background-size: cover !important;
+            overflow: auto;
+        }
 
-		.flex_around > input {
-			width: 250px;
-		}
+        body::-webkit-scrollbar {
+            display: none !important;
+        }
 
-		.btn_in {
-			background: rgba(255, 255, 255, 1);
-			width: 240px;
-			height: 180px;
-			border-radius: 9px;
-			border: none;
-			margin: 10px;
-			color: #235487;
-			font-size: 2.3rem !important;
-			font-weight: 600;
-			transition: .6s;
-		}
+        .flex_around > input {
+            width: 250px;
+        }
 
-		.btn_in:hover {
-			box-shadow: #235487 0px 0px 10px 5px;
-		}
+        .btn_in {
+            background: rgba(255, 255, 255, 1);
+            width: 240px;
+            height: 180px;
+            border-radius: 9px;
+            border: none;
+            margin: 10px;
+            color: #235487;
+            font-size: 2.3rem !important;
+            font-weight: 600;
+            transition: .6s;
+        }
 
-		.details, #title {
-			transition: 1s;
-		}
+        .btn_in:hover {
+            box-shadow: #235487 0px 0px 10px 5px;
+        }
 
-		.btn_in > span {
-			font-size: 6rem;
-			margin-bottom: 20px;
-		}
+        .details, #title {
+            transition: 1s;
+        }
 
-		#board {
-			transition: 1s;
-		}
+        .btn_in > span {
+            font-size: 6rem;
+            margin-bottom: 20px;
+        }
 
-		#chartdiv {
-			width: 100%;
-			height: 300px;
-			max-width: 100%;
-		}
-	</style>
+        #board {
+            transition: 1s;
+        }
+
+        #chartdiv {
+            width: 100%;
+            height: 300px;
+            max-width: 100%;
+        }
+    </style>
 </head>
 <body>
 
@@ -61,57 +65,68 @@
 <!--           系统入口            -->
 
 {% if 1 %}
-	<div>
-		<a class="navbar-brand" style="padding: 5px; padding-left: 10px; padding-top: 0;" href="#"><img src="{{ static('img/logo.png') }}" width="160"
-																										style="vertical-align: -10px"></a>
-	</div>
-	<div>
-		<div style="color: #062957; background: rgba(255,255,255,0.16); padding: 70px">
-			<h1 class="text-center" style="font-size: 4.6rem; font-weight: 600; color: rgb(3,51,75); text-shadow:2px 2px 1px #a3c0ff">轻量级塔式智能化“经济+电网”数据统计分析平台</h1>
-{#			<h3 class="text-center" style="color: rgb(184,226,255); text-shadow:2px 2px 1px #082876">Lightweight Industrial-grade Tower Intelligent "Economy + Power Grid" Data Statistical Analysis Platform</h3>#}
-			<h4 class="text-center" style="color: rgb(184,226,255); text-shadow:2px 2px 1px #082876"> 2022 02  ·  中国南方电网  ·  Beta 1.0</h4>
-		</div>
-		<div class="container flex_around " style="margin-top: 50px;margin-bottom: 20px">
-			<button class="btn_in" onclick="to_function('mul_source/')"><span class="fa fa-database"></span><br>数据融合感知</button>          <!-- mul_source -->
-			<button class="btn_in" onclick="to_function('eco_evolution/')"><span class="fa fa-line-chart"></span><br>经济演化分析</button>        <!-- eco_evolution -->
-			<button class="btn_in" onclick="to_function('dpm_warning/')"><span class="fa fa-bell"></span><br>经济发展预警</button>          <!-- dpm_warning -->
-			<button class="btn_in" onclick="to_function('lod_warning/')"><span class="fa fa-cubes"></span><br>中长期负荷预警</button>     <!-- lod_warning -->
-			<button class="btn_in" onclick="to_function('res_analysis/')"><span class="fa fa-id-card-o"></span><br>简历数据可视化</button>    <!-- res_analysis -->
+    <div>
+        <a class="navbar-brand" style="padding: 5px; padding-left: 10px; padding-top: 0;" href="#"><img
+                src="{{ static('img/logo.png') }}" width="160"
+                style="vertical-align: -10px"></a>
+    </div>
+    <div class="my-container">
+        <div style="color: #062957; background: rgba(255,255,255,0.16); padding: 70px">
+            <h1 class="text-center"
+                style="font-size: 4.6rem; font-weight: 600; color: rgb(3,51,75); text-shadow:2px 2px 1px #a3c0ff">
+                轻量级塔式智能化“经济+电网”数据统计分析平台</h1>
+            {#			<h3 class="text-center" style="color: rgb(184,226,255); text-shadow:2px 2px 1px #082876">Lightweight Industrial-grade Tower Intelligent "Economy + Power Grid" Data Statistical Analysis Platform</h3>#}
+            <h4 class="text-center" style="color: rgb(184,226,255); text-shadow:2px 2px 1px #082876"> 2022 02 · 中国南方电网 ·
+                Beta 1.0</h4>
+        </div>
+        <div class="container flex_around " style="margin-top: 50px;margin-bottom: 20px">
+            <button class="btn_in" onclick="to_function('mul_source/')"><span class="fa fa-database"></span><br>数据融合感知
+            </button>          <!-- mul_source -->
+            <button class="btn_in" onclick="to_function('eco_evolution/')"><span class="fa fa-line-chart"></span><br>经济演化分析
+            </button>        <!-- eco_evolution -->
+            <button class="btn_in" onclick="to_function('dpm_warning/')"><span class="fa fa-bell"></span><br>经济发展预警
+            </button>          <!-- dpm_warning -->
+            <button class="btn_in" onclick="to_function('lod_warning/')"><span class="fa fa-cubes"></span><br>中长期负荷预警
+            </button>     <!-- lod_warning -->
+            <button class="btn_in" onclick="to_function('res_analysis/')"><span class="fa fa-id-card-o"></span><br>简历数据可视化
+            </button>    <!-- res_analysis -->
 
-		</div>
-	</div>
+        </div>
+    </div>
 
-	<div class="container details" style=" background: rgba(255,255,255,0.92); height: 0;opacity: 0; border-radius: 15px; box-shadow: 0 5px 10px 5px silver">
-		<div id="title" style="color: #104b92; opacity: 0; padding: 20px; font-size: 1.8rem">
-			<h3 id="head"></h3>
-		</div>
-	</div>
+    <div class="container details"
+         style=" background: rgba(255,255,255,0.92); height: 0;opacity: 0; border-radius: 15px; box-shadow: 0 5px 10px 5px silver">
+        <div id="title" style="color: #104b92; opacity: 0; padding: 20px; font-size: 1.8rem">
+            <h3 id="head"></h3>
+        </div>
+    </div>
 
-	<div class="container" id="board" style="height: 320px; background: white; float: bottom; border-radius: 10px; padding: 5px; border: #4c89c2 3px solid; box-shadow: 0 5px 10px 5px silver">
-		<div class="row">
-			<div class="col-md-9" style="padding: 5px">
-				<div id="chartdiv"></div>
-			</div>
-			<div class="col-md-3" style="padding: 10px">
-				<h4>可分析电网数据量：<span style="color: deepskyblue; font-size: 3rem">36008</span> 条</h4>
-				<h4>可预测的经济水平：<span style="color: deepskyblue; font-size: 3rem">5～15</span> 年</h4>
-				<h4>可建模的求职数据：<span style="color: deepskyblue; font-size: 3rem">12.8</span> 万</h4>
-				<h4>已存储的操作日志：<span style="color: deepskyblue; font-size: 3rem">1024</span> 条</h4>
-				<h4>已注册的用户数量：<span style="color: deepskyblue; font-size: 3rem">4</span> 位</h4>
-				<hr/>
-				<h4>可用系统负载：<span class="text-success" style="font-size: 3rem">100</span> %</h4>
+    <div class="container" id="board"
+         style="height: 320px; background: white; float: bottom; border-radius: 10px; padding: 5px; border: #4c89c2 3px solid; box-shadow: 0 5px 10px 5px silver">
+        <div class="row">
+            <div class="col-md-9" style="padding: 5px">
+                <div id="chartdiv"></div>
+            </div>
+            <div class="col-md-3" style="padding: 10px">
+                <h4>可分析电网数据量：<span style="color: deepskyblue; font-size: 3rem">36008</span> 条</h4>
+                <h4>可预测的经济水平：<span style="color: deepskyblue; font-size: 3rem">5～15</span> 年</h4>
+                <h4>可建模的求职数据：<span style="color: deepskyblue; font-size: 3rem">12.8</span> 万</h4>
+                <h4>已存储的操作日志：<span style="color: deepskyblue; font-size: 3rem">1024</span> 条</h4>
+                <h4>已注册的用户数量：<span style="color: deepskyblue; font-size: 3rem">4</span> 位</h4>
+                <hr/>
+                <h4>可用系统负载：<span class="text-success" style="font-size: 3rem">100</span> %</h4>
 
-			</div>
-		</div>
-	</div>
+            </div>
+        </div>
+    </div>
 
-	<div class="container" style="position: absolute; bottom: 10px; left:0; right: 0">
-		{#		<img src="{{ static('img/dog.png') }}" alt="" width="300">#}
-		<p class="text-center">版权所有&copy;中国南方电网 2022 云南省昆明市</p>
-	</div>
+    <div class="container" style="margin-top: auto;padding-top: 20px;">
+        {#		<img src="{{ static('img/dog.png') }}" alt="" width="300">#}
+        <p class="text-center">版权所有&copy;中国南方电网 2022 云南省昆明市</p>
+    </div>
 
-	<script src="{{ static('plg/jquery-3.6.0.min.js') }}"></script>
-	<script>
+    <script src="{{ static('plg/jquery-3.6.0.min.js') }}"></script>
+    <script>
         $('.btn_in').hover(function () {
             $('.details').css('height', '270px')
             $('.details').css('opacity', '1')
@@ -126,18 +141,19 @@
         })
 
 
-	</script>
+    </script>
 
 
 
 {% else %}
 
-	<div>
-		<h1 class="B_color_r text-center mb_D mt_100">系统检测不到你的账户状态，请登录！</h1>
-		<div class="flex_around">
-			<input id="into_login" class="btn bg-primary trs_5" type="button" value="前往登录 >>" onclick="to_function('login/')"/>
-		</div>
-	</div>
+    <div>
+        <h1 class="B_color_r text-center mb_D mt_100">系统检测不到你的账户状态，请登录！</h1>
+        <div class="flex_around">
+            <input id="into_login" class="btn bg-primary trs_5" type="button" value="前往登录 >>"
+                   onclick="to_function('login/')"/>
+        </div>
+    </div>
 {% endif %}
 
 

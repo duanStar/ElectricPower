@@ -66,38 +66,58 @@
         }
     </style>
     <style>
-#network_dash {
-  width: 100%;
-  height: 80vh;
-}
-</style>
+        #network_dash {
+            width: 100%;
+            height: 80vh;
+        }
+    </style>
 {% endblock %}
 
 <!-- ---------------------------------------------------------------------------------------------------- -->
 
+{% block nav %}
+    {# 导航栏 #}
+    <nav class="navbar navbar-default" style="border-radius: 0; margin-bottom: 0">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <a class="navbar-brand" style="padding: 5px; padding-left: 10px; padding-top: 0;" href="#"><img
+                        src="{{ static('img/logo.png') }}" width="160" style="vertical-align: -10px"></a>
+                <a class="navbar-brand" href="#"><small>（Beta 1.0）</small></a>
+            </div>
+
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                    <li><a class="text-blue" href="/"><span class="fa fa-home"></span> 系统主页</a></li>
+                    <li><a class="text-blue" href="/mul_source/"><span {% if path == 'mul_source' %}
+                        style="color: dodgerblue;font-weight: bold"
+                    {% endif %}><span class="fa fa-database"></span> 多源数据融合感知系统</span></a>
+                    </li>
+                    <li><a class="text-blue" href="/eco_evolution/"><span {% if path == 'eco_evolution' %}
+                        style="color: dodgerblue;font-weight: bold"
+                    {% endif %}><span class="fa fa-line-chart"></span>
+                            社会经济演化分析系统</span></a></li>
+                    <li><a class="text-blue" href="/dpm_warning/"><span {% if path == 'dpm_warning' %}
+                        style="color: dodgerblue;font-weight: bold"
+                    {% endif %}><span class="fa fa-bell"></span> 社会经济发展预警系统</span></a>
+                    </li>
+                    <li><a class="text-blue" href="/lod_warning/"><span {% if path == 'lod_warning' %}
+                        style="color: dodgerblue;font-weight: bold"
+                    {% endif %}
+                    ><span
+                            class="fa fa-cubes"></span> 中长期负荷预警系统</span></a></li>
+                    <li><a class="text-blue" href="/res_analysis/"><span {% if path == 'res_analysis' %}
+                        style="color: dodgerblue;font-weight: bold"
+                    {% endif %}><span class="fa fa-id-card-o"></span>
+                        社会求职简历数据可视化平台</span></a></li>
+                </ul>
+                <p class="navbar-text navbar-right"><a type="button" style="color: midnightblue" href="#"><span
+                        class="fa fa-user-circle"></span> 蒲应明 <small>[注销]</small></a></p>
+            </div>
+        </div>
+    </nav>
+{% endblock %}
 {% block content %}
     <div>
-        {# 导航栏 #}
-        <nav class="navbar navbar-default" style="border-radius: 0; margin-bottom: 0">
-            <div class="container-fluid">
-                <div class="navbar-header">
-                    <a class="navbar-brand" style="padding: 5px; padding-left: 10px; padding-top: 0;" href="#"><img src="{{ static('img/logo.png') }}" width="160" style="vertical-align: -10px"></a>
-                    <a class="navbar-brand" href="#"><small>（Beta 1.0）</small></a>
-                </div>
-
-                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                    <ul class="nav navbar-nav">
-                        <li><a class="text-blue" href="/"><span class="fa fa-home"></span> 系统主页</a></li>
-                        <li><a class="text-blue" href="/mul_source/"><span class="fa fa-database"></span> 多源数据融合感知系统</a></li>
-                        <li><a class="text-blue" href="/eco_evolution/"><span class="fa fa-line-chart"></span> 社会经济演化分析系统</a></li>
-                        <li><a class="text-blue" href="/dpm_warning/"><span class="fa fa-bell"></span> 社会经济发展预警系统</a></li>
-                        <li><a class="text-blue" href="/lod_warning/"><span class="fa fa-cubes"></span> 中长期负荷预警系统</a></li>
-                        <li><a class="text-blue" href="/res_analysis/"><span class="fa fa-id-card-o"></span> 社会求职简历数据可视化平台</a></li>
-                    </ul>
-                    <p class="navbar-text navbar-right"><a type="button" style="color: midnightblue" href="#"><span class="fa fa-user-circle"></span> 蒲应明 <small>[注销]</small></a></p>
-                </div>
-            </div>
-        </nav>
 
 
         {# 主框架 #}
@@ -119,7 +139,8 @@
                                             <label class="form-check-label" for="_to_position">意向</label>
                                         </div>
                                         <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" value="" id="_from_position">
+                                            <input class="form-check-input" type="checkbox" value=""
+                                                   id="_from_position">
                                             <label class="form-check-label" for="_from_position">生源</label>
                                         </div>
                                     </div>
@@ -154,11 +175,13 @@
                                         <label class="form-check-label" for="__log">&emsp;逻辑回归统计</label>
                                     </div>
                                     <div class="form-check">
-                                        <input class="form-check-input" type="radio" name="flexRadioDefault" id="__neural">
+                                        <input class="form-check-input" type="radio" name="flexRadioDefault"
+                                               id="__neural">
                                         <label class="form-check-label" for="__neural">&emsp;深度网络模型</label>
                                     </div>
                                     <div class="form-check">
-                                        <input class="form-check-input" type="radio" name="flexRadioDefault" id="__complex">
+                                        <input class="form-check-input" type="radio" name="flexRadioDefault"
+                                               id="__complex">
                                         <label class="form-check-label" for="__complex">&emsp;复杂网络引擎</label>
                                     </div>
                                 </div>
@@ -167,8 +190,11 @@
 
                                 <!-- 三级量度控制 -->
                                 <div>
-                                    <label>数据量：<span id="3_num" class="text-primary">0</span> 条，占比 <span id="3_pot" class="text-primary">0</span> %</label>
-                                    <input type="range" name="slider-1" id="slider" min="1" max="100000" step="1" value="50">
+                                    <label>数据量：<span id="3_num" class="text-primary">0</span> 条，占比 <span id="3_pot"
+                                                                                                         class="text-primary">0</span>
+                                        %</label>
+                                    <input type="range" name="slider-1" id="slider" min="1" max="100000" step="1"
+                                           value="50">
                                 </div>
                                 <br>
                                 <br>
@@ -176,7 +202,8 @@
                                 <!-- 四级确认控制 -->
                                 <div style="display: flex; justify-content: space-around; ">
                                     <div>
-                                        <button class="btn btn-primary"><span class="fa fa-paper-plane"></span> 立即分析</button>
+                                        <button class="btn btn-primary"><span class="fa fa-paper-plane"></span> 立即分析
+                                        </button>
                                     </div>
                                 </div>
                                 <br>
@@ -204,28 +231,42 @@
                                 <div class="container-fluid">
                                     <div class="row">
                                         <div class="col-md-8" style="height: 43vh; padding:0;">
-                                            <div id="chartdiv_C" style="border: 1px silver solid; border-radius: 9px; margin-top: 10px; margin-left: 0">
-                                                <div class="text-center" style="margin-top: 10px; margin-bottom: -20px;">社会简历行业偏重与时间关系统计图（1990年到2018年数据）</div>
+                                            <div id="chartdiv_C"
+                                                 style="border: 1px silver solid; border-radius: 9px; margin-top: 10px; margin-left: 0">
+                                                <div class="text-center"
+                                                     style="margin-top: 10px; margin-bottom: -20px;">
+                                                    社会简历行业偏重与时间关系统计图（1990年到2018年数据）
+                                                </div>
                                             </div>
                                         </div>
                                         <div class="col-md-4" style="height: 43vh;">
-                                            <div id="chartdiv_D" style="border: 1px silver solid; border-radius: 9px; margin-top: 10px; margin-left: 0">
+                                            <div id="chartdiv_D"
+                                                 style="border: 1px silver solid; border-radius: 9px; margin-top: 10px; margin-left: 0">
                                             </div>
                                         </div>
                                     </div>
                                     <div class="row">
                                         <div class="col-md-6" style=" height: 400px; padding-left: 0">
-                                            <div id="chartdiv_S" style="border: 1px silver solid; border-radius: 9px; margin-top: 10px; margin-left: 0;">
-                                                <div class="text-center" style="margin-top: 10px; margin-bottom: -20px;">社会简历分布折线图（1990年到2018年数据）</div>
+                                            <div id="chartdiv_S"
+                                                 style="border: 1px silver solid; border-radius: 9px; margin-top: 10px; margin-left: 0;">
+                                                <div class="text-center"
+                                                     style="margin-top: 10px; margin-bottom: -20px;">
+                                                    社会简历分布折线图（1990年到2018年数据）
+                                                </div>
                                             </div>
                                         </div>
                                         <div class="col-md-3" style="height: 400px">
-                                            <div id="chartdiv_A" style="border: 1px silver solid; border-radius: 9px; margin-top: 10px; margin-left: 0">
-                                                <div class="text-center" style="margin-top: 10px; margin-bottom: -20px;">社会简历分布条形图（1990年到2018年数据）</div>
+                                            <div id="chartdiv_A"
+                                                 style="border: 1px silver solid; border-radius: 9px; margin-top: 10px; margin-left: 0">
+                                                <div class="text-center"
+                                                     style="margin-top: 10px; margin-bottom: -20px;">
+                                                    社会简历分布条形图（1990年到2018年数据）
+                                                </div>
                                             </div>
                                         </div>
                                         <div class="col-md-3" style="height: 380px">
-                                            <div id="chartdiv_B" style="border: 1px silver solid; border-radius: 9px; margin-top: 10px; margin-left: 0">
+                                            <div id="chartdiv_B"
+                                                 style="border: 1px silver solid; border-radius: 9px; margin-top: 10px; margin-left: 0">
                                             </div>
                                         </div>
                                     </div>
@@ -238,26 +279,34 @@
                     <div class="col-md-12" style="height: 18vh">
                         {# 状态栏 #}
                         <div>
-                            <div class="container-fluid" style="color: white; background: rgba(255,255,255,0.3); height: 130px; margin-top: 20px; border-radius: 9px; padding: 10px">
+                            <div class="container-fluid"
+                                 style="color: white; background: rgba(255,255,255,0.3); height: 130px; margin-top: 20px; border-radius: 9px; padding: 10px">
                                 <div class="col-md-3">
                                     <div>
                                         目前输入数据：
                                     </div>
                                     <div style="margin-top: 10px">
 
-                                        <button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">简历数据可视化</button>
-                                        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                        <button class="btn btn-primary btn-lg" data-toggle="modal"
+                                                data-target="#myModal">简历数据可视化
+                                        </button>
+                                        <div class="modal fade" id="myModal" tabindex="-1" role="dialog"
+                                             aria-labelledby="myModalLabel" aria-hidden="true">
                                             <div class="modal-dialog modal-lg" style="width: 90%">
                                                 <div class="modal-content">
                                                     <div class="modal-header">
-                                                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                                        <button type="button" class="close" data-dismiss="modal"
+                                                                aria-hidden="true">&times;
+                                                        </button>
                                                         <h4 class="modal-title" id="myModalLabel">模态框（Modal）标题</h4>
                                                     </div>
                                                     <div class="modal-body">
                                                         <div id="network_dash"></div>
                                                     </div>
                                                     <div class="modal-footer">
-                                                        <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                                                        <button type="button" class="btn btn-default"
+                                                                data-dismiss="modal">关闭
+                                                        </button>
                                                         <button type="button" class="btn btn-primary">提交更改</button>
                                                     </div>
                                                 </div><!-- /.modal-content -->
@@ -273,7 +322,8 @@
                             </div>
                             <div class="progress" style="margin-top: 20px;
 							position: absolute; bottom: 5px; left: 20px; right: 20px; background: #296395">
-                                <div class="progress-bar progress-bar-success progress-bar-striped active" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100"
+                                <div class="progress-bar progress-bar-success progress-bar-striped active"
+                                     role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100"
                                      style="width: 0">
                                 </div>
                             </div>
@@ -310,150 +360,150 @@
     <script src="{{ static('js/res/b03.js') }}"></script>
     <script src="{{ static('js/res/b04.js') }}"></script>
     <script src="{{ static('js/res/b05.js') }}"></script>
-<!-- Chart code -->
-<script>
-am5.ready(function() {
+    <!-- Chart code -->
+    <script>
+        am5.ready(function () {
 
 // Create root element
 // https://www.amcharts.com/docs/v5/getting-started/#Root_element
-var root = am5.Root.new("network_dash");
+            var root = am5.Root.new("network_dash");
 
 // Set themes
 // https://www.amcharts.com/docs/v5/concepts/themes/
-root.setThemes([
-  am5themes_Animated.new(root)
-]);
+            root.setThemes([
+                am5themes_Animated.new(root)
+            ]);
 
-var data = {
-  name: "Root",
-  value: 0,
-  children: [
-    {
-      name: "1",
-      linkWith: ["2"],
-      children: [
-        {
-          name: "A",
-          children: [
-            { name: "A1", value: 1 },
-            { name: "A2", value: 1 },
-            { name: "A3", value: 1 },
-            { name: "A4", value: 1 },
-            { name: "A5", value: 1 }
-          ]
-        },
-        {
-          name: "B",
-          children: [
-            { name: "B1", value: 1 },
-            { name: "B2", value: 1 },
-            { name: "B3", value: 1 },
-            { name: "B4", value: 1 },
-            { name: "B5", value: 1 }
-          ]
-        },
-        {
-          name: "C",
-          children: [
-            { name: "C1", value: 1 },
-            { name: "C2", value: 1 },
-            { name: "C3", value: 1 },
-            { name: "C4", value: 1 },
-            { name: "C5", value: 1 }
-          ]
-        }
-      ]
-    },
+            var data = {
+                name: "Root",
+                value: 0,
+                children: [
+                    {
+                        name: "1",
+                        linkWith: ["2"],
+                        children: [
+                            {
+                                name: "A",
+                                children: [
+                                    {name: "A1", value: 1},
+                                    {name: "A2", value: 1},
+                                    {name: "A3", value: 1},
+                                    {name: "A4", value: 1},
+                                    {name: "A5", value: 1}
+                                ]
+                            },
+                            {
+                                name: "B",
+                                children: [
+                                    {name: "B1", value: 1},
+                                    {name: "B2", value: 1},
+                                    {name: "B3", value: 1},
+                                    {name: "B4", value: 1},
+                                    {name: "B5", value: 1}
+                                ]
+                            },
+                            {
+                                name: "C",
+                                children: [
+                                    {name: "C1", value: 1},
+                                    {name: "C2", value: 1},
+                                    {name: "C3", value: 1},
+                                    {name: "C4", value: 1},
+                                    {name: "C5", value: 1}
+                                ]
+                            }
+                        ]
+                    },
 
-    {
-      name: "2",
-      linkWith: ["3"],
-      children: [
-        {
-          name: "D", value:1
-        },
-        {
-          name: "E", value:1
-        }
-      ]
-    },
-    {
-      name: "3",
-      children: [
-        {
-          name: "F",
-          children: [
-            { name: "F1", value: 1 },
-            { name: "F2", value: 1 },
-            { name: "F3", value: 1 },
-            { name: "F4", value: 1 },
-            { name: "F5", value: 1 }
-          ]
-        },
-        {
-          name: "H",
-          children: [
-            { name: "H1", value: 1 },
-            { name: "H2", value: 1 },
-            { name: "H3", value: 1 },
-            { name: "H4", value: 1 },
-            { name: "H5", value: 1 }
-          ]
-        },
-        {
-          name: "G",
-          children: [
-            { name: "G1", value: 1 },
-            { name: "G2", value: 1 },
-            { name: "G3", value: 1 },
-            { name: "G4", value: 1 },
-            { name: "G5", value: 1 }
-          ]
-        }
-      ]
-    }
-  ]
-};
+                    {
+                        name: "2",
+                        linkWith: ["3"],
+                        children: [
+                            {
+                                name: "D", value: 1
+                            },
+                            {
+                                name: "E", value: 1
+                            }
+                        ]
+                    },
+                    {
+                        name: "3",
+                        children: [
+                            {
+                                name: "F",
+                                children: [
+                                    {name: "F1", value: 1},
+                                    {name: "F2", value: 1},
+                                    {name: "F3", value: 1},
+                                    {name: "F4", value: 1},
+                                    {name: "F5", value: 1}
+                                ]
+                            },
+                            {
+                                name: "H",
+                                children: [
+                                    {name: "H1", value: 1},
+                                    {name: "H2", value: 1},
+                                    {name: "H3", value: 1},
+                                    {name: "H4", value: 1},
+                                    {name: "H5", value: 1}
+                                ]
+                            },
+                            {
+                                name: "G",
+                                children: [
+                                    {name: "G1", value: 1},
+                                    {name: "G2", value: 1},
+                                    {name: "G3", value: 1},
+                                    {name: "G4", value: 1},
+                                    {name: "G5", value: 1}
+                                ]
+                            }
+                        ]
+                    }
+                ]
+            };
 
 // Create wrapper container
-var container = root.container.children.push(
-  am5.Container.new(root, {
-    width: am5.percent(100),
-    height: am5.percent(100),
-    layout: root.verticalLayout
-  })
-);
+            var container = root.container.children.push(
+                am5.Container.new(root, {
+                    width: am5.percent(100),
+                    height: am5.percent(100),
+                    layout: root.verticalLayout
+                })
+            );
 
 // Create series
 // https://www.amcharts.com/docs/v5/charts/hierarchy/#Adding
-var series = container.children.push(
-  am5hierarchy.ForceDirected.new(root, {
-    singleBranchOnly: false,
-    downDepth: 1,
-    topDepth: 1,
-    maxRadius: 25,
-    minRadius: 12,
-    valueField: "value",
-    categoryField: "name",
-    childDataField: "children",
-    idField: "name",
-    linkWithStrength: 0.3,
-    linkWithField: "linkWith",
-    manyBodyStrength: -15,
-    centerStrength: 0.5
-  })
-);
+            var series = container.children.push(
+                am5hierarchy.ForceDirected.new(root, {
+                    singleBranchOnly: false,
+                    downDepth: 1,
+                    topDepth: 1,
+                    maxRadius: 25,
+                    minRadius: 12,
+                    valueField: "value",
+                    categoryField: "name",
+                    childDataField: "children",
+                    idField: "name",
+                    linkWithStrength: 0.3,
+                    linkWithField: "linkWith",
+                    manyBodyStrength: -15,
+                    centerStrength: 0.5
+                })
+            );
 
-series.get("colors").set("step", 2);
+            series.get("colors").set("step", 2);
 
-series.data.setAll([data]);
-series.set("selectedDataItem", series.dataItems[0]);
+            series.data.setAll([data]);
+            series.set("selectedDataItem", series.dataItems[0]);
 
 // Make stuff animate on load
-series.appear(1000, 100);
+            series.appear(1000, 100);
 
-}); // end am5.ready()
-</script>
+        }); // end am5.ready()
+    </script>
 
 {% endblock %}
 

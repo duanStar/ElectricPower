@@ -38,7 +38,8 @@
             padding: 0 40px 40px;
             margin: 10px;
         }
-        ul{
+
+        ul {
             list-style: none;
         }
 
@@ -58,38 +59,60 @@
     </style>
 {% endblock %}
 
+{% block nav %}
+    {# 导航栏 #}
+    <nav class="navbar navbar-default" style="border-radius: 0; margin-bottom: 0">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <a class="navbar-brand" style="padding: 5px; padding-left: 10px; padding-top: 0;" href="#"><img
+                        src="{{ static('img/logo.png') }}" width="160" style="vertical-align: -10px"></a>
+                <a class="navbar-brand" href="#"><small>（Beta 1.0）</small></a>
+            </div>
+
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                    <li><a class="text-blue" href="/"><span class="fa fa-home"></span> 系统主页</a></li>
+                    <li><a class="text-blue" href="/mul_source/"><span {% if path == 'mul_source' %}
+                        style="color: dodgerblue;font-weight: bold"
+                    {% endif %}><span class="fa fa-database"></span> 多源数据融合感知系统</span></a>
+                    </li>
+                    <li><a class="text-blue" href="/eco_evolution/"><span {% if path == 'eco_evolution' %}
+                        style="color: dodgerblue;font-weight: bold"
+                    {% endif %}><span class="fa fa-line-chart"></span>
+                            社会经济演化分析系统</span></a></li>
+                    <li><a class="text-blue" href="/dpm_warning/"><span {% if path == 'dpm_warning' %}
+                        style="color: dodgerblue;font-weight: bold"
+                    {% endif %}><span class="fa fa-bell"></span> 社会经济发展预警系统</span></a>
+                    </li>
+                    <li><a class="text-blue" href="/lod_warning/"><span {% if path == 'lod_warning' %}
+                        style="color: dodgerblue;font-weight: bold"
+                    {% endif %}
+                    ><span
+                            class="fa fa-cubes"></span> 中长期负荷预警系统</span></a></li>
+                    <li><a class="text-blue" href="/res_analysis/"><span {% if path == 'res_analysis' %}
+                        style="color: dodgerblue;font-weight: bold"
+                    {% endif %}><span class="fa fa-id-card-o"></span>
+                        社会求职简历数据可视化平台</span></a></li>
+                </ul>
+                <p class="navbar-text navbar-right"><a type="button" style="color: midnightblue" href="#"><span
+                        class="fa fa-user-circle"></span> 蒲应明 <small>[注销]</small></a></p>
+            </div>
+        </div>
+    </nav>
+{% endblock %}
 
 {% block content %}
-    <div>
-        {# 导航栏 #}
-        <nav class="navbar navbar-default" style="border-radius: 0; margin-bottom: 0">
-            <div class="container-fluid">
-                <div class="navbar-header">
-                    <a class="navbar-brand" style="padding: 0 5px 5px 10px;" href="#"><img src="{{ static('img/logo.png') }}" width="160" style="vertical-align: -10px"></a>
-                    <a class="navbar-brand" href="#"><small>（Beta 1.0）</small></a>
-                </div>
-
-                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                    <ul class="nav navbar-nav">
-                        <li><a class="text-blue" href="/"><span class="fa fa-home"></span> 系统主页</a></li>
-                        <li><a class="text-blue" href="/mul_source/"><span class="fa fa-database"></span> 多源数据融合感知系统</a></li>
-                        <li><a class="text-blue" href="/eco_evolution/"><span class="fa fa-line-chart"></span> 社会经济演化分析系统</a></li>
-                        <li><a class="text-blue" href="/dpm_warning/"><span class="fa fa-bell"></span> 社会经济发展预警系统</a></li>
-                        <li><a class="text-blue" href="/lod_warning/"><span class="fa fa-cubes"></span> 中长期负荷预警系统</a></li>
-                        <li><a class="text-blue" href="/res_analysis/"><span class="fa fa-id-card-o"></span> 社会求职简历数据可视化平台</a></li>
-                    </ul>
-                    <p class="navbar-text navbar-right"><a type="button" style="color: midnightblue" href="#"><span class="fa fa-user-circle"></span> 蒲应明 <small>[注销]</small></a></p>
-                </div>
-            </div>
-        </nav>
+    <div class="my-container">
 
         {# 主框架 #}
 
         <div>
             <div class="container-fluid">
                 <div class="row">
-                    <div class="col-md-2" style="height: 95vh; background: #104b92; padding: 0">
-                        <h3 class="text-center" style="color: white;margin: 0; padding: 60px 40px;background: rgba(255, 255, 255, 0.17);font-weight: 600"><span class="fa fa-database"></span> 南方电网数据源管理
+                    <div class="col-md-2" style="height: 100vh;background: #104b92; padding: 0;">
+                        <h3 class="text-center"
+                            style="color: white;margin: 0; padding: 60px 40px;background: rgba(255, 255, 255, 0.17);font-weight: 600">
+                            <span class="fa fa-database"></span> 南方电网数据源管理
                         </h3>
                         <div class="row">
                             <ul class="ctl_data">
@@ -99,33 +122,40 @@
                             </ul>
                         </div>
                     </div>
-                    <div class="col-md-10" style="height: 95vh; background: #e7e7e7">
-                        <div class="container-fluid" style="height: 92vh; margin-top: 15px">
+                    <div class="col-md-10" style=" background: #e7e7e7">
+                        <div class="container-fluid" style=" margin-top: 15px">
                             <div class="panel panel-primary">
                                 <div class="panel-heading"><span class="fa fa-navicon"></span> 分析系统 - 输入数据管理</div>
                                 <div class="panel-body">
                                     <div class="row">
                                         <div class="col-md-3">
                                             <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" value="" id="local_data">
-                                                <label class="form-check-label" for="local_data" style="vertical-align: 2px">已存储于本地的电网相关数据（约1,200,000条）</label>
+                                                <input class="form-check-input" type="checkbox" value=""
+                                                       id="local_data">
+                                                <label class="form-check-label" for="local_data"
+                                                       style="vertical-align: 2px">已存储于本地的电网相关数据（约1,200,000条）</label>
                                             </div>
                                         </div>
                                         <div class="col-md-3">
                                             <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" value="" id="web_data_1">
-                                                <label class="form-check-label" for="web_data_1" style="vertical-align: 2px">（www.baidu.com）获取的数据（约3,100,000条）</label>
+                                                <input class="form-check-input" type="checkbox" value=""
+                                                       id="web_data_1">
+                                                <label class="form-check-label" for="web_data_1"
+                                                       style="vertical-align: 2px">（www.baidu.com）获取的数据（约3,100,000条）</label>
                                             </div>
                                         </div>
                                         <div class="col-md-5">
                                             <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" value="" id="web_data_2">
-                                                <label class="form-check-label" for="web_data_2" style="vertical-align: 2px">人工通过（www.baidu.com）获取的已清洗的电网数据</label>
+                                                <input class="form-check-input" type="checkbox" value=""
+                                                       id="web_data_2">
+                                                <label class="form-check-label" for="web_data_2"
+                                                       style="vertical-align: 2px">人工通过（www.baidu.com）获取的已清洗的电网数据</label>
                                             </div>
                                         </div>
                                         <div class="col-md-1">
                                             <div class="form-check">
-                                                <button class="btn btn-primary" style="vertical-align: 10px">提交并同步</button>
+                                                <button class="btn btn-primary" style="vertical-align: 10px">提交并同步
+                                                </button>
                                             </div>
                                         </div>
                                     </div>
