@@ -7,13 +7,9 @@
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ElectricPower/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/ElectricPower/settings.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ElectricPower/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/ElectricPower/urls.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Jinja_templates/functions/base.html" beforeDir="false" afterPath="$PROJECT_DIR$/Jinja_templates/functions/base.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Jinja_templates/functions/dpm_warning.html" beforeDir="false" afterPath="$PROJECT_DIR$/Jinja_templates/functions/dpm_warning.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Jinja_templates/functions/eco_evolution.html" beforeDir="false" afterPath="$PROJECT_DIR$/Jinja_templates/functions/eco_evolution.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Jinja_templates/functions/lod_warning.html" beforeDir="false" afterPath="$PROJECT_DIR$/Jinja_templates/functions/lod_warning.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Jinja_templates/functions/mul_source.html" beforeDir="false" afterPath="$PROJECT_DIR$/Jinja_templates/functions/mul_source.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Jinja_templates/functions/res_analysis.html" beforeDir="false" afterPath="$PROJECT_DIR$/Jinja_templates/functions/res_analysis.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Jinja_templates/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/Jinja_templates/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/admin.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/admin.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/models.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/views.py" afterDir="false" />
     </list>
@@ -69,7 +65,7 @@
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
-    <property name="DatabaseDriversLRU" value="mariadb&#10;mysql" />
+    <property name="DatabaseDriversLRU" value="mysql&#10;mariadb" />
     <property name="DefaultHtmlFileTemplate" value="HTML File" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
@@ -78,6 +74,7 @@
     <property name="list.type.of.created.stylesheet" value="CSS" />
     <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
     <property name="settings.editor.splitter.proportion" value="0.23517588" />
+    <property name="ts.external.directory.path" value="D:\Workstation\Pycharm_Pro_home\PyCharm 2021.1.1\plugins\JavaScriptLanguage\jsLanguageServicesImpl\external" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
@@ -209,20 +206,10 @@
         </entry>
       </map>
     </option>
+    <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="init" />
     <option name="LAST_COMMIT_MESSAGE" value="init" />
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/app/models.py</url>
-          <line>13</line>
-          <option name="timeStamp" value="2" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
   </component>
 </project>

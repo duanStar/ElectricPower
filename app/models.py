@@ -9,6 +9,7 @@ from django.contrib.auth.models import AbstractUser
 
 
 class UserInfo(AbstractUser):
+    """ The requirement file defined the role of All Users, we only need these fields. """
     nid = models.AutoField(primary_key=True)
     create_time = models.DateTimeField(verbose_name='注册时间', auto_now_add=True)
     marital_status = models.CharField(verbose_name='婚姻状况', max_length=6)
@@ -17,6 +18,7 @@ class UserInfo(AbstractUser):
 
     def __str__(self):
         return self.username
+
 
 
 class ElectricIndustry(models.Model):
@@ -42,3 +44,14 @@ class ElectricTotal(models.Model):
 
     class Meta:
         db_table = 'electric_total'
+
+
+class Resume(models.Model):
+    nid = models.AutoField(primary_key=True)
+    date = models.DateField('投递日期', max_length=64)
+    degree = models.CharField('学历', max_length=16)
+    location = models.CharField('所在地', max_length=256)
+    industry = models.CharField('行业', max_length=32)
+
+    class Meta:
+        db_table = 'resume'

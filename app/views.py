@@ -8,7 +8,9 @@ from datetime import date, datetime
 from app.models import UserInfo
 from app.models import ElectricIndustry
 from app.models import ElectricTotal
+from app.models import Resume
 from django.contrib import auth
+from utils.json_serializable import ComplexEncoder
 
 # ---------------------------------------------------------------------------------------------------------------------
 """
@@ -17,7 +19,7 @@ Enter the entrance of the system. Then select which user to login.
 Selection:
     - SuperUser  (root)
     - NormalUser (user)
-    
+
     Password check:
         - root -> 6CH7zM
         - user -> 000000
@@ -98,6 +100,8 @@ def dpm_warning(Request):
         'path': 'dpm_warning'
     })
 
+# =============================================================================================================
+#                                           系统三  ： 中长期负荷预测系统
 
 def lod_warning(Request):
     sql = 'select * from electric_industry'
@@ -105,16 +109,15 @@ def lod_warning(Request):
     arr = []
     for i in res:
         arr.append(i.year)
-    return render(Request, 'functions/lod_warning.html', {'years': arr, 'category': ['全社会用电总量', '农、林、牧、渔业', '工业', '建筑业',
-                                                                                     '交通运输业、仓储邮政业', '信息传输、计算机服务好软件业',
-                                                                                     '商业、住宿餐饮业', '金融、房地产、商务及居民服务业',
-                                                                                     '公共事业及管理组织'], 'path': 'lod_warning'
-                                                          })
-
-
-def res_analysis(Request):
-    return render(Request, 'functions/res_analysis.html', {'path': 'res_analysis'})
-
+    return render(Request,
+                  'functions/lod_warning.html',
+                  {'years': arr, 'category':
+                      ['全社会用电总量', '农、林、牧、渔业', '工业', '建筑业',
+                         '交通运输业、仓储邮政业', '信息传输、计算机服务好软件业',
+                         '商业、住宿餐饮业', '金融、房地产、商务及居民服务业',
+                         '公共事业及管理组织'
+                       ], 'path': 'lod_warning'
+    })
 
 def edata_year(Request):
     sql = 'select * from electric_industry'
@@ -160,3 +163,48 @@ def edata_category(Request):
         json.dumps(
             ['农、林、牧、渔业', '工业', '建筑业', '交通运输业、仓储邮政业', '信息传输、计算机服务好软件业', '商业、住宿餐饮业', '金融、房地产、商务及居民服务业', '公共事业及管理组织'],
             ensure_ascii=False))
+
+
+# =============================================================================================================
+#                                           系统四  ： 简历分析系统
+
+
+
+def res_analysis(Request):
+    """------------------------------------------
+      * 访问该系统时异步加载数据可视化内容
+        1. 日期行业表（左上）
+        2. 年份总量表（右上）
+        3. 性别数量表（下左）
+        4. 主要行业数量（下中）
+        5. 主要行业占比（下右）
+    ------------------------------------------"""
+
+    return render(Request, 'functions/res_analysis.html', {'path': 'res_analysis'})
+
+
+def res_summary_of_date(Request):
+
+    obj_dict = {}
+
+    # for item in Resume.objects.all().values():
+    #     obj_dict[item['nid']] = \
+    #         {
+    #             'date': item['date'],
+    #             'degree': item['degree'],
+    #             'location': item['location'],
+    #             'industry': item['industry']
+    #         }
+
+    # 获取统计量
+    each_year_sum = {}
+    for item in Resume.objects.all().values().filter().order_by('date'):
+        _DATE_YEAR = str(item['date'].year)
+        _DATE = str(item['date'])
+
+        try:
+            each_year_sum[_DATE] += 1
+        except KeyError:
+            each_year_sum[_DATE] = 0
+
+    return HttpResponse(json.dumps(each_year_sum, ensure_ascii=False, cls=ComplexEncoder))
