@@ -11,6 +11,7 @@ from app.models import ElectricTotal
 from app.models import Resume
 from django.contrib import auth
 from utils.json_serializable import ComplexEncoder
+from collections import Counter
 
 # ---------------------------------------------------------------------------------------------------------------------
 """
@@ -184,9 +185,6 @@ def res_analysis(Request):
 
 
 def res_summary_of_date(Request):
-
-    obj_dict = {}
-
     # for item in Resume.objects.all().values():
     #     obj_dict[item['nid']] = \
     #         {
@@ -208,3 +206,108 @@ def res_summary_of_date(Request):
             each_year_sum[_DATE] = 0
 
     return HttpResponse(json.dumps(each_year_sum, ensure_ascii=False, cls=ComplexEncoder))
+
+
+def res_middle_bottom_bar(Request):
+    # for item in Resume.objects.all().values():
+    #     obj_dict[item['nid']] = \
+    #         {
+    #             'date': item['date'],
+    #             'degree': item['degree'],
+    #             'location': item['location'],
+    #             'industry': item['industry']
+    #         }
+
+    # 获取统计量
+    all_items = []
+    for item in Resume.objects.all().values().filter().order_by('date'):
+        _DATE_YEAR = str(item['date'].year)
+        _DATE = str(item['date'])
+        all_items.append(item['location'][:2])
+
+    all_items_dict = dict(Counter(all_items))
+    all_infos = {key: value for key, value in all_items_dict.items() if value > 1}
+    all_infos_sorted = {k: v for k, v in sorted(all_infos.items(), key=lambda item: item[1], reverse=True)}
+
+    return HttpResponse(json.dumps(all_infos_sorted, ensure_ascii=False, cls=ComplexEncoder))
+
+
+def res_right_bottom_pie(Request):
+    # for item in Resume.objects.all().values():
+    #     obj_dict[item['nid']] = \
+    #         {
+    #             'date': item['date'],
+    #             'degree': item['degree'],
+    #             'location': item['location'],
+    #             'industry': item['industry']
+    #         }
+    # 获取统计量
+
+    all_items = []
+    all_jobs_ind = []
+    for item in Resume.objects.all().values().filter().order_by('date'):
+        _DATE_YEAR = str(item['date'].year)
+        _DATE = str(item['date'])
+        all_items.append(item['industry'][:2])
+        if item['industry'] not in all_jobs_ind:
+            all_jobs_ind.append(item['industry'])
+    print(all_jobs_ind)
+    all_items_dict = dict(Counter(all_items))
+    all_infos = {key: value for key, value in all_items_dict.items() if value > 30}
+    all_infos_sorted = {k: v for k, v in sorted(all_infos.items(), key=lambda item: item[1], reverse=True)}
+    return HttpResponse(json.dumps(all_infos_sorted, ensure_ascii=False, cls=ComplexEncoder))
+
+
+def res_dynamic_time_series(Request):
+    all_items = {}
+    for item in Resume.objects.all().values().filter().order_by('date').distinct():
+        _DATE_YEAR = str(item['date'].year)
+        # allData中的每一年的每个领域的简历数量是多少？
+        if int(_DATE_YEAR) < 2015:
+            try:
+                all_items[_DATE_YEAR] = all_items[_DATE_YEAR]
+            except KeyError:
+                all_items[_DATE_YEAR] = {}
+            finally:
+                from django.db import connection
+                sql = f""" select count(*) from electric2022.resume where industry like '{item['industry'][:3]}%' and date like '{_DATE_YEAR}%'; """
+                with connection.cursor() as cursor:
+                    cursor.execute(sql)
+                    dataInfo = cursor.fetchall()
+                all_items[_DATE_YEAR][item['industry'][:]] = dataInfo[0][0]
+
+    return HttpResponse(json.dumps(all_items, ensure_ascii=False, cls=ComplexEncoder))
+
+
+def res_area_line(Request):
+    # for item in Resume.objects.all().values():
+    #     obj_dict[item['nid']] = \
+    #         {
+    #             'date': item['date'],
+    #             'degree': item['degree'],
+    #             'location': item['location'],
+    #             'industry': item['industry']
+    #         }
+
+    # 获取统计量
+    each_year_sum = {}
+    for item in Resume.objects.all().values().filter().order_by('date'):
+        _DATE_YEAR = str(item['date'].year)
+        _DEGREE = item['degree']
+        _DATE = str(item['date'].year)
+        if _DEGREE == '本科':
+            try:
+                each_year_sum[_DATE] += 1
+            except KeyError:
+                each_year_sum[_DATE] = 0
+
+    ret = {}
+    for year_cnt in each_year_sum:
+        try:
+            ret[year_cnt]['year'] = int(year_cnt)
+            ret[year_cnt]['value'] =  each_year_sum[year_cnt]
+        except KeyError:
+            ret[year_cnt] = {}
+            ret[year_cnt]['year'] = int(year_cnt)
+            ret[year_cnt]['value'] =  each_year_sum[year_cnt]
+    return HttpResponse(json.dumps(ret, ensure_ascii=False, cls=ComplexEncoder))

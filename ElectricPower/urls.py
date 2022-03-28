@@ -39,7 +39,11 @@ urlpatterns = [
     path('edata_every/', v4.edata_every),
     path('edata_category/', v4.edata_category),
 
-    path('resume_lb1/', v4.res_summary_of_date)
+    path('resume_lb1/', v4.res_summary_of_date),
+    path('resume_lb2/', v4.res_middle_bottom_bar),
+    path('resume_lb3/', v4.res_right_bottom_pie),
+    path('resume_lb4/', v4.res_dynamic_time_series),
+    path('resume_lb5/', v4.res_area_line),
 
 ]
 
