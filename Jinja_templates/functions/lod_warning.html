@@ -217,7 +217,8 @@
         am5.ready(async function () {
 
             const allData = await getLData('edata_year');
-            console.log(allData)
+            var min_year = Object.keys(allData)[0]
+            var max_year = Object.keys(allData)[1]
 // https://www.amcharts.com/docs/v5/getting-started/#Root_element
             var root = am5.Root.new("dynamic_dash");
 
@@ -319,7 +320,7 @@
             });
 
             var label = chart.plotContainer.children.push(am5.Label.new(root, {
-                text: "2008",
+                text: `${min_year}`,
                 fontSize: "8em",
                 opacity: 0.2,
                 x: am5.p100,
@@ -379,13 +380,13 @@
                 });
             }
 
-            var year = 2008;
+            var year = min_year;
 
 // update data with values each 1.5 sec
             var interval = setInterval(function () {
                 year++;
 
-                if (year > 2010) {
+                if (year > max_year) {
                     clearInterval(interval);
                     clearInterval(sortInterval);
                 }
@@ -790,7 +791,6 @@
                 item.value1 = +item.value1;
                 item.value2 = +item.value2;
             });
-            console.log(data)
             series.data.setAll(data);
             series2.data.setAll(data);
 

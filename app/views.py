@@ -8,7 +8,12 @@ from datetime import date, datetime
 from app.models import UserInfo
 from app.models import ElectricIndustry
 from app.models import ElectricTotal
+
+from app.models import EconomyIndustry
+from app.models import EconomyResource
+from app.models import EconomyTotal
 from app.models import Resume
+
 from django.contrib import auth
 from utils.json_serializable import ComplexEncoder
 from collections import Counter
@@ -91,14 +96,27 @@ def mul_source(Request):
 
 
 def eco_evolution(Request):
+    sql = 'select * from economy_total'
+    res = EconomyTotal.objects.raw(sql)
+    arr = []
+    for i in res:
+        arr.append(i.year)
     return render(Request, 'functions/eco_evolution.html', {
-        'path': 'eco_evolution'
+        'path': 'eco_evolution',
+        'years': arr
     })
 
 
 def dpm_warning(Request):
+    sql = 'select * from economy_industry'
+    res = ElectricIndustry.objects.raw(sql)
+    arr = []
+    for i in res:
+        arr.append(i.year)
     return render(Request, 'functions/dpm_warning.html', {
-        'path': 'dpm_warning'
+        'path': 'dpm_warning',
+        'years': arr,
+        'category': ['生产总值', '第一产业', '第二产业', '第三产业', '农林牧渔业', '工业', '建筑业', '批发和零售业', '交通运输业、仓储邮政业', '金融业', '房地产业', '其他']
     })
 
 # =============================================================================================================
@@ -130,7 +148,7 @@ def edata_year(Request):
                           '信息传输、计算机服务好软件业': i.infor, '商业、住宿餐饮业': i.comme, '金融、房地产、商务及居民服务业': i.financial,
                           '公共事业及管理组织': i.public}}
         arr.append(content)
-    print(json.dumps(arr, ensure_ascii=False))
+    # print(json.dumps(arr, ensure_ascii=False))
     return HttpResponse(json.dumps(arr, ensure_ascii=False))
 
 
@@ -141,7 +159,7 @@ def edata_predict(Request):
     for i in res:
         content = {'date': i.date, 'value1': i.total, 'value2': i.predict, 'previousDate': i.prevDate}
         arr.append(content)
-    print(json.dumps(arr, ensure_ascii=False, cls=ComplexEncoder))
+    # print(json.dumps(arr, ensure_ascii=False, cls=ComplexEncoder))
     return HttpResponse(json.dumps(arr, ensure_ascii=False, cls=ComplexEncoder))
 
 
@@ -155,7 +173,7 @@ def edata_every(Request):
                           '信息传输、计算机服务好软件业': i.infor, '商业、住宿餐饮业': i.comme, '金融、房地产、商务及居民服务业': i.financial,
                           '公共事业及管理组织': i.public}}
         arr.append(content)
-    print(json.dumps(arr[0][year], ensure_ascii=False))
+    # print(json.dumps(arr[0][year], ensure_ascii=False))
     return HttpResponse(json.dumps(arr[0][year], ensure_ascii=False))
 
 
@@ -166,6 +184,112 @@ def edata_category(Request):
             ensure_ascii=False))
 
 
+def cdata_year(Request):
+    sql = 'select * from economy_industry'
+    res = EconomyIndustry.objects.raw(sql)
+    arr = []
+    for i in res:
+        year = i.year
+        content = {year: {'第一产业': i.primary, '第二产业': i.secondary, '第三产业': i.tertiary, '农林牧渔业': i.animal,
+                          '工业': i.indus, '建筑业': i.construction, '批发和零售业': i.wholesale,
+                          '交通运输业、仓储邮政业': i.transport, '金融业': i.financial, '房地产业': i.estate, '其他': i.others,
+                          '生产总值': i.total}}
+        arr.append(content)
+    # print(json.dumps(arr, ensure_ascii=False))
+    return HttpResponse(json.dumps(arr, ensure_ascii=False))
+
+
+def cdata_every(Request):
+    year = Request.GET.get('year')
+    res = EconomyIndustry.objects.filter(year=year)
+    arr = []
+    for i in res:
+        year = i.year
+        content = {year: {'第一产业': i.primary, '第二产业': i.secondary, '第三产业': i.tertiary, '农林牧渔业': i.animal,
+                          '工业': i.indus, '建筑业': i.construction, '批发和零售业': i.wholesale,
+                          '交通运输业、仓储邮政业': i.transport, '金融业': i.financial, '房地产业': i.estate, '其他': i.others}}
+        arr.append(content)
+    # print(json.dumps(arr[0][year], ensure_ascii=False))
+    return HttpResponse(json.dumps(arr[0][year], ensure_ascii=False))
+
+
+def rdata_year(Request):
+    sql = 'select * from economy_resource'
+    res = EconomyResource.objects.raw(sql)
+    arr = []
+    names = ['全省年末人口总数 (万人)', '人口密度 (人/平方千米)', '全省土地面积 (万平方千米)', '民族自治地方土地面积 (万平方千米)', '全省年末耕地总资源 (万公顷)', '牧草地面积 (万公顷)',
+             '全省森林面积 (万公顷)', '全省森林覆盖率(%)', '全省森林蓄积量 (亿立方米)', '全省水域及水利设施用地面积 (万公顷)', '全省水能资源理论蕴藏量 (亿千瓦)',
+             '全省水资源总量 (亿立方米)', '全省铁矿保有资源储量 (亿吨)', '全省煤矿保有资源储量 (亿吨)', '全省磷矿石保有资源储量 (亿吨)']
+    for i in res:
+        year = i.year
+        content = {year: {'全省年末人口总数 (万人)': i.population, '人口密度 (人/平方千米)': i.density, '全省土地面积 (万平方千米)': i.pLandArea,
+                          '民族自治地方土地面积 (万平方千米)': i.eLandArea,
+                          '全省年末耕地总资源 (万公顷)': i.tLandArea, '牧草地面积 (万公顷)': i.pastureArea, '全省森林面积 (万公顷)': i.pForestArea,
+                          '全省森林覆盖率(%)': i.pForestCoverage, '全省森林蓄积量 (亿立方米)': i.pForestStock,
+                          '全省水域及水利设施用地面积 (万公顷)': i.pWaterArea,
+                          '全省水能资源理论蕴藏量 (亿千瓦)': i.pWaterResource, '全省水资源总量 (亿立方米)': i.pWaterAmount,
+                          '全省铁矿保有资源储量 (亿吨)': i.pOreResource, '全省煤矿保有资源储量 (亿吨)': i.pCoalResource,
+                          '全省磷矿石保有资源储量 (亿吨)': i.pPhosphateRes}}
+        arr.append(content)
+    # print(json.dumps({'data': arr, 'names': names}, ensure_ascii=False))
+    return HttpResponse(json.dumps({'data': arr, 'names': names}, ensure_ascii=False))
+
+
+def tdata_year(Request):
+    sql = 'select * from economy_total'
+    res = EconomyTotal.objects.raw(sql)
+    arr = [['产值', '类目', '年份']]
+    names = ['工农业总产值 (亿元)', '农业总产值  (亿元)', '工业总产值(亿元)', '轻工业产值(亿元)', '重工业产值(亿元)', '农业机械总动力(万千瓦)']
+    for i in res:
+        year = int(i.year)
+        arr.append([float(i.indusAndAgri), '工农业总产值  (亿元)', year])
+        arr.append([float(i.agricultural), '农业总产值  (亿元)', year])
+        arr.append([float(i.industrial), '工业总产值(亿元)', year])
+        arr.append([float(i.lightIndustrial), '轻工业产值(亿元)', year])
+        arr.append([float(i.HeavyIndustrial), '重工业产值(亿元)', year])
+        arr.append([float(i.AgriAndMachine), '农业机械总动力(万千瓦)', year])
+
+    # print(json.dumps({'data': arr, 'names': names}, ensure_ascii=False))
+    return HttpResponse(json.dumps({'data': arr, 'names': names}, ensure_ascii=False))
+
+
+def tdata_every(Request):
+    year = Request.GET.get('year')
+    res = EconomyTotal.objects.filter(year=year)
+    arr = []
+    for i in res:
+        year = i.year
+        content = {year: {'工农业总产值  (亿元)': i.indusAndAgri, '农业总产值  (亿元)': i.agricultural, '工业总产值(亿元)': i.industrial,
+                          '轻工业产值(亿元)': i.lightIndustrial,
+                          '重工业产值(亿元)': i.HeavyIndustrial, '农业机械总动力(万千瓦)': i.AgriAndMachine}}
+        arr.append(content)
+    # print(json.dumps(arr, ensure_ascii=False))
+    return HttpResponse(json.dumps(arr[0][year], ensure_ascii=False))
+
+
+def tdata_total(Request):
+    sql = 'select * from economy_total'
+    res = EconomyTotal.objects.raw(sql)
+    arr = []
+    names = ['工农业总产值 (亿元)', '农业总产值  (亿元)', '工业总产值(亿元)', '轻工业产值(亿元)', '重工业产值(亿元)', '农业机械总动力(万千瓦)']
+    lists = ['第一产业', '第二产业', '第三产业']
+    arr2 = []
+    years = []
+    for i in res:
+        year = i.year
+        years.append(year)
+        content = {year: [float(i.indusAndAgri), float(i.agricultural), float(i.industrial), float(i.lightIndustrial),
+                          float(i.HeavyIndustrial), float(i.AgriAndMachine)]}
+        arr.append(content)
+    sql2 = 'select * from economy_industry where year >= ' + years[0]
+    res2 = ElectricIndustry.objects.raw(sql2)
+    for i in res2:
+        year = i.year
+        content = {year: [float(i.primary), float(i.secondary), float(i.tertiary)]}
+        arr2.append(content)
+    return HttpResponse(json.dumps({'names': names, 'data': arr, 'lists': lists, 'data2': arr2, 'years': years}, ensure_ascii=False))
+
+  
 # =============================================================================================================
 #                                           系统四  ： 简历分析系统
 
