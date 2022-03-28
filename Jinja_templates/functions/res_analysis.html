@@ -37,18 +37,18 @@
 
         #chartdiv_S {
             width: 100%;
-            height: 360px;
+            height: 490px;
             max-width: 100%
         }
 
         #chartdiv_A {
             width: 100%;
-            height: 360px;
+            height: 490px;
         }
 
         #chartdiv_B {
             width: 100%;
-            height: 360px;
+            height: 490px;
         }
 
         #chartdiv_C {
@@ -62,7 +62,9 @@
         }
 
         #chartdiv_A, #chartdiv_B, #chartdiv_C, #chartdiv_D, #chartdiv_S {
-            box-shadow: 0 0 10px 5px rgba(192, 192, 192, 0.55);
+            {#box-shadow: 0 0 10px 5px rgba(192, 192, 192, 0.55);#}
+
+            background: white;
         }
     </style>
     <style>
@@ -127,10 +129,10 @@
             {# 控制栏 #}
             <div class="container-fluid" style="">
                 <div class="row">
-                    <div class="col-md-1 " style="height: 77vh; padding: 0">
+                    <div class="col-md-1 " style="height: 78vh; padding: 0">
                         <div class="panel panel-primary">
                             <div class="panel-heading">控制面板</div>
-                            <div class="panel-body" style="height: 73vh">
+                            <div class="panel-body" style="height: 78vh; border: none">
                                 <!-- 一级数据控制 -->
                                 <div class="row">
                                     <div class="col-md-6">
@@ -224,13 +226,14 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-11" style="height: 77vh; padding: 0">
-                        <div class="panel panel-primary">
-                            <div class="panel-heading">数据可视化</div>
-                            <div class="panel-body" style="height: 73vh">
+                    <div class="col-md-11" style="height: 78vh; padding: 0">
+                        <div class="panel panel-primary" style="border: none">
+{#                            <div class="panel-heading">数据可视化</div>#}
+                            <div class="panel-body" style="height: 78vh; background: #337ab7; border: none">
+
                                 <div class="container-fluid">
-                                    <div class="row">
-                                        <div class="col-md-8" style="height: 43vh; padding:0;">
+                                    <div class="row" style="padding: 0">
+                                        <div class="col-md-7" style="height: 43vh; padding:0;">
                                             <div id="chartdiv_C"
                                                  style="border: 1px silver solid; border-radius: 9px; margin-top: 10px; margin-left: 0">
                                                 <div class="text-center"
@@ -239,10 +242,15 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="col-md-4" style="height: 43vh;">
+                                        <div class="col-md-5" style="height: 43vh;">
                                             <div id="chartdiv_D"
                                                  style="border: 1px silver solid; border-radius: 9px; margin-top: 10px; margin-left: 0">
+                                            <div class="text-center"
+                                                     style="margin-top: 10px; margin-bottom: -20px;">
+                                                    每年投递者为本科学历的数量与时间关系统计图
+                                                </div>
                                             </div>
+
                                         </div>
                                     </div>
                                     <div class="row">
@@ -276,21 +284,20 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-md-12" style="height: 18vh">
+                    <div class="col-md-12" style="height: 18vh; padding: 0">
                         {# 状态栏 #}
                         <div>
                             <div class="container-fluid"
-                                 style="color: white; background: rgba(255,255,255,0.3); height: 130px; margin-top: 20px; border-radius: 9px; padding: 10px">
+                                 style="color: white; background: rgba(255,255,255,0.1); height: 190px; margin-top: 50px; border-radius: 9px; padding: 10px; border: none">
                                 <div class="col-md-3">
-                                    <div>
-                                        目前输入数据：
+                                    <div style="margin-top: 10px; display: flex; justify-content: space-between;flex-wrap: wrap">
+                                        <button style="width: 150px; height: 50px; font-size: 1.4rem" class="btn btn-primary btn-sm" ><span class="fa fa-search"></span>  模型参数调试&emsp;</button>
+                                        <button style="width: 150px; height: 50px; font-size: 1.4rem" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#myModal"><span class="fa fa-search"></span> 全局可视化&emsp;</button>
+                                        <button style="width: 150px; height: 50px; font-size: 1.4rem" class="btn btn-warning btn-sm" ><span class="fa fa-search"></span> 系统检查&emsp;</button>
+                                        <button style="width: 150px; height: 50px; font-size: 1.4rem" class="btn btn-default btn-sm" ><span class="fa fa-search"></span> 进行预测&emsp;</button>
+                                        <div style="display: flex; margin-top: 7px">说明：全局可视化为</div>
                                     </div>
-                                    <div style="margin-top: 10px">
-
-                                        <button class="btn btn-primary btn-lg" data-toggle="modal"
-                                                data-target="#myModal">简历数据可视化
-                                        </button>
-                                        <div class="modal fade" id="myModal" tabindex="-1" role="dialog"
+                                    <div class="modal fade" id="myModal" tabindex="-1" role="dialog"
                                              aria-labelledby="myModalLabel" aria-hidden="true">
                                             <div class="modal-dialog modal-lg" style="width: 90%">
                                                 <div class="modal-content">
@@ -307,21 +314,22 @@
                                                         <button type="button" class="btn btn-default"
                                                                 data-dismiss="modal">关闭
                                                         </button>
-                                                        <button type="button" class="btn btn-primary">提交更改</button>
                                                     </div>
                                                 </div><!-- /.modal-content -->
                                             </div><!-- /.modal -->
                                         </div>
-
-
-                                    </div>
+                                    <br>
                                 </div>
-                                <div class="col-md-3">采用分析模型：</div>
+                                <div class="col-md-2" style="border-left: #a6d4ff solid 1px; height: 10vh">
+                                    <h5>采用分析模型：</h5>
+                                    <p></p>
+                                </div>
                                 <div class="col-md-3">分析所用数据量：</div>
                                 <div class="col-md-3">系统负载：</div>
                             </div>
-                            <div class="progress" style="margin-top: 20px;
-							position: absolute; bottom: 5px; left: 20px; right: 20px; background: #296395">
+
+                            <div class="progress" style="margin-top: 20px;margin-left: 0; margin-right: 0;
+							position: absolute; bottom: 0px; left: 20px; right: 20px; background: #296395">
                                 <div class="progress-bar progress-bar-success progress-bar-striped active"
                                      role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100"
                                      style="width: 0">
@@ -355,13 +363,675 @@
     <script src="https://cdn.amcharts.com/lib/5/geodata/continentsLow.js"></script>
     <script src="https://cdn.amcharts.com/lib/5/themes/Animated.js"></script>
     <script src="https://cdn.amcharts.com/lib/5/hierarchy.js"></script>
-    <script src="{{ static('js/res/b01.js') }}"></script>
-    <script src="{{ static('js/res/b02.js') }}"></script>
-    <script src="{{ static('js/res/b03.js') }}"></script>
-    <script src="{{ static('js/res/b04.js') }}"></script>
-    <script src="{{ static('js/res/b05.js') }}"></script>
-    <!-- Chart code -->
+    {#    <script src="{{ static('js/res/b01.js') }}"></script>#}
+    {#    <script src="{{ static('js/res/b02.js') }}"></script>#}
+    {#    <script src="{{ static('js/res/b03.js') }}"></script>#}
+    {#    <script src="{{ static('js/res/b04.js') }}"></script>#}
+    {#    <script src="{{ static('js/res/b05.js') }}"></script>#}
+
+
+
     <script>
+        /**
+         *  简历数据可视化面板 左下 折线图
+         *  状态：完成
+         *  日期：2022-3-24
+         */
+        $.ajax({
+            url: '/resume_lb1/',
+            dataType: 'json',
+            success: function (obj_array) {
+                var data = []
+                for (let key in obj_array) {
+                    data.push({
+                        date: new Date(
+                            key.slice(0, 4),
+                            key.slice(5, 7),
+                            key.slice(8)),
+                        value: obj_array[key]
+                    })
+                }
+
+                am5.ready(function () {
+                    var root = am5.Root.new("chartdiv_S");
+                    root.setThemes([
+                        am5themes_Animated.new(root)
+                    ]);
+
+// Create chart
+                    var chart = root.container.children.push(
+                        am5xy.XYChart.new(root, {
+                            focusable: true,
+                            panX: true,
+                            panY: true,
+                            wheelX: "panX",
+                            wheelY: "zoomX"
+                        })
+                    );
+
+                    var easing = am5.ease.linear;
+                    chart.get("colors").set("step", 3);
+
+// Create axes
+                    var xAxis = chart.xAxes.push(
+                        am5xy.DateAxis.new(root, {
+                            maxDeviation: 0.1,
+                            groupData: false,
+                            baseInterval: {
+                                timeUnit: "day",
+                                count: 1
+                            },
+                            renderer: am5xy.AxisRendererX.new(root, {}),
+                            tooltip: am5.Tooltip.new(root, {})
+                        })
+                    );
+
+                    function createAxisAndSeries(startValue, opposite, data) {
+                        var yRenderer = am5xy.AxisRendererY.new(root, {
+                            opposite: opposite
+                        });
+                        var yAxis = chart.yAxes.push(
+                            am5xy.ValueAxis.new(root, {
+                                maxDeviation: 1,
+                                renderer: yRenderer
+                            })
+                        );
+
+                        if (chart.yAxes.indexOf(yAxis) > 0) {
+                            yAxis.set("syncWithAxis", chart.yAxes.getIndex(0));
+                        }
+
+                        // Add series
+                        // https://www.amcharts.com/docs/v5/charts/xy-chart/series/
+                        var series = chart.series.push(
+                            am5xy.LineSeries.new(root, {
+                                xAxis: xAxis,
+                                yAxis: yAxis,
+                                valueYField: "value",
+                                valueXField: "date",
+                                tooltip: am5.Tooltip.new(root, {
+                                    pointerOrientation: "horizontal",
+                                    labelText: "{valueY}"
+                                })
+                            })
+                        );
+
+                        //series.fills.template.setAll({ fillOpacity: 0.2, visible: true });
+                        series.strokes.template.setAll({strokeWidth: 1});
+
+                        yRenderer.grid.template.set("strokeOpacity", 0.05);
+                        yRenderer.labels.template.set("fill", series.get("fill"));
+                        yRenderer.setAll({
+                            stroke: series.get("fill"),
+                            strokeOpacity: 1,
+                            opacity: 1
+                        });
+
+                        // Set up data processor to parse string dates
+                        // https://www.amcharts.com/docs/v5/concepts/data/#Pre_processing_data
+                        series.data.processor = am5.DataProcessor.new(root, {
+                            dateFormat: "yyyy-MM-dd",
+                            dateFields: ["date"]
+                        });
+
+                        series.data.setAll(generateChartData(data));
+                    }
+
+// Add cursor
+                    var cursor = chart.set("cursor", am5xy.XYCursor.new(root, {
+                        xAxis: xAxis,
+                        behavior: "none"
+                    }));
+                    cursor.lineY.set("visible", false);
+
+// add scrollbar
+                    chart.set("scrollbarX", am5.Scrollbar.new(root, {
+                        orientation: "horizontal"
+                    }));
+
+                    createAxisAndSeries(10, false, data);
+
+
+// Make stuff animate on load
+                    chart.appear(1000, 100);
+
+// Generates random data, quite different range
+                    function generateChartData(data) {
+
+
+                        return data;
+
+                    }
+
+                });
+
+            }
+        })
+    </script>
+
+    <script>
+        /*
+        *  简历 - 下中 - 条形图
+        *  状态；碰不得，别碰
+        *  日期：2022-3-27
+        * */
+        $.ajax({
+            url: '/resume_lb2/',
+            dataType: 'json',
+            success: function (obj_array) {
+                var data = []
+                for (let key_ in obj_array) {
+                    console.log(key_)
+                    data.push({
+                        country: key_,
+                        value: obj_array[key_]
+                    })
+                }
+                console.log(data)
+                am5.ready(function () {
+
+                    var root = am5.Root.new("chartdiv_A");
+                    root.setThemes([
+                        am5themes_Animated.new(root)
+                    ]);
+                    var chart = root.container.children.push(am5xy.XYChart.new(root, {
+                        panX: true,
+                        panY: true,
+                        wheelX: "panX",
+                        wheelY: "zoomX"
+                    }));
+                    var cursor = chart.set("cursor", am5xy.XYCursor.new(root, {}));
+                    cursor.lineY.set("visible", false);
+                    var xRenderer = am5xy.AxisRendererX.new(root, {minGridDistance: 30});
+                    xRenderer.labels.template.setAll({
+                        rotation: -90,
+                        centerY: am5.p50,
+                        centerX: am5.p100,
+                        paddingRight: 15
+                    });
+                    var xAxis = chart.xAxes.push(am5xy.CategoryAxis.new(root, {
+                        maxDeviation: 0.3,
+                        categoryField: "country",
+                        renderer: xRenderer,
+                        tooltip: am5.Tooltip.new(root, {})
+                    }));
+                    var yAxis = chart.yAxes.push(am5xy.ValueAxis.new(root, {
+                        maxDeviation: 0.3,
+                        renderer: am5xy.AxisRendererY.new(root, {})
+                    }));
+                    var series = chart.series.push(am5xy.ColumnSeries.new(root, {
+                        name: "Series 1",
+                        xAxis: xAxis,
+                        yAxis: yAxis,
+                        valueYField: "value",
+                        sequencedInterpolation: true,
+                        categoryXField: "country",
+                        tooltip: am5.Tooltip.new(root, {
+                            labelText: "{valueY}"
+                        })
+                    }));
+                    series.columns.template.setAll({cornerRadiusTL: 5, cornerRadiusTR: 5});
+                    series.columns.template.adapters.add("fill", function (fill, target) {
+                        return chart.get("colors").getIndex(series.columns.indexOf(target));
+                    });
+
+                    series.columns.template.adapters.add("stroke", function (stroke, target) {
+                        return chart.get("colors").getIndex(series.columns.indexOf(target));
+                    });
+                    data = data
+
+                    xAxis.data.setAll(data);
+                    series.data.setAll(data);
+                    series.appear(1000);
+                    chart.appear(1000, 100);
+                });
+
+            }
+        })
+    </script>
+
+    <script>
+        /*
+        *  简历 - 下右侧 - 条形图
+        *  状态；终于他妈的搞完了
+        *  日期：2022-3-27
+        * */
+        $.ajax({
+            url: '/resume_lb3/',
+            dataType: 'json',
+            success: function (obj_array) {
+                var data = []
+                for (let key_ in obj_array) {
+                    data.push(
+                        {value: obj_array[key_], category: key_},
+                    )
+                }
+
+                am5.ready(function () {
+                    var root = am5.Root.new("chartdiv_B");
+                    root.setThemes([
+                        am5themes_Animated.new(root)
+                    ]);
+                    var chart = root.container.children.push(am5percent.PieChart.new(root, {
+                        layout: root.verticalLayout
+                    }));
+                    var series = chart.series.push(am5percent.PieSeries.new(root, {
+                        valueField: "value",
+                        categoryField: "category"
+                    }));
+
+                    series.data.setAll(data);
+
+                    var legend = chart.children.push(am5.Legend.new(root, {
+                        centerX: am5.percent(50),
+                        x: am5.percent(50),
+                        marginTop: 15,
+                        marginBottom: 15
+                    }));
+
+                    legend.data.setAll(series.dataItems);
+                    series.appear(1000, 100);
+
+                }); // end am5.ready()
+
+            }
+        })
+    </script>
+
+
+    <script>
+        /*
+        *  简历 - 左上的 - 动态图
+        *  状态：我日
+        *  日期：2022-3-27
+        * */
+        $.ajax({
+            url: '/resume_lb4/',
+            dataType: 'json',
+            success: function (obj_array) {
+                am5.ready(function () {
+
+// Data
+                    var allData = obj_array;
+
+
+// Create root element
+// https://www.amcharts.com/docs/v5/getting-started/#Root_element
+                    var root = am5.Root.new("chartdiv_C");
+
+                    root.numberFormatter.setAll({
+                        numberFormat: "#a",
+
+                        // Group only into M (millions), and B (billions)
+                        bigNumberPrefixes: [
+                            {number: 1e6, suffix: "M"},
+                            {number: 1e9, suffix: "B"}
+                        ],
+
+                        // Do not use small number prefixes at all
+                        smallNumberPrefixes: []
+                    });
+
+                    var stepDuration = 2000;
+
+
+// Set themes
+// https://www.amcharts.com/docs/v5/concepts/themes/
+                    root.setThemes([am5themes_Animated.new(root)]);
+
+
+// Create chart
+// https://www.amcharts.com/docs/v5/charts/xy-chart/
+                    var chart = root.container.children.push(am5xy.XYChart.new(root, {
+                        panX: true,
+                        panY: true,
+                        wheelX: "none",
+                        wheelY: "none"
+                    }));
+
+
+// We don't want zoom-out button to appear while animating, so we hide it at all
+                    chart.zoomOutButton.set("forceHidden", true);
+
+
+// Create axes
+// https://www.amcharts.com/docs/v5/charts/xy-chart/axes/
+                    var yRenderer = am5xy.AxisRendererY.new(root, {
+                        minGridDistance: 20,
+                        inversed: true
+                    });
+// hide grid
+                    yRenderer.grid.template.set("visible", false);
+
+                    var yAxis = chart.yAxes.push(am5xy.CategoryAxis.new(root, {
+                        maxDeviation: 0,
+                        categoryField: "network",
+                        renderer: yRenderer
+                    }));
+
+                    var xAxis = chart.xAxes.push(am5xy.ValueAxis.new(root, {
+                        maxDeviation: 0,
+                        min: 0,
+                        strictMinMax: true,
+                        extraMax: 0.1,
+                        renderer: am5xy.AxisRendererX.new(root, {})
+                    }));
+
+                    xAxis.set("interpolationDuration", stepDuration / 10);
+                    xAxis.set("interpolationEasing", am5.ease.linear);
+
+
+// Add series
+// https://www.amcharts.com/docs/v5/charts/xy-chart/series/
+                    var series = chart.series.push(am5xy.ColumnSeries.new(root, {
+                        xAxis: xAxis,
+                        yAxis: yAxis,
+                        valueXField: "value",
+                        categoryYField: "network"
+                    }));
+
+// Rounded corners for columns
+                    series.columns.template.setAll({cornerRadiusBR: 5, cornerRadiusTR: 5});
+
+// Make each column to be of a different color
+                    series.columns.template.adapters.add("fill", function (fill, target) {
+                        return chart.get("colors").getIndex(series.columns.indexOf(target));
+                    });
+
+                    series.columns.template.adapters.add("stroke", function (stroke, target) {
+                        return chart.get("colors").getIndex(series.columns.indexOf(target));
+                    });
+
+// Add label bullet
+                    series.bullets.push(function () {
+                        return am5.Bullet.new(root, {
+                            locationX: 1,
+                            sprite: am5.Label.new(root, {
+                                text: "{valueXWorking.formatNumber('#.# a')}",
+                                fill: root.interfaceColors.get("alternativeText"),
+                                centerX: am5.p100,
+                                centerY: am5.p50,
+                                populateText: true
+                            })
+                        });
+                    });
+
+                    var label = chart.plotContainer.children.push(am5.Label.new(root, {
+                        text: "2002",
+                        fontSize: "8em",
+                        opacity: 0.2,
+                        x: am5.p100,
+                        y: am5.p100,
+                        centerY: am5.p100,
+                        centerX: am5.p100
+                    }));
+
+// Get series item by category
+                    function getSeriesItem(category) {
+                        for (var i = 0; i < series.dataItems.length; i++) {
+                            var dataItem = series.dataItems[i];
+                            if (dataItem.get("categoryY") == category) {
+                                return dataItem;
+                            }
+                        }
+                    }
+
+// Axis sorting
+                    function sortCategoryAxis() {
+                        // sort by value
+                        series.dataItems.sort(function (x, y) {
+                            return y.get("valueX") - x.get("valueX"); // descending
+                            //return x.get("valueX") - y.get("valueX"); // ascending
+                        });
+
+                        // go through each axis item
+                        am5.array.each(yAxis.dataItems, function (dataItem) {
+                            // get corresponding series item
+                            var seriesDataItem = getSeriesItem(dataItem.get("category"));
+
+                            if (seriesDataItem) {
+                                // get index of series data item
+                                var index = series.dataItems.indexOf(seriesDataItem);
+                                // calculate delta position
+                                var deltaPosition =
+                                    (index - dataItem.get("index", 0)) / series.dataItems.length;
+                                // set index to be the same as series data item index
+                                if (dataItem.get("index") != index) {
+                                    dataItem.set("index", index);
+                                    // set deltaPosition instanlty
+                                    dataItem.set("deltaPosition", -deltaPosition);
+                                    // animate delta position to 0
+                                    dataItem.animate({
+                                        key: "deltaPosition",
+                                        to: 0,
+                                        duration: stepDuration / 2,
+                                        easing: am5.ease.out(am5.ease.cubic)
+                                    });
+                                }
+                            }
+                        });
+                        // sort axis items by index.
+                        // This changes the order instantly, but as deltaPosition is set, they keep in the same places and then animate to true positions.
+                        yAxis.dataItems.sort(function (x, y) {
+                            return x.get("index") - y.get("index");
+                        });
+                    }
+
+                    var year = 2002;
+                    var interval = setInterval(function () {
+                        year++;
+
+                        if (year > 2018) {
+                            clearInterval(interval);
+                            clearInterval(sortInterval);
+                        }
+
+                        updateData();
+                    }, stepDuration);
+
+                    var sortInterval = setInterval(function () {
+                        sortCategoryAxis();
+                    }, 100);
+
+                    function setInitialData() {
+                        var d = allData[year];
+
+                        for (var n in d) {
+                            series.data.push({network: n, value: d[n]});
+                            yAxis.data.push({network: n});
+                        }
+                    }
+
+                    function updateData() {
+                        var itemsWithNonZero = 0;
+
+                        if (allData[year]) {
+                            label.set("text", year.toString());
+
+                            am5.array.each(series.dataItems, function (dataItem) {
+                                var category = dataItem.get("categoryY");
+                                var value = allData[year][category];
+
+                                if (value > 0) {
+                                    itemsWithNonZero++;
+                                }
+
+                                dataItem.animate({
+                                    key: "valueX",
+                                    to: value,
+                                    duration: stepDuration,
+                                    easing: am5.ease.linear
+                                });
+                                dataItem.animate({
+                                    key: "valueXWorking",
+                                    to: value,
+                                    duration: stepDuration,
+                                    easing: am5.ease.linear
+                                });
+                            });
+
+                            yAxis.zoom(0, itemsWithNonZero / yAxis.dataItems.length);
+                        }
+                    }
+
+                    setInitialData();
+                    setTimeout(function () {
+                        year++;
+                        updateData();
+                    }, 50);
+                    series.appear(1000);
+                    chart.appear(1000, 100);
+
+                }); // end am5.ready()
+            }
+        })
+
+    </script>
+
+
+    <script>
+        /*
+        *  简历 - 右上角的 - 傻逼图
+        *  状态：太他妈恶心了
+        *  日期：2022-3-27
+        * */
+        $.ajax({
+            url: '/resume_lb5/',
+            dataType: 'json',
+            success: function (obj_array) {
+
+                var data = []
+                color_ = 0
+                for (let key_ in obj_array) {
+                    data.push(
+                        {
+                            year: obj_array[key_]['year'].toString(),
+                            value: obj_array[key_]['value'],
+                          }
+                    )
+                }
+
+
+                am5.ready(function () {
+
+// Create root element
+// https://www.amcharts.com/docs/v5/getting-started/#Root_element
+                    var root = am5.Root.new("chartdiv_D");
+
+// Set themes
+// https://www.amcharts.com/docs/v5/concepts/themes/
+                    root.setThemes([
+                        am5themes_Animated.new(root)
+                    ]);
+
+// Create chart
+// https://www.amcharts.com/docs/v5/charts/xy-chart/
+                    var chart = root.container.children.push(am5xy.XYChart.new(root, {
+                        panX: true,
+                        panY: true,
+                        wheelX: "panX",
+                        wheelY: "zoomX",
+                        layout: root.verticalLayout
+                    }));
+
+// Add cursor
+// https://www.amcharts.com/docs/v5/charts/xy-chart/cursor/
+                    var cursor = chart.set("cursor", am5xy.XYCursor.new(root, {
+                        behavior: "none"
+                    }));
+                    cursor.lineY.set("visible", false);
+
+                    var colorSet = am5.ColorSet.new(root, {});
+
+// The data
+                    {#var data = data#}
+
+
+// Create axes
+// https://www.amcharts.com/docs/v5/charts/xy-chart/axes/
+                    var xRenderer = am5xy.AxisRendererX.new(root, {});
+                    xRenderer.grid.template.set("location", 0.5);
+                    xRenderer.labels.template.setAll({
+                        location: 0.5,
+                        multiLocation: 0.5
+                    });
+
+                    var xAxis = chart.xAxes.push(am5xy.CategoryAxis.new(root, {
+                        categoryField: "year",
+                        renderer: xRenderer,
+                        tooltip: am5.Tooltip.new(root, {})
+                    }));
+
+                    xAxis.data.setAll(data);
+
+                    var yAxis = chart.yAxes.push(am5xy.ValueAxis.new(root, {
+                        maxPrecision: 0,
+                        renderer: am5xy.AxisRendererY.new(root, {})
+                    }));
+
+                    var series = chart.series.push(am5xy.LineSeries.new(root, {
+                        xAxis: xAxis,
+                        yAxis: yAxis,
+                        valueYField: "value",
+                        categoryXField: "year",
+                        tooltip: am5.Tooltip.new(root, {
+                            labelText: "{valueY}",
+                            dy: -5
+                        })
+                    }));
+
+                    series.strokes.template.setAll({
+                        templateField: "strokeSettings",
+                        strokeWidth: 2
+                    });
+
+                    series.fills.template.setAll({
+                        visible: true,
+                        fillOpacity: 0.5,
+                        templateField: "fillSettings"
+                    });
+
+
+                    series.bullets.push(function () {
+                        return am5.Bullet.new(root, {
+                            sprite: am5.Circle.new(root, {
+                                templateField: "bulletSettings",
+                                radius: 5
+                            })
+                        });
+                    });
+
+                    series.data.setAll(data);
+                    series.appear(1000);
+
+// Add scrollbar
+// https://www.amcharts.com/docs/v5/charts/xy-chart/scrollbars/
+                    chart.set("scrollbarX", am5.Scrollbar.new(root, {
+                        orientation: "horizontal",
+                        marginBottom: 20
+                    }));
+
+// Make stuff animate on load
+// https://www.amcharts.com/docs/v5/concepts/animations/
+                    chart.appear(1000, 100);
+
+                }); // end am5.ready()
+
+            }
+        })
+
+    </script>
+
+
+
+
+
+    <script>
+        /*
+        *   简历网络可视化图
+        *   状态：未开始
+        *   日期：2022-3-27
+        * */
         am5.ready(function () {
 
 // Create root element
@@ -474,8 +1144,7 @@
                 })
             );
 
-// Create series
-// https://www.amcharts.com/docs/v5/charts/hierarchy/#Adding
+
             var series = container.children.push(
                 am5hierarchy.ForceDirected.new(root, {
                     singleBranchOnly: false,

@@ -33,16 +33,26 @@ urlpatterns = [
     path('dpm_warning/', v4.dpm_warning),
     path('lod_warning/', v4.lod_warning),
     path('res_analysis/', v4.res_analysis),
+
     path('edata_year/', v4.edata_year),
     path('edata_predict/', v4.edata_predict),
     path('edata_every/', v4.edata_every),
     path('edata_category/', v4.edata_category),
+
     path('cdata_year/', v4.cdata_year),
     path('cdata_every/', v4.cdata_every),
     path('rdata_year/', v4.rdata_year),
     path('tdata_year/', v4.tdata_year),
     path('tdata_every/', v4.tdata_every),
     path('tdata_total/', v4.tdata_total),
+
+
+    path('resume_lb1/', v4.res_summary_of_date),
+    path('resume_lb2/', v4.res_middle_bottom_bar),
+    path('resume_lb3/', v4.res_right_bottom_pie),
+    path('resume_lb4/', v4.res_dynamic_time_series),
+    path('resume_lb5/', v4.res_area_line),
+
 ]
 
 urlpatterns += staticfiles_urlpatterns()
