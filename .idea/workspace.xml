@@ -2,7 +2,13 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="218d4064-e44b-425b-b47c-175e4e2ee23d" name="Default Changelist" comment="init">
-      <change beforePath="$PROJECT_DIR$/Jinja_templates/functions/eco_evolution.html" beforeDir="false" afterPath="$PROJECT_DIR$/Jinja_templates/functions/eco_evolution.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ElectricPower/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/ElectricPower/settings.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ElectricPower/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/ElectricPower/urls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Jinja_templates/functions/dpm_warning.html" beforeDir="false" afterPath="$PROJECT_DIR$/Jinja_templates/functions/dpm_warning.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Jinja_templates/functions/lod_warning.html" beforeDir="false" afterPath="$PROJECT_DIR$/Jinja_templates/functions/lod_warning.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Jinja_templates/functions/mul_source.html" beforeDir="false" afterPath="$PROJECT_DIR$/Jinja_templates/functions/mul_source.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/views.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -99,6 +105,16 @@
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="net.ashald.envfile">
+        <option name="IS_ENABLED" value="false" />
+        <option name="IS_SUBST" value="false" />
+        <option name="IS_PATH_MACRO_SUPPORTED" value="false" />
+        <option name="IS_IGNORE_MISSING_FILES" value="false" />
+        <option name="IS_ENABLE_EXPERIMENTAL_INTEGRATIONS" value="false" />
+        <ENTRIES>
+          <ENTRY IS_ENABLED="true" PARSER="runconfig" />
+        </ENTRIES>
+      </EXTENSION>
       <option name="launchJavascriptDebuger" value="false" />
       <option name="port" value="8000" />
       <option name="host" value="" />
@@ -166,7 +182,11 @@
       <workItem from="1648051382910" duration="301000" />
       <workItem from="1648051774559" duration="395000" />
       <workItem from="1648054193258" duration="15000" />
-      <workItem from="1648352815995" duration="14826000" />
+      <workItem from="1648352815995" duration="15121000" />
+      <workItem from="1648540820988" duration="5713000" />
+      <workItem from="1648546644516" duration="47000" />
+      <workItem from="1648718819668" duration="503000" />
+      <workItem from="1648725418050" duration="7810000" />
     </task>
     <task id="LOCAL-00001" summary="init">
       <created>1647581496714</created>

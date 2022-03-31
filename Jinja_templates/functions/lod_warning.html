@@ -204,7 +204,7 @@
                     type: 'get',
                     dataType: 'json',
                     success(res) {
-                        const allData = res.reduce((cur, next) => {
+                        const allData = res.data.reduce((cur, next) => {
                             cur = {...cur, ...next}
                             return cur
                         }, {})
@@ -578,8 +578,8 @@
                         }
                     })
                 } else {
-                    data = await getData('edata_year')
-                    data = data.map(item => {
+                    let result = await getData('edata_year')
+                    data = result.data.map(item => {
                         let year = Object.keys(item)[0]
                         return {
                             date: new Date(year).getTime(),

@@ -171,3 +171,6 @@ SIMPLEUI_STATIC_OFFLINE = True
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+MEDIA_ROOT = os.path.join(BASE_DIR, 'upload')
+FILE_UPLOAD_PERMISSIONS = 0o644
+

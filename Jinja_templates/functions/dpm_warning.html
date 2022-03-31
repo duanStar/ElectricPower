@@ -193,7 +193,7 @@
                     type: 'get',
                     dataType: 'json',
                     success(res) {
-                        const allData = res.reduce((cur, next) => {
+                        const allData = res.data.reduce((cur, next) => {
                             cur = {...cur, ...next}
                             return cur
                         }, {})
@@ -208,7 +208,8 @@
 // Data
             var allData = await getLData('cdata_year');
             var min_year = Object.keys(allData)[0]
-            var max_year = Object.keys(allData)[1]
+            var max_year = Object.keys(allData)[Object.keys(allData).length - 1]
+            console.log(max_year)
 
 
 // Create root element
@@ -378,7 +379,6 @@
 // update data with values each 1.5 sec
             var interval = setInterval(function () {
                 year++;
-
                 if (year > max_year) {
                     clearInterval(interval);
                     clearInterval(sortInterval);
@@ -553,8 +553,8 @@
             })
 
             async function generateData(value) {
-                data = await getData('cdata_year')
-                data = data.map(item => {
+                let result = await getData('cdata_year')
+                data = result.data.map(item => {
                     let year = Object.keys(item)[0]
                     return {
                         date: new Date(year).getTime(),

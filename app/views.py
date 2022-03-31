@@ -1,8 +1,11 @@
 import json
+import time
+import os
 
 from django.contrib.auth.hashers import make_password
 from django.shortcuts import render, HttpResponse, Http404
 from django.http import JsonResponse
+from django.core.paginator import Paginator
 from datetime import date, datetime
 
 from app.models import UserInfo
@@ -12,6 +15,8 @@ from app.models import EconomyIndustry
 from app.models import EconomyResource
 from app.models import EconomyTotal
 from django.contrib import auth
+from django.conf import settings
+from django.views.decorators.csrf import csrf_exempt
 
 # ---------------------------------------------------------------------------------------------------------------------
 """
@@ -133,8 +138,18 @@ def res_analysis(Request):
 
 
 def edata_year(Request):
+    page = Request.GET.get('page')
+    pageSize = Request.GET.get('pageSize')
+    paginator = None
     sql = 'select * from electric_industry'
     res = ElectricIndustry.objects.raw(sql)
+    next = True
+    if page and pageSize:
+        paginator = Paginator(res, pageSize)
+    if paginator is not None:
+        pageRes = paginator.page(int(page))
+        res = pageRes.object_list
+        next = pageRes.has_next()
     arr = []
     for i in res:
         year = i.year
@@ -142,8 +157,8 @@ def edata_year(Request):
                           '信息传输、计算机服务好软件业': i.infor, '商业、住宿餐饮业': i.comme, '金融、房地产、商务及居民服务业': i.financial,
                           '公共事业及管理组织': i.public}}
         arr.append(content)
-    # print(json.dumps(arr, ensure_ascii=False))
-    return HttpResponse(json.dumps(arr, ensure_ascii=False))
+    # print(json.dumps({'data': arr, 'next': next}, ensure_ascii=False))
+    return HttpResponse(json.dumps({'data': arr, 'next': next}, ensure_ascii=False))
 
 
 def edata_predict(Request):
@@ -179,9 +194,19 @@ def edata_category(Request):
 
 
 def cdata_year(Request):
+    page = Request.GET.get('page')
+    pageSize = Request.GET.get('pageSize')
+    paginator = None
     sql = 'select * from economy_industry'
     res = EconomyIndustry.objects.raw(sql)
     arr = []
+    next = True
+    if page and pageSize:
+        paginator = Paginator(res, pageSize)
+    if paginator is not None:
+        pageRes = paginator.page(int(page))
+        res = pageRes.object_list
+        next = pageRes.has_next()
     for i in res:
         year = i.year
         content = {year: {'第一产业': i.primary, '第二产业': i.secondary, '第三产业': i.tertiary, '农林牧渔业': i.animal,
@@ -189,8 +214,8 @@ def cdata_year(Request):
                           '交通运输业、仓储邮政业': i.transport, '金融业': i.financial, '房地产业': i.estate, '其他': i.others,
                           '生产总值': i.total}}
         arr.append(content)
-    # print(json.dumps(arr, ensure_ascii=False))
-    return HttpResponse(json.dumps(arr, ensure_ascii=False))
+    # print(json.dumps({'data': arr, 'next': next}, ensure_ascii=False))
+    return HttpResponse(json.dumps({'data': arr, 'next': next}, ensure_ascii=False))
 
 
 def cdata_every(Request):
@@ -208,9 +233,19 @@ def cdata_every(Request):
 
 
 def rdata_year(Request):
+    page = Request.GET.get('page')
+    pageSize = Request.GET.get('pageSize')
+    paginator = None
     sql = 'select * from economy_resource'
     res = EconomyResource.objects.raw(sql)
     arr = []
+    next = True
+    if page and pageSize:
+        paginator = Paginator(res, pageSize)
+    if paginator is not None:
+        pageRes = paginator.page(int(page))
+        res = pageRes.object_list
+        next = pageRes.has_next()
     names = ['全省年末人口总数 (万人)', '人口密度 (人/平方千米)', '全省土地面积 (万平方千米)', '民族自治地方土地面积 (万平方千米)', '全省年末耕地总资源 (万公顷)', '牧草地面积 (万公顷)',
              '全省森林面积 (万公顷)', '全省森林覆盖率(%)', '全省森林蓄积量 (亿立方米)', '全省水域及水利设施用地面积 (万公顷)', '全省水能资源理论蕴藏量 (亿千瓦)',
              '全省水资源总量 (亿立方米)', '全省铁矿保有资源储量 (亿吨)', '全省煤矿保有资源储量 (亿吨)', '全省磷矿石保有资源储量 (亿吨)']
@@ -225,8 +260,8 @@ def rdata_year(Request):
                           '全省铁矿保有资源储量 (亿吨)': i.pOreResource, '全省煤矿保有资源储量 (亿吨)': i.pCoalResource,
                           '全省磷矿石保有资源储量 (亿吨)': i.pPhosphateRes}}
         arr.append(content)
-    # print(json.dumps({'data': arr, 'names': names}, ensure_ascii=False))
-    return HttpResponse(json.dumps({'data': arr, 'names': names}, ensure_ascii=False))
+    # print(json.dumps({'data': arr, 'names': names, 'next': next}, ensure_ascii=False))
+    return HttpResponse(json.dumps({'data': arr, 'names': names, 'next': next}, ensure_ascii=False))
 
 
 def tdata_year(Request):
@@ -281,4 +316,50 @@ def tdata_total(Request):
         year = i.year
         content = {year: [float(i.primary), float(i.secondary), float(i.tertiary)]}
         arr2.append(content)
-    return HttpResponse(json.dumps({'names': names, 'data': arr, 'lists': lists, 'data2': arr2, 'years': years}, ensure_ascii=False))
+    return HttpResponse(
+        json.dumps({'names': names, 'data': arr, 'lists': lists, 'data2': arr2, 'years': years}, ensure_ascii=False))
+
+
+def tdata_all(Request):
+    page = Request.GET.get('page')
+    pageSize = Request.GET.get('pageSize')
+    paginator = None
+    sql = 'select * from economy_total'
+    res = EconomyTotal.objects.raw(sql)
+    content = {}
+    next = True
+    if page and pageSize:
+        paginator = Paginator(res, pageSize)
+    if paginator is not None:
+        pageRes = paginator.page(int(page))
+        res = pageRes.object_list
+        next = pageRes.has_next()
+    for i in res:
+        year = i.year
+        content[year] = {'工农业总产值  (亿元)': i.indusAndAgri, '农业总产值  (亿元)': i.agricultural, '工业总产值(亿元)': i.industrial,
+                         '轻工业产值(亿元)': i.lightIndustrial,
+                         '重工业产值(亿元)': i.HeavyIndustrial, '农业机械总动力(万千瓦)': i.AgriAndMachine}
+    print(json.dumps({'data': content, 'next': next}, ensure_ascii=False))
+    return HttpResponse(json.dumps({'data': content, 'next': next}, ensure_ascii=False))
+
+
+@csrf_exempt
+def upload(Request):
+    if Request.method == "POST":
+        myfile = Request.FILES.get('file', None)
+        try:
+            suffix = str(myfile.name.split('.')[-1])
+            times = str(time.time()).split('.').pop()  # 生成时间戳，取小数点后的值
+            fil = str(myfile.name.split('.')[0])
+            filename = times + '_' + fil + '.' + suffix
+            filename_dir = settings.MEDIA_ROOT
+            print(filename_dir)
+            with open(filename_dir + '\\' + filename, 'wb+') as destination:
+                for chunk in myfile.chunks():
+                    destination.write(chunk)
+                destination.close()
+        except:
+            return HttpResponse(json.dumps({'msg': '上传失败', 'code': 0}))
+        return HttpResponse(json.dumps({'msg': '上传成功', 'code': 1}))
+    else:
+        return HttpResponse(json.dumps({'msg': '上传失败', 'code': 0}))
