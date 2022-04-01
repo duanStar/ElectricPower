@@ -47,7 +47,7 @@ urlpatterns = [
     path('tdata_total/', v4.tdata_total),
 
     path('tdata_all/', v4.tdata_all),
-    path('upload/', v4.upload)
+    path('upload/', v4.upload),
 
 
 

@@ -24,7 +24,7 @@ from django.contrib import auth
 from django.conf import settings
 from django.views.decorators.csrf import csrf_exempt
 
-from utils.json_serializable import ComplexEncoder
+# from utils.json_serializable import ComplexEncoder
 from collections import Counter
 
 from datetime import date, datetime
