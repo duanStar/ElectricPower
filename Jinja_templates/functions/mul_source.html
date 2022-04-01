@@ -56,6 +56,82 @@
             box-shadow: rgba(192, 192, 192, 0.6) 0 0 10px 5px;
         }
 
+        .form-select {
+            display: block;
+            width: 100%;
+            padding: .375rem 2.25rem .375rem .75rem;
+            -moz-padding-start: calc(0.75rem - 3px);
+            font-size: 1rem;
+            font-weight: 400;
+            line-height: 1.5;
+            color: #212529;
+            background-color: #fff;
+            background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%23343a40' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M2 5l6 6 6-6'/%3e%3c/svg%3e");
+            background-repeat: no-repeat;
+            background-position: right .75rem center;
+            background-size: 16px 12px;
+            border: 1px solid #ced4da;
+            border-radius: .25rem;
+            transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
+        }
+
+        .card {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            min-width: 0;
+            word-wrap: break-word;
+            background-color: #fff;
+            background-clip: border-box;
+            border: 1px solid rgba(0, 0, 0, .125);
+            border-radius: .25rem;
+        }
+
+        .card-body {
+            flex: 1 1 auto;
+            padding: 1rem 1rem;
+        }
+
+        .el-upload {
+            display: inline-block;
+            text-align: center;
+            cursor: pointer;
+            outline: none;
+        }
+
+        .el-upload-dragger {
+            background-color: #fff;
+            border: 1px dashed #d9d9d9;
+            border-radius: 6px;
+            box-sizing: border-box;
+            width: 360px;
+            height: 180px;
+            line-height: 180px;
+            text-align: center;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .el-upload-dragger .el-upload__text {
+            color: #606266;
+            font-size: 14px;
+            text-align: center;
+        }
+
+        .el-upload-dragger .el-upload__text em {
+            color: #409eff;
+            font-style: normal;
+        }
+
+        .el-upload__input {
+            display: none;
+        }
+
+
     </style>
 {% endblock %}
 
@@ -116,9 +192,9 @@
                         </h3>
                         <div class="row">
                             <ul class="ctl_data">
-                                <li><span class="fa fa-laptop"></span> 本地已导入数据</li>
-                                <li><span class="fa fa-internet-explorer"></span> 国家统计局外网数据</li>
-                                <li><span class="fa fa-internet-explorer"></span> 国家经济开发中心公开数据</li>
+                                <li id="bendi"><span class="fa fa-laptop"></span> 本地已导入数据</li>
+                                <li id="waiwang"><span class="fa fa-internet-explorer"></span> 国家统计局外网数据</li>
+                                <li id="gongkai"><span class="fa fa-internet-explorer"></span> 国家经济开发中心公开数据</li>
                             </ul>
                         </div>
                     </div>
@@ -128,35 +204,34 @@
                                 <div class="panel-heading"><span class="fa fa-navicon"></span> 分析系统 - 输入数据管理</div>
                                 <div class="panel-body">
                                     <div class="row">
-                                        <div class="col-md-3">
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" value=""
-                                                       id="local_data">
-                                                <label class="form-check-label" for="local_data"
-                                                       style="vertical-align: 2px">已存储于本地的电网相关数据（约1,200,000条）</label>
+                                        <div class="col-md-8"
+                                             style="display: flex;flex-direction:column;row-gap: 15px;height: 180px">
+                                            <div class="top"
+                                                 style="display: flex;justify-content: space-between;column-gap: 15px;">
+                                                <select class="form-select" aria-label="Default select example">
+                                                    <option selected>请选择</option>
+                                                    <option value="1">本地已导入数据</option>
+                                                    <option value="2">国家统计局外网数据</option>
+                                                    <option value="3">国家经济开发中心公开数据</option>
+                                                </select>
+                                                <button button type="button" class="btn btn-primary">提交</button>
+                                            </div>
+                                            <div class="bottom" style="flex: 1">
+                                                <div class="card" style="height: 100%;">
+                                                    <div class="card-body">
+                                                        This is some text within a card body.
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
-                                        <div class="col-md-3">
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" value=""
-                                                       id="web_data_1">
-                                                <label class="form-check-label" for="web_data_1"
-                                                       style="vertical-align: 2px">（www.baidu.com）获取的数据（约3,100,000条）</label>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-5">
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" value=""
-                                                       id="web_data_2">
-                                                <label class="form-check-label" for="web_data_2"
-                                                       style="vertical-align: 2px">人工通过（www.baidu.com）获取的已清洗的电网数据</label>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-1">
-                                            <div class="form-check">
-                                                <button class="btn btn-primary" style="vertical-align: 10px">提交并同步
-                                                </button>
-                                            </div>
+                                        <div class="col-md-4"
+                                             style="display: flex;justify-content: center;align-items: center">
+                                            <div tabindex="0" class="el-upload el-upload--text">
+                                                <div class="el-upload-dragger">
+                                                    <div class="el-upload__text"><em>点击上传</em></div>
+                                                </div>
+                                                <input type="file" name="file" multiple="multiple"
+                                                       class="el-upload__input" style="visibility: hidden"></div>
                                         </div>
                                     </div>
                                 </div>
@@ -168,7 +243,8 @@
                                         <div class="row">
                                             <div class="col-md-3">
                                                 <div class="input-group">
-                                                    <input type="text" class="form-control" placeholder="请输入数据量以加载更多">
+                                                    <input type="text" class="form-control" id="page-size"
+                                                           placeholder="请输入数据量以加载更多">
                                                     <span class="input-group-btn">
                                                         <button class="btn btn-default" type="button">确定</button>
                                                     </span>
@@ -177,31 +253,19 @@
                                         </div>
                                         <div class="" style="border-radius: 9px; margin-top: 10px">
                                             <div class="table-responsive">
-                                                <table class="table table-bordered table-hover">
-                                                    <thead class="" style="background: rgba(201,201,201,0.28)">
-                                                    <tr>
-                                                        <th>#</th>
-                                                        <th>Table heading</th>
-                                                        <th>Table heading</th>
-                                                        <th>Table heading</th>
-                                                        <th>Table heading</th>
-                                                        <th>Table heading</th>
-                                                        <th>Table heading</th>
-                                                    </tr>
-                                                    </thead>
-                                                    <tbody>
-                                                    <tr>
-                                                        <th scope="row">1</th>
-                                                        <td>Table cell</td>
-                                                        <td>Table cell</td>
-                                                        <td>Table cell</td>
-                                                        <td>Table cell</td>
-                                                        <td>Table cell</td>
-                                                        <td>Table cell</td>
-                                                    </tr>
-                                                    </tbody>
+                                                <table class="table table-bordered table-hover" id="table">
                                                 </table>
                                             </div>
+                                            <nav aria-label="Page navigation example"
+                                                 style="display: flex;justify-content: flex-end">
+                                                <ul class="pagination">
+                                                    <li class=""><a class="page-link prev-btn" href="#"
+                                                                    style="margin-right: 15px;">上一页</a>
+                                                    </li>
+                                                    <li class=""><a class="page-link next-btn" href="#">下一页</a>
+                                                    </li>
+                                                </ul>
+                                            </nav>
                                         </div>
                                     </div>
                                 </div>
@@ -216,4 +280,222 @@
         </div>
 
     </div>
+{% endblock %}
+
+{% block scripts %}
+    <script src="{{ static('plg/jquery-3.6.0.min.js') }}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
+    <script>
+        $(function () {
+            const table = document.querySelector('#table');
+            const benDi = document.querySelector('#bendi');
+            const waiWang = document.querySelector('#waiwang');
+            const gongKai = document.querySelector('#gongkai');
+            const pageSizeInput = $('#page-size')
+            const prev = $('.prev-btn')
+            const next = $('.next-btn')
+            const upload = $('.el-upload')
+            const uploadInput = document.querySelector('.el-upload__input')
+            let page = 1;
+            let hasMore = true;
+            const BENDI = 1;
+            const WAIWANG = 2;
+            const GONGKAI = 3;
+            let status = BENDI;
+            let pageSize = pageSizeInput.val() || 1
+
+            pageSizeInput.on('change', (e) => {
+                pageSize = +e.target.value
+                page = 1;
+                getPageData()
+            })
+
+            function initialPage() {
+                if (page === 1) {
+                    prev.css('cursor', 'not-allowed')
+                } else {
+                    prev.css('cursor', 'pointer')
+                }
+                if (hasMore) {
+                    next.css('cursor', 'pointer')
+                } else {
+                    next.css('cursor', 'not-allowed')
+                }
+            }
+
+            initialPage()
+
+            upload.on('click', function (e) {
+                uploadInput.click()
+                e.stopPropagation()
+            })
+            uploadInput.addEventListener('change', e => {
+                let formData = new FormData()
+                formData.append('file', e.target.files[0])
+                $.ajax({
+                    url: 'http://127.0.0.1:8000/upload/?type=' + status,
+                    type: 'POST',
+                    dataType: 'json',
+                    processData: false,
+                    data: formData,
+                    contentType: false,
+                    success(res) {
+                        if (res.code === 0) {
+                            Swal.fire({
+                                title: '错误',
+                                text: res.msg,
+                                type: 'error',
+                                confirmButtonText: '确定'
+                            })
+                        } else {
+                            Swal.fire({
+                                title: '成功',
+                                text: res.msg,
+                                type: 'success',
+                                confirmButtonText: '确定'
+                            })
+                        }
+                    }
+                })
+            })
+
+            function getPageData() {
+                switch (status) {
+                    case BENDI:
+                        getBenDiData();
+                        break;
+                    case WAIWANG:
+                        getWaiWangData()
+                        break;
+                    default:
+                        return;
+                }
+            }
+
+            prev.on('click', function (e) {
+                if (page === 1) {
+                    return
+                }
+                page--;
+                getPageData()
+            })
+
+            next.on('click', function (e) {
+                if (!hasMore) {
+                    return
+                }
+                page++;
+                getPageData()
+            })
+
+            function getData(path) {
+                return new Promise(resolve => {
+                    $.ajax({
+                        url: 'http://127.0.0.1:8000/' + path,
+                        type: 'get',
+                        dataType: 'json',
+                        data: {
+                            page,
+                            pageSize
+                        },
+                        success(res) {
+                            resolve(res)
+                        }
+                    })
+                })
+            }
+
+            let category = [];
+
+            function getBenDiData() {
+                if (status !== BENDI) {
+                    status = BENDI
+                    page = 1
+                }
+                getData('edata_year').then(({data: res, next}) => {
+                    hasMore = next
+                    initialPage()
+                    category = Object.keys(res[0][Object.keys(res[0])[0]])
+                    category.push('全社会用电总量')
+                    category.unshift('年份')
+                    let html = generateBenDiTable(res);
+                    table.innerHTML = html;
+                })
+            }
+
+            getBenDiData()
+            benDi.addEventListener('click', getBenDiData)
+
+            async function getWaiWangData() {
+                if (status !== WAIWANG) {
+                    status = WAIWANG
+                    page = 1
+                }
+                let {data: cdata, next: cnext} = await getData('cdata_year')
+                let {data: rdata, next: rnext} = await getData('rdata_year')
+                let {data: tdata, next: tnext} = await getData('tdata_all')
+                hasMore = cnext && rnext && tnext
+                initialPage()
+                cdata = convertData(cdata)
+                rdata = convertData(rdata)
+                const resData = {}
+                for (let i in cdata) {
+                    resData[i] = {...cdata[i], ...rdata[i], ...tdata[i]}
+                }
+                category = ['年份'].concat(Object.keys(resData[Object.keys(resData)[0]]))
+                let html = generateWaiWangTable(resData)
+                table.innerHTML = html
+            }
+
+            waiWang.addEventListener('click', getWaiWangData)
+
+            function generateBenDiTable(data) {
+                let html = ` <thead class="" style="background: rgba(201,201,201,0.28)"><tr>`
+                category.forEach(item => {
+                    html += `<th>${item}</th>`
+                })
+                html += `</tr></thead><tbody>`
+                data = data.map(item => {
+                    let key = Object.keys(item)[0];
+                    item[key].total = Object.values(item[key]).reduce((cur, next) => (+cur) + (+next));
+                    return item;
+                })
+                data.forEach(item => {
+                    let key = Object.keys(item)[0];
+                    let obj = item[key];
+                    html += `<tr><td>${key}</td>`
+                    Object.values(obj).forEach(item => {
+                        html += `<td>${item}</td>`
+                    })
+                    html += `</tr>`
+                })
+                html += '</tody>'
+                return html;
+            }
+
+            function generateWaiWangTable(data) {
+                let html = ` <thead class="" style="background: rgba(201,201,201,0.28)"><tr>`
+                category.forEach(item => {
+                    html += `<th>${item}</th>`
+                })
+                html += `</tr></thead><tbody>`
+                for (let key in data) {
+                    html += `<tr><td>${key}</td>`
+                    Object.values(data[key]).forEach(item => {
+                        html += `<td>${item}</td>`
+                    })
+                    html += `</tr>`
+                }
+                html += '</tody>'
+                return html;
+            }
+
+            function convertData(res) {
+                return res.reduce((cur, next) => {
+                    cur = {...cur, ...next}
+                    return cur
+                }, {})
+            }
+        })
+    </script>
 {% endblock %}

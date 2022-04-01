@@ -46,6 +46,10 @@ urlpatterns = [
     path('tdata_every/', v4.tdata_every),
     path('tdata_total/', v4.tdata_total),
 
+    path('tdata_all/', v4.tdata_all),
+    path('upload/', v4.upload)
+
+
 
     path('resume_lb1/', v4.res_summary_of_date),
     path('resume_lb2/', v4.res_middle_bottom_bar),
@@ -54,6 +58,7 @@ urlpatterns = [
     path('resume_lb5/', v4.res_area_line),
 
     path('sys_status/', v4.sys_status)
+
 
 ]
 
