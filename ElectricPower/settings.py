@@ -106,9 +106,9 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'electric2022',
         'USER': 'root',
-        'PASSWORD': 'root',
-        'HOST': '127.0.0.1',
-        'PORT': '3306',
+        'PASSWORD': 'absurd',
+        'HOST': 'localhost',
+        'PORT': '3307',
         'OPTIONS': {'charset': 'utf8'}
     }
 }

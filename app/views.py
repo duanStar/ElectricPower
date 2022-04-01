@@ -11,12 +11,20 @@ from datetime import date, datetime
 from app.models import UserInfo
 from app.models import ElectricIndustry
 from app.models import ElectricTotal
+
 from app.models import EconomyIndustry
 from app.models import EconomyResource
 from app.models import EconomyTotal
+from app.models import Resume
+
 from django.contrib import auth
+
 from django.conf import settings
 from django.views.decorators.csrf import csrf_exempt
+
+from utils.json_serializable import ComplexEncoder
+from collections import Counter
+
 
 # ---------------------------------------------------------------------------------------------------------------------
 """
@@ -25,7 +33,7 @@ Enter the entrance of the system. Then select which user to login.
 Selection:
     - SuperUser  (root)
     - NormalUser (user)
-    
+
     Password check:
         - root -> 6CH7zM
         - user -> 000000
@@ -119,6 +127,8 @@ def dpm_warning(Request):
         'category': ['生产总值', '第一产业', '第二产业', '第三产业', '农林牧渔业', '工业', '建筑业', '批发和零售业', '交通运输业、仓储邮政业', '金融业', '房地产业', '其他']
     })
 
+# =============================================================================================================
+#                                           系统三  ： 中长期负荷预测系统
 
 def lod_warning(Request):
     sql = 'select * from electric_industry'
@@ -126,16 +136,15 @@ def lod_warning(Request):
     arr = []
     for i in res:
         arr.append(i.year)
-    return render(Request, 'functions/lod_warning.html', {'years': arr, 'category': ['全社会用电总量', '农、林、牧、渔业', '工业', '建筑业',
-                                                                                     '交通运输业、仓储邮政业', '信息传输、计算机服务好软件业',
-                                                                                     '商业、住宿餐饮业', '金融、房地产、商务及居民服务业',
-                                                                                     '公共事业及管理组织'], 'path': 'lod_warning'
-                                                          })
-
-
-def res_analysis(Request):
-    return render(Request, 'functions/res_analysis.html', {'path': 'res_analysis'})
-
+    return render(Request,
+                  'functions/lod_warning.html',
+                  {'years': arr, 'category':
+                      ['全社会用电总量', '农、林、牧、渔业', '工业', '建筑业',
+                         '交通运输业、仓储邮政业', '信息传输、计算机服务好软件业',
+                         '商业、住宿餐饮业', '金融、房地产、商务及居民服务业',
+                         '公共事业及管理组织'
+                       ], 'path': 'lod_warning'
+    })
 
 def edata_year(Request):
     page = Request.GET.get('page')
@@ -316,6 +325,7 @@ def tdata_total(Request):
         year = i.year
         content = {year: [float(i.primary), float(i.secondary), float(i.tertiary)]}
         arr2.append(content)
+        
     return HttpResponse(
         json.dumps({'names': names, 'data': arr, 'lists': lists, 'data2': arr2, 'years': years}, ensure_ascii=False))
 
@@ -363,3 +373,153 @@ def upload(Request):
         return HttpResponse(json.dumps({'msg': '上传成功', 'code': 1}))
     else:
         return HttpResponse(json.dumps({'msg': '上传失败', 'code': 0}))
+
+    return HttpResponse(json.dumps({'names': names, 'data': arr, 'lists': lists, 'data2': arr2, 'years': years}, ensure_ascii=False))
+
+  
+# =============================================================================================================
+#                                           系统四  ： 简历分析系统
+
+
+
+def res_analysis(Request):
+    """------------------------------------------
+      * 访问该系统时异步加载数据可视化内容
+        1. 日期行业表（左上）
+        2. 年份总量表（右上）
+        3. 性别数量表（下左）
+        4. 主要行业数量（下中）
+        5. 主要行业占比（下右）
+    ------------------------------------------"""
+
+    return render(Request, 'functions/res_analysis.html', {'path': 'res_analysis'})
+
+
+def res_summary_of_date(Request):
+    # for item in Resume.objects.all().values():
+    #     obj_dict[item['nid']] = \
+    #         {
+    #             'date': item['date'],
+    #             'degree': item['degree'],
+    #             'location': item['location'],
+    #             'industry': item['industry']
+    #         }
+
+    # 获取统计量
+    each_year_sum = {}
+    for item in Resume.objects.all().values().filter().order_by('date'):
+        _DATE_YEAR = str(item['date'].year)
+        _DATE = str(item['date'])
+
+        try:
+            each_year_sum[_DATE] += 1
+        except KeyError:
+            each_year_sum[_DATE] = 0
+
+    return HttpResponse(json.dumps(each_year_sum, ensure_ascii=False, cls=ComplexEncoder))
+
+
+def res_middle_bottom_bar(Request):
+    # for item in Resume.objects.all().values():
+    #     obj_dict[item['nid']] = \
+    #         {
+    #             'date': item['date'],
+    #             'degree': item['degree'],
+    #             'location': item['location'],
+    #             'industry': item['industry']
+    #         }
+
+    # 获取统计量
+    all_items = []
+    for item in Resume.objects.all().values().filter().order_by('date'):
+        _DATE_YEAR = str(item['date'].year)
+        _DATE = str(item['date'])
+        all_items.append(item['location'][:2])
+
+    all_items_dict = dict(Counter(all_items))
+    all_infos = {key: value for key, value in all_items_dict.items() if value > 1}
+    all_infos_sorted = {k: v for k, v in sorted(all_infos.items(), key=lambda item: item[1], reverse=True)}
+
+    return HttpResponse(json.dumps(all_infos_sorted, ensure_ascii=False, cls=ComplexEncoder))
+
+
+def res_right_bottom_pie(Request):
+    # for item in Resume.objects.all().values():
+    #     obj_dict[item['nid']] = \
+    #         {
+    #             'date': item['date'],
+    #             'degree': item['degree'],
+    #             'location': item['location'],
+    #             'industry': item['industry']
+    #         }
+    # 获取统计量
+
+    all_items = []
+    all_jobs_ind = []
+    for item in Resume.objects.all().values().filter().order_by('date'):
+        _DATE_YEAR = str(item['date'].year)
+        _DATE = str(item['date'])
+        all_items.append(item['industry'][:2])
+        if item['industry'] not in all_jobs_ind:
+            all_jobs_ind.append(item['industry'])
+    print(all_jobs_ind)
+    all_items_dict = dict(Counter(all_items))
+    all_infos = {key: value for key, value in all_items_dict.items() if value > 30}
+    all_infos_sorted = {k: v for k, v in sorted(all_infos.items(), key=lambda item: item[1], reverse=True)}
+    return HttpResponse(json.dumps(all_infos_sorted, ensure_ascii=False, cls=ComplexEncoder))
+
+
+def res_dynamic_time_series(Request):
+    all_items = {}
+    for item in Resume.objects.all().values().filter().order_by('date').distinct():
+        _DATE_YEAR = str(item['date'].year)
+        # allData中的每一年的每个领域的简历数量是多少？
+        if int(_DATE_YEAR) < 2015:
+            try:
+                all_items[_DATE_YEAR] = all_items[_DATE_YEAR]
+            except KeyError:
+                all_items[_DATE_YEAR] = {}
+            finally:
+                from django.db import connection
+                sql = f""" select count(*) from electric2022.resume where industry like '{item['industry'][:3]}%' and date like '{_DATE_YEAR}%'; """
+                with connection.cursor() as cursor:
+                    cursor.execute(sql)
+                    dataInfo = cursor.fetchall()
+                all_items[_DATE_YEAR][item['industry'][:]] = dataInfo[0][0]
+
+    return HttpResponse(json.dumps(all_items, ensure_ascii=False, cls=ComplexEncoder))
+
+
+def res_area_line(Request):
+    # for item in Resume.objects.all().values():
+    #     obj_dict[item['nid']] = \
+    #         {
+    #             'date': item['date'],
+    #             'degree': item['degree'],
+    #             'location': item['location'],
+    #             'industry': item['industry']
+    #         }
+
+    # 获取统计量
+    each_year_sum = {}
+    for item in Resume.objects.all().values().filter().order_by('date'):
+        _DATE_YEAR = str(item['date'].year)
+        _DEGREE = item['degree']
+        _DATE = str(item['date'].year)
+        if _DEGREE == '本科':
+            try:
+                each_year_sum[_DATE] += 1
+            except KeyError:
+                each_year_sum[_DATE] = 0
+
+    ret = {}
+    for year_cnt in each_year_sum:
+        try:
+            ret[year_cnt]['year'] = int(year_cnt)
+            ret[year_cnt]['value'] =  each_year_sum[year_cnt]
+        except KeyError:
+            ret[year_cnt] = {}
+            ret[year_cnt]['year'] = int(year_cnt)
+            ret[year_cnt]['value'] =  each_year_sum[year_cnt]
+    return HttpResponse(json.dumps(ret, ensure_ascii=False, cls=ComplexEncoder))
+

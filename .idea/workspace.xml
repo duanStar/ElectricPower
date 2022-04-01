@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
+
     <list default="true" id="218d4064-e44b-425b-b47c-175e4e2ee23d" name="Default Changelist" comment="init">
+
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ElectricPower/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/ElectricPower/settings.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ElectricPower/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/ElectricPower/urls.py" afterDir="false" />
@@ -9,6 +11,16 @@
       <change beforePath="$PROJECT_DIR$/Jinja_templates/functions/lod_warning.html" beforeDir="false" afterPath="$PROJECT_DIR$/Jinja_templates/functions/lod_warning.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Jinja_templates/functions/mul_source.html" beforeDir="false" afterPath="$PROJECT_DIR$/Jinja_templates/functions/mul_source.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/views.py" afterDir="false" />
+
+      <change beforePath="$PROJECT_DIR$/Jinja_templates/functions/eco_evolution.html" beforeDir="false" afterPath="$PROJECT_DIR$/Jinja_templates/functions/eco_evolution.html" afterDir="false" />
+
+    <list default="true" id="218d4064-e44b-425b-b47c-175e4e2ee23d" name="Default Changelist" comment="update Resume bottom-left line figure">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ElectricPower/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/ElectricPower/urls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Jinja_templates/functions/res_analysis.html" beforeDir="false" afterPath="$PROJECT_DIR$/Jinja_templates/functions/res_analysis.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/static/js/res/b05.js" beforeDir="false" afterPath="$PROJECT_DIR$/app/static/js/res/b05.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/views.py" afterDir="false" />
+
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -62,7 +74,7 @@
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
-    <property name="DatabaseDriversLRU" value="mariadb&#10;mysql" />
+    <property name="DatabaseDriversLRU" value="mysql&#10;mariadb" />
     <property name="DefaultHtmlFileTemplate" value="HTML File" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
@@ -71,6 +83,7 @@
     <property name="list.type.of.created.stylesheet" value="CSS" />
     <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
     <property name="settings.editor.splitter.proportion" value="0.23517588" />
+    <property name="ts.external.directory.path" value="D:\Workstation\Pycharm_Pro_home\PyCharm 2021.1.1\plugins\JavaScriptLanguage\jsLanguageServicesImpl\external" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
@@ -90,6 +103,50 @@
   </component>
   <component name="RunManager" selected="Django Server.ElectricPower">
     <configuration name="index.html" type="JavascriptDebugType" temporary="true" nameIsGenerated="true" uri="http://localhost:63342/ElectricPower/Jinja_templates/index.html" useBuiltInWebServerPort="true">
+      <method v="2" />
+    </configuration>
+    <configuration name="test" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="ElectricPower" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/app" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/app/test.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="views" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="ElectricPower" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/app" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/app/views.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
     <configuration name="ElectricPower" type="Python.DjangoServer" factoryName="Django server">
@@ -129,9 +186,13 @@
     <list>
       <item itemvalue="Django Server.ElectricPower" />
       <item itemvalue="JavaScript Debug.index.html" />
+      <item itemvalue="Python.views" />
+      <item itemvalue="Python.test" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.test" />
+        <item itemvalue="Python.views" />
         <item itemvalue="JavaScript Debug.index.html" />
       </list>
     </recent_temporary>
@@ -181,12 +242,22 @@
       <workItem from="1647744296664" duration="14725000" />
       <workItem from="1648051382910" duration="301000" />
       <workItem from="1648051774559" duration="395000" />
+
       <workItem from="1648054193258" duration="15000" />
+
       <workItem from="1648352815995" duration="15121000" />
       <workItem from="1648540820988" duration="5713000" />
       <workItem from="1648546644516" duration="47000" />
       <workItem from="1648718819668" duration="503000" />
       <workItem from="1648725418050" duration="7810000" />
+
+      <workItem from="1648352815995" duration="14826000" />
+
+      <workItem from="1648259247203" duration="7642000" />
+      <workItem from="1648358714820" duration="9903000" />
+      <workItem from="1648440954941" duration="6183000" />
+
+
     </task>
     <task id="LOCAL-00001" summary="init">
       <created>1647581496714</created>
@@ -202,7 +273,21 @@
       <option name="project" value="LOCAL" />
       <updated>1647582112221</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="update Resume bottom-left line figure">
+      <created>1648200694291</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1648200694291</updated>
+    </task>
+    <task id="LOCAL-00004" summary="update Resume bottom-left line figure">
+      <created>1648200749419</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1648200749419</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -218,20 +303,15 @@
         </entry>
       </map>
     </option>
+    <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="init" />
-    <option name="LAST_COMMIT_MESSAGE" value="init" />
+    <MESSAGE value="update Resume bottom-left line figure" />
+    <option name="LAST_COMMIT_MESSAGE" value="update Resume bottom-left line figure" />
   </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/app/models.py</url>
-          <line>13</line>
-          <option name="timeStamp" value="2" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
+  <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/ElectricPower$test.coverage" NAME="test Coverage Results" MODIFIED="1648359078138" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/app" />
+    <SUITE FILE_PATH="coverage/ElectricPower$views.coverage" NAME="views Coverage Results" MODIFIED="1648358737209" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/app" />
   </component>
 </project>
