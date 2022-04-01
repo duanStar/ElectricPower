@@ -53,6 +53,8 @@ urlpatterns = [
     path('resume_lb4/', v4.res_dynamic_time_series),
     path('resume_lb5/', v4.res_area_line),
 
+    path('sys_status/', v4.sys_status)
+
 ]
 
 urlpatterns += staticfiles_urlpatterns()

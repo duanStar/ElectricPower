@@ -62,9 +62,7 @@
         }
 
         #chartdiv_A, #chartdiv_B, #chartdiv_C, #chartdiv_D, #chartdiv_S {
-            {#box-shadow: 0 0 10px 5px rgba(192, 192, 192, 0.55);#}
-
-            background: white;
+        {#box-shadow: 0 0 10px 5px rgba(192, 192, 192, 0.55);#} background: white;
         }
     </style>
     <style>
@@ -192,7 +190,7 @@
 
                                 <!-- 三级量度控制 -->
                                 <div>
-                                    <label>数据量：<span id="3_num" class="text-primary">0</span> 条，占比 <span id="3_pot"
+                                    <label>数据：<span id="3_num" class="text-primary">0</span> ，占比 <span id="3_pot"
                                                                                                          class="text-primary">0</span>
                                         %</label>
                                     <input type="range" name="slider-1" id="slider" min="1" max="100000" step="1"
@@ -228,7 +226,7 @@
                     </div>
                     <div class="col-md-11" style="height: 78vh; padding: 0">
                         <div class="panel panel-primary" style="border: none">
-{#                            <div class="panel-heading">数据可视化</div>#}
+                            {#                            <div class="panel-heading">数据可视化</div>#}
                             <div class="panel-body" style="height: 78vh; background: #337ab7; border: none">
 
                                 <div class="container-fluid">
@@ -245,7 +243,7 @@
                                         <div class="col-md-5" style="height: 43vh;">
                                             <div id="chartdiv_D"
                                                  style="border: 1px silver solid; border-radius: 9px; margin-top: 10px; margin-left: 0">
-                                            <div class="text-center"
+                                                <div class="text-center"
                                                      style="margin-top: 10px; margin-bottom: -20px;">
                                                     每年投递者为本科学历的数量与时间关系统计图
                                                 </div>
@@ -291,48 +289,90 @@
                                  style="color: white; background: rgba(255,255,255,0.1); height: 190px; margin-top: 50px; border-radius: 9px; padding: 10px; border: none">
                                 <div class="col-md-3">
                                     <div style="margin-top: 10px; display: flex; justify-content: space-between;flex-wrap: wrap">
-                                        <button style="width: 150px; height: 50px; font-size: 1.4rem" class="btn btn-primary btn-sm" ><span class="fa fa-search"></span>  模型参数调试&emsp;</button>
-                                        <button style="width: 150px; height: 50px; font-size: 1.4rem" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#myModal"><span class="fa fa-search"></span> 全局可视化&emsp;</button>
-                                        <button style="width: 150px; height: 50px; font-size: 1.4rem" class="btn btn-warning btn-sm" ><span class="fa fa-search"></span> 系统检查&emsp;</button>
-                                        <button style="width: 150px; height: 50px; font-size: 1.4rem" class="btn btn-default btn-sm" ><span class="fa fa-search"></span> 进行预测&emsp;</button>
-                                        <div style="display: flex; margin-top: 7px">说明：全局可视化为</div>
+                                        <button style="width: 150px; height: 50px; font-size: 1.4rem" class="btn btn-primary btn-sm" onclick="process_off()"><span class="fa fa-search"></span> 进行下一项任务&emsp;</button>
+                                        <button style="width: 150px; height: 50px; font-size: 1.4rem" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#myModal"><span
+                                                class="fa fa-search"></span> 全局可视化&emsp;
+                                        </button>
+                                        <button style="width: 150px; height: 50px; font-size: 1.4rem" class="btn btn-warning btn-sm" onclick="process_on()"><span class="fa fa-search"></span> 系统检查&emsp;</button>
+                                        <button style="width: 150px; height: 50px; font-size: 1.4rem" class="btn btn-default btn-sm"><span class="fa fa-search"></span> 进行预测&emsp;</button>
+                                        <div style="display: flex; margin-top: 7px; opacity: 0.6; line-height: 30px">说明：本系统默认引擎为图网络分析引擎，进入页面后可直接进行主流行业预测；也可以进行简历数据可视化，如出现故障请及时检查系统状态；选定模型后即可进行预测。</div>
                                     </div>
                                     <div class="modal fade" id="myModal" tabindex="-1" role="dialog"
-                                             aria-labelledby="myModalLabel" aria-hidden="true">
-                                            <div class="modal-dialog modal-lg" style="width: 90%">
-                                                <div class="modal-content">
-                                                    <div class="modal-header">
-                                                        <button type="button" class="close" data-dismiss="modal"
-                                                                aria-hidden="true">&times;
-                                                        </button>
-                                                        <h4 class="modal-title" id="myModalLabel">模态框（Modal）标题</h4>
-                                                    </div>
-                                                    <div class="modal-body">
-                                                        <div id="network_dash"></div>
-                                                    </div>
-                                                    <div class="modal-footer">
-                                                        <button type="button" class="btn btn-default"
-                                                                data-dismiss="modal">关闭
-                                                        </button>
-                                                    </div>
-                                                </div><!-- /.modal-content -->
-                                            </div><!-- /.modal -->
-                                        </div>
+                                         aria-labelledby="myModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog modal-lg" style="width: 90%">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <button type="button" class="close" data-dismiss="modal"
+                                                            aria-hidden="true">&times;
+                                                    </button>
+                                                    <h4 class="modal-title" id="myModalLabel">模态框（Modal）标题</h4>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <div id="network_dash"></div>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-default"
+                                                            data-dismiss="modal">关闭
+                                                    </button>
+                                                </div>
+                                            </div><!-- /.modal-content -->
+                                        </div><!-- /.modal -->
+                                    </div>
                                     <br>
                                 </div>
                                 <div class="col-md-2" style="border-left: #a6d4ff solid 1px; height: 10vh">
-                                    <h5>采用分析模型：</h5>
-                                    <p></p>
+                                    <h4><span class="fa fa-cubes"></span> 当前模型架构：</h4>
+                                    <div style="width: 100%; padding: 12px; height: 40px; background: rgba(255,255,255,0.15); font-weight: 600">
+                                        Karl-EDGCNN (Opt2022.v3.fp75) Engine:1.10-1 E256.1
+                                    </div>
+                                    <div>
+                                        <label style="display: flex; justify-content: space-between">
+                                            <span style="padding-top: 18px;padding-left: 10px">选择模型</span>
+                                            <select class="form-control" style="width: 80%;background: rgba(255,255,255,0.54); margin-top: 10px">
+                                                <option>Karl-EDGCNN (Opt2022.v3.fp75)</option>
+                                                <option>Liner-Regress (Norm2022.v4.fp31)</option>
+                                                <option>Complex Engine:2.21-2 E512.2</option>
+                                            </select>
+                                        </label>
+                                    </div>
                                 </div>
-                                <div class="col-md-3">分析所用数据量：</div>
-                                <div class="col-md-3">系统负载：</div>
+                                <div class="col-md-2" style="border-left: #a6d4ff solid 1px; height: 10vh">
+                                    <h4><span class="fa fa-cogs"></span> 模型超参数：</h4>
+                                    <div style="border-radius: 9px; width: 100%; height: 90px; background: rgba(255,255,255,0.2)"></div>
+
+                                </div>
+                                <div class="col-md-3" style="border-left: #a6d4ff solid 1px; height: 10vh">
+                                    <h4><span class="fa fa-cloud-download"></span> 分析报告：</h4>
+                                    <div style="width: 100%; padding: 12px; height: 40px; background: rgba(255,255,255,0.15); font-weight: 600">
+                                        <a href="#" style="color: #ffecc7"><i class="fa fa-file-text"></i> 点击下载分析报告</a>
+                                    </div>
+                                    <div style="padding: 10px; color: #9fc3f5">
+                                        当前时间: <span id="current_time" style="padding-left: 10px; color: #f5f0a7"></span>
+                                    </div>
+                                    <div style="padding-left:10px; color: #9fc3f5">
+                                        当前系统已存储分析报告: <span id="sum_report" style="padding-left: 10px">18</span>
+                                    </div>
+                                </div>
+                                <div class="col-md-2" style="border-left: #a6d4ff solid 1px; height: 10vh">
+                                    <br>
+                                    <div>内存 <span id="mem_txt" style="padding-left: 10px; color: #f3c6b1; font-weight: 800"></span></div>
+                                    <div class="progress" style="background: #5b80b2">
+                                        <div id="mem_status" class="progress-bar progress-bar-info progress-bar-striped" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100" style="width: 20%">
+                                        </div>
+                                    </div>
+                                    <div>CPU <span id="cpu_txt" style="padding-left: 10px; color: #bdf3b1; font-weight: 800"></span></div>
+                                    <div class="progress" style="background: #5b80b2">
+                                        <div id="cpu_status" class="progress-bar progress-bar-info progress-bar-striped" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100" style="width: 50%">
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
 
                             <div class="progress" style="margin-top: 20px;margin-left: 0; margin-right: 0;
 							position: absolute; bottom: 0px; left: 20px; right: 20px; background: #296395">
-                                <div class="progress-bar progress-bar-success progress-bar-striped active"
+                                <div id="process" class="progress-bar progress-bar-success progress-bar-striped active"
                                      role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100"
-                                     style="width: 0">
+                                     style="width: 0;">
                                 </div>
                             </div>
                         </div>
@@ -352,6 +392,41 @@
             $('#3_num').text($('#slider').val())
             $('#3_pot').text(Math.floor((parseInt($('#slider').val()) / 100000) * 100))
         })
+    </script>
+    <script>
+    // Local time
+    var myVar = setInterval(function(){  document.getElementById("current_time").innerHTML = new Date();}, 1000);
+    </script>
+    <script>
+    /*
+    *   系统状态实时展示： 完毕
+    * */
+        setInterval(function (){
+            $.ajax({
+                url: '/sys_status/',
+                dataType: 'JSON',
+                success: function (sys_data) {
+                    console.log(sys_data)
+                    $('#mem_status').css('width', sys_data['mem_percent'] + '%')
+                    $('#cpu_status').css('width', sys_data['cpu_percent'] + '%')
+                    $('#cpu_txt').text(sys_data['cpu_percent'] + '%')
+                    $('#mem_txt').text(sys_data['mem_percent'] + '%')
+                }
+            })
+        }, 5000)
+    </script>
+    <script>
+    /*
+    *   系统提交-响应控制栏
+    * */
+    function process_on () {
+        $('#process').css('transition', 1.0)
+        $('#process').css('width', '100%')
+    }
+    function process_off () {
+        $('#process').css('transition', 0.1)
+        $('#process').css('width', 0)
+    }
     </script>
 
     {###################################################################################################################################################################}
@@ -907,7 +982,7 @@
                         {
                             year: obj_array[key_]['year'].toString(),
                             value: obj_array[key_]['value'],
-                          }
+                        }
                     )
                 }
 
