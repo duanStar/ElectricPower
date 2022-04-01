@@ -1,15 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="218d4064-e44b-425b-b47c-175e4e2ee23d" name="Default Changelist" comment="init">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ElectricPower/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/ElectricPower/settings.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ElectricPower/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/ElectricPower/urls.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Jinja_templates/functions/dpm_warning.html" beforeDir="false" afterPath="$PROJECT_DIR$/Jinja_templates/functions/dpm_warning.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Jinja_templates/functions/lod_warning.html" beforeDir="false" afterPath="$PROJECT_DIR$/Jinja_templates/functions/lod_warning.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Jinja_templates/functions/mul_source.html" beforeDir="false" afterPath="$PROJECT_DIR$/Jinja_templates/functions/mul_source.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/views.py" afterDir="false" />
-    </list>
+    <list default="true" id="218d4064-e44b-425b-b47c-175e4e2ee23d" name="Default Changelist" comment="init" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -186,7 +178,7 @@
       <workItem from="1648540820988" duration="5713000" />
       <workItem from="1648546644516" duration="47000" />
       <workItem from="1648718819668" duration="503000" />
-      <workItem from="1648725418050" duration="7810000" />
+      <workItem from="1648725418050" duration="7976000" />
     </task>
     <task id="LOCAL-00001" summary="init">
       <created>1647581496714</created>
