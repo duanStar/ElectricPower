@@ -35,8 +35,7 @@
 
         .ctl_data {
             color: whitesmoke;
-            padding: 0 40px 40px;
-            margin: 10px;
+        {#padding: 0 40px 40px;#} margin: 10px;
         }
 
         ul {
@@ -44,16 +43,17 @@
         }
 
         .ctl_data > li {
-            background: rgba(255, 255, 255, 0.17);
+            background: rgba(4, 54, 108, 0.87) !important;
             width: 100%;
             margin-top: 40px;
             padding: 15px;
             border-radius: 9px;
+            border: 3px silver solid;
             transition: .5s;
         }
 
         .ctl_data > li:hover {
-            box-shadow: rgba(192, 192, 192, 0.6) 0 0 10px 5px;
+            border: 3px #0c6aaf solid;
         }
 
         .form-select {
@@ -131,6 +131,48 @@
             display: none;
         }
 
+        .ctl_bar {
+            border: none;
+            margin-top: 20px !important;
+            background: none !important;
+        }
+
+        .ctl_bar > .panel-heading {
+            background: rgba(4, 54, 108, 0.87) !important;
+            padding: 0 !important;
+            border: 3px #b1e9ff solid;
+            transition: .4s;
+            margin: 10px !important;
+        }
+
+        .ctl_bar > .panel-heading:hover {
+            border: 3px dodgerblue solid;
+            transition: .4s;
+        }
+
+        .panel-heading > h4 {
+            padding: 20px;
+        }
+
+        .panel-collapse {
+            background: none !important;
+        }
+
+        .sed_details {
+            background: rgba(245, 245, 245, 0.);
+            border-radius: 9px;
+            width: 100%;
+            padding: 10px;
+            color: white;
+            margin: 5px;
+            border: 3px rgba(245, 245, 245, 0.1) solid !important;
+            transition: .4s;
+        }
+
+        .sed_details:hover{
+            border: 3px skyblue solid !important;
+            transition: .4s;
+        }
 
     </style>
 {% endblock %}
@@ -150,25 +192,25 @@
                     <li><a class="text-blue" href="/"><span class="fa fa-home"></span> 系统主页</a></li>
                     <li><a class="text-blue" href="/mul_source/"><span {% if path == 'mul_source' %}
                         style="color: dodgerblue;font-weight: bold"
-                    {% endif %}><span class="fa fa-database"></span> 多源数据融合感知系统</span></a>
+                    {% endif %}><span class="fa fa-database"></span> 多源数据融合感知</span></a>
                     </li>
                     <li><a class="text-blue" href="/eco_evolution/"><span {% if path == 'eco_evolution' %}
                         style="color: dodgerblue;font-weight: bold"
                     {% endif %}><span class="fa fa-line-chart"></span>
-                            社会经济演化分析系统</span></a></li>
+                            社会经济演化分析</span></a></li>
                     <li><a class="text-blue" href="/dpm_warning/"><span {% if path == 'dpm_warning' %}
                         style="color: dodgerblue;font-weight: bold"
-                    {% endif %}><span class="fa fa-bell"></span> 社会经济发展预警系统</span></a>
+                    {% endif %}><span class="fa fa-bell"></span> 社会经济发展预警</span></a>
                     </li>
                     <li><a class="text-blue" href="/lod_warning/"><span {% if path == 'lod_warning' %}
                         style="color: dodgerblue;font-weight: bold"
                     {% endif %}
                     ><span
-                            class="fa fa-cubes"></span> 中长期负荷预警系统</span></a></li>
+                            class="fa fa-cubes"></span> 中长期负荷预警</span></a></li>
                     <li><a class="text-blue" href="/res_analysis/"><span {% if path == 'res_analysis' %}
                         style="color: dodgerblue;font-weight: bold"
                     {% endif %}><span class="fa fa-id-card-o"></span>
-                        社会求职简历数据可视化平台</span></a></li>
+                        社会求职简历数据可视化</span></a></li>
                 </ul>
                 <p class="navbar-text navbar-right"><a type="button" style="color: midnightblue" href="#"><span
                         class="fa fa-user-circle"></span> 蒲应明 <small>[注销]</small></a></p>
@@ -188,15 +230,75 @@
                     <div class="col-md-2" style="height: 100vh;background: #104b92; padding: 0;">
                         <h3 class="text-center"
                             style="color: white;margin: 0; padding: 60px 40px;background: rgba(255, 255, 255, 0.17);font-weight: 600">
-                            <span class="fa fa-database"></span> 南方电网数据源管理
+                            <span class="fa fa-database"></span> 系统数据源管理
                         </h3>
-                        <div class="row">
-                            <ul class="ctl_data">
-                                <li id="bendi"><span class="fa fa-laptop"></span> 本地已导入数据</li>
-                                <li id="waiwang"><span class="fa fa-internet-explorer"></span> 国家统计局外网数据</li>
-                                <li id="gongkai"><span class="fa fa-internet-explorer"></span> 国家经济开发中心公开数据</li>
-                            </ul>
+                        <div class="container-fluid" style="">
+                            <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+                                <div class="ctl_bar panel panel-primary">
+                                    <div class="panel-heading" role="tab" id="headingOne">
+                                        <h4 class="panel-title collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-controls="collapseOne">
+                                            经济数据
+                                        </h4>
+                                    </div>
+                                    <div id="collapseOne" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
+                                        <div class="panel-body">
+                                            <div role="button" class="sed_details">云南省。。。的数据（数据标题）</div>
+                                            <div role="button" class="sed_details">云南省。。。的数据（数据标题）</div>
+                                            <div role="button" class="sed_details">云南省。。。的数据（数据标题）</div>
+                                            <div role="button" class="sed_details">云南省。。。的数据（数据标题）</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="ctl_bar panel panel-primary">
+                                    <div class="panel-heading" role="tab" id="headingTwo">
+                                        <h4 class="panel-title collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false"
+                                            aria-controls="collapseTwo">
+                                            电网数据
+                                        </h4>
+                                    </div>
+                                    <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+                                        <div class="panel-body">
+                                            Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor
+                                            brunch.
+                                            Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch
+                                            et.
+                                            Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat
+                                            craft
+                                            beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="ctl_bar panel panel-primary">
+                                    <div class="panel-heading" role="tab" id="headingThree">
+                                        <h4 class="panel-title collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="false"
+                                            aria-controls="collapseThree">
+                                            简历数据
+                                        </h4>
+                                    </div>
+                                    <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
+                                        <div class="panel-body">
+                                            Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor
+                                            brunch.
+                                            Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch
+                                            et.
+                                            Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat
+                                            craft
+                                            beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
+
+                        <div class="container-fluid">
+                            <ul class="ctl_data" style="padding-left: 0">
+                                <li id="bendi"><span class="fa fa-laptop"></span> 本地数据</li>
+                                <li id="waiwang"><span class="fa fa-internet-explorer"></span> 外网数据</li>
+                                <li id="gongkai"><span class="fa fa-internet-explorer"></span> 公开数据</li>
+                            </ul>
+
+                        </div>
+
                     </div>
                     <div class="col-md-10" style=" background: #e7e7e7">
                         <div class="container-fluid" style=" margin-top: 15px">
@@ -285,6 +387,7 @@
 {% block scripts %}
     <script src="{{ static('plg/jquery-3.6.0.min.js') }}"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
+    <script src="{{ static('plg/bootstrap-3.4.1-dist/js/bootstrap.js') }}"></script>
     <script>
         $(function () {
             const table = document.querySelector('#table');
