@@ -2,7 +2,7 @@
 
 <!-- ---------------------------------------------------------------------------------------------------- -->
 
-{% block title %} 社会经济发展预警系统 {% endblock %}
+{% block title %} 社会经济发展分析 {% endblock %}
 
 <!-- ---------------------------------------------------------------------------------------------------- -->
 
@@ -32,25 +32,27 @@
             font-weight: 500;
             font-size: 1.6rem;
         }
+
         #dynamic_dash {
             width: 100%;
             height: 500px;
             border-radius: 9px;
             border: 1px silver solid;
         }
+
         #line_dash {
             position: relative;
-            margin-top: 10px;
             width: 100%;
             height: 500px;
             border-radius: 9px;
             border: 1px silver solid;
         }
+
         #pie_dash {
             position: relative;
             margin-top: 10px;
             width: 100%;
-            height: 500px;
+            height: 700px;
             border-radius: 9px;
             border: 1px silver solid;
         }
@@ -101,8 +103,6 @@
                     {% endif %}><span class="fa fa-id-card-o"></span>
                         社会求职简历数据可视化</span></a></li>
                 </ul>
-                <p class="navbar-text navbar-right"><a type="button" style="color: midnightblue" href="#"><span
-                        class="fa fa-user-circle"></span> 蒲应明 <small>[注销]</small></a></p>
             </div>
         </div>
     </nav>
@@ -121,21 +121,23 @@
                     <div class="col-md-12" style="height: 80vh; padding: 0">
                         <div class="panel panel-primary">
                             <div class="panel-heading">数据可视化</div>
-                            <div class="panel-body" style="height: 76vh">
+                            <div class="panel-body" style="height: 93vh">
                                 <div class="row">
-                                    <div id="dynamic_dash"></div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-8">
+                                    <div class="col-md-6">
+                                        <div id="dynamic_dash"></div>
+                                    </div>
+                                    <div class="col-md-6">
                                         <div id="line_dash">
                                             <select class="form-select" id="date-pick-line" aria-label="选择日期"
-                                                    style="width: 300px;right: 35px;top: 3px;right: 17px;">
+                                                    style="width: 300px;top: 3px;right: 17px;">
                                                 {% for cate in category %}
                                                     <option value="{{ cate }}">{{ cate }}</option>
                                                 {% endfor %}
                                             </select>
                                         </div>
                                     </div>
+                                </div>
+                                <div class="row" style="height: 55vh">
                                     <div class="col-md-4">
                                         <div id="pie_dash">
                                             <select class="form-select" id="date-pick-pie" aria-label="选择日期">
@@ -143,110 +145,56 @@
                                                     <option value="{{ year }}">{{ year }}</option>
                                                 {% endfor %}
                                             </select>
+                                    </div>
+                                    </div>
+
+                                    <div class="col-md-8">
+                                        <div style="border: 1px silver solid; margin-top: 15px; border-radius: 9px; padding: 10px; height: 700px; overflow-y: scroll">
+                                            <div>
+                                                <div class="bs-example" data-example-id="hoverable-table">
+                                                    <table class="table table-hover">
+                                                        <thead>
+                                                        <tr>
+                                                            <th>#</th>
+                                                            <th>First Name</th>
+                                                            <th>Last Name</th>
+                                                            <th>Username</th>
+                                                        </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                        <tr>
+                                                            <th scope="row">1</th>
+                                                            <td>Mark</td>
+                                                            <td>Otto</td>
+                                                            <td>@mdo</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <th scope="row">2</th>
+                                                            <td>Jacob</td>
+                                                            <td>Thornton</td>
+                                                            <td>@fat</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <th scope="row">3</th>
+                                                            <td>Larry</td>
+                                                            <td>the Bird</td>
+                                                            <td>@twitter</td>
+                                                        </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
+                                </div>
+
                                 </div>
 
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="row">
-                    <div class="col-md-12" style="height: 15vh">
-                        {# 状态栏 #}
-                        <div>
-                            <div class="container-fluid"
-                                 style="color: white; background: rgba(255,255,255,0.1); height: 190px; border-radius: 9px; padding: 10px; border: none">
-                                <div class="col-md-3">
-                                    <div style="margin-top: 10px; display: flex; justify-content: space-between;flex-wrap: wrap">
-                                        <button style="width: 140px; height: 50px; font-size: 1.4rem" class="btn btn-primary btn-sm" onclick="process_off()"><span class="fa fa-search"></span> 进行下一项任务&emsp;</button>
-                                        <button style="width: 140px; height: 50px; font-size: 1.4rem" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#myModal"><span class="fa fa-search"></span> 全局可视化&emsp;
-                                        </button>
-                                        <button style="width: 140px; height: 50px; font-size: 1.4rem" class="btn btn-warning btn-sm" onclick="process_on()"><span class="fa fa-search"></span> 系统检查&emsp;</button>
-                                        <button style="width: 140px; height: 50px; font-size: 1.4rem" class="btn btn-default btn-sm"><span class="fa fa-search"></span> 进行预测&emsp;</button>
-                                        <div style="display: flex; margin-top: 7px; opacity: 0.6; line-height: 30px">说明：本系统默认引擎为图网络分析引擎，进入页面后可直接进行主流行业预测；也可以进行简历数据可视化，如出现故障请及时检查系统状态；选定模型后即可进行预测。</div>
-                                    </div>
-                                    <div class="modal fade" id="myModal" tabindex="-1" role="dialog"
-                                         aria-labelledby="myModalLabel" aria-hidden="true">
-                                        <div class="modal-dialog modal-lg" style="width: 90%">
-                                            <div class="modal-content">
-                                                <div class="modal-header">
-                                                    <button type="button" class="close" data-dismiss="modal"
-                                                            aria-hidden="true">&times;
-                                                    </button>
-                                                    <h4 class="modal-title" id="myModalLabel">模态框（Modal）标题</h4>
-                                                </div>
-                                                <div class="modal-body">
-                                                    <div id="network_dash"></div>
-                                                </div>
-                                                <div class="modal-footer">
-                                                    <button type="button" class="btn btn-default"
-                                                            data-dismiss="modal">关闭
-                                                    </button>
-                                                </div>
-                                            </div><!-- /.modal-content -->
-                                        </div><!-- /.modal -->
-                                    </div>
-                                    <br>
-                                </div>
-                                <div class="col-md-2" style="border-left: #a6d4ff solid 1px; height: 12vh">
-                                    <h4><span class="fa fa-cubes"></span> 当前模型架构：</h4>
-                                    <div style="width: 100%; padding: 12px; height: 40px; background: rgba(255,255,255,0.15); font-weight: 600">
-                                        Karl-EDGCNN (Opt2022.v3.fp75) Engine:1.10-1 E256.1
-                                    </div>
-                                    <div>
-                                        <label style="display: flex; justify-content: space-between">
-                                            <span style="padding-top: 18px;padding-left: 10px">选择模型</span>
-                                            <select class="form-control" style="width: 80%;background: rgba(255,255,255,0.54); margin-top: 10px">
-                                                <option>Karl-EDGCNN (Opt2022.v3.fp75)</option>
-                                                <option>Liner-Regress (Norm2022.v4.fp31)</option>
-                                                <option>Complex Engine:2.21-2 E512.2</option>
-                                            </select>
-                                        </label>
-                                    </div>
-                                </div>
-                                <div class="col-md-2" style="border-left: #a6d4ff solid 1px; height: 12vh">
-                                    <h4><span class="fa fa-cogs"></span> 模型超参数：</h4>
-                                    <div style="border-radius: 9px; width: 100%; height: 90px; background: rgba(255,255,255,0.2)"></div>
 
-                                </div>
-                                <div class="col-md-3" style="border-left: #a6d4ff solid 1px; height: 12vh">
-                                    <h4><span class="fa fa-cloud-download"></span> 分析报告：</h4>
-                                    <div style="width: 100%; padding: 12px; height: 40px; background: rgba(255,255,255,0.15); font-weight: 600">
-                                        <a href="#" style="color: #ffecc7"><i class="fa fa-file-text"></i> 点击下载分析报告</a>
-                                    </div>
-                                    <div style="padding: 10px; color: #9fc3f5">
-                                        当前时间: <span id="current_time" style="padding-left: 10px; color: #f5f0a7"></span>
-                                    </div>
-                                    <div style="padding-left:10px; color: #9fc3f5">
-                                        当前系统已存储分析报告: <span id="sum_report" style="padding-left: 10px">18</span>
-                                    </div>
-                                </div>
-                                <div class="col-md-2" style="border-left: #a6d4ff solid 1px; height: 12vh">
-                                    <br>
-                                    <div>内存 <span id="mem_txt" style="padding-left: 10px; color: #f3c6b1; font-weight: 800"></span></div>
-                                    <div class="progress" style="background: #5b80b2">
-                                        <div id="mem_status" class="progress-bar progress-bar-info progress-bar-striped" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100" style="width: 20%">
-                                        </div>
-                                    </div>
-                                    <div>CPU <span id="cpu_txt" style="padding-left: 10px; color: #bdf3b1; font-weight: 800"></span></div>
-                                    <div class="progress" style="background: #5b80b2">
-                                        <div id="cpu_status" class="progress-bar progress-bar-info progress-bar-striped" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100" style="width: 50%">
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="progress" style="margin-top: 30px;margin-left: 0; margin-right: 0; padding: 0;
-							position: absolute; bottom: -20px; left: 20px; right: 20px; background: #296395">
-                                <div id="process" class="progress-bar progress-bar-success progress-bar-striped active"
-                                     role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100"
-                                     style="width: 0;">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
             </div>
         </div>
 
