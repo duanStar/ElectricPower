@@ -131,6 +131,49 @@
             display: none;
         }
 
+        .ctl_bar {
+            border: none;
+            margin-top: 20px !important;
+            background: none !important;
+        }
+
+        .ctl_bar > .panel-heading {
+            background: rgba(4, 54, 108, 0.87) !important;
+            padding: 0 !important;
+            border: 3px #b1e9ff solid;
+            transition: .4s;
+            margin: 10px !important;
+        }
+
+        .ctl_bar > .panel-heading:hover {
+            border: 3px dodgerblue solid;
+            transition: .4s;
+        }
+
+        .panel-heading > h4 {
+            padding: 20px;
+        }
+
+        .panel-collapse {
+            background: none !important;
+        }
+
+        .sed_details {
+            background: rgba(245, 245, 245, .5);
+            border-radius: 9px;
+            width: 100%;
+            padding: 10px;
+            color: white;
+            margin: 5px;
+            border: 3px rgba(245, 245, 245, 0.1) solid !important;
+            transition: .4s;
+        }
+
+        .sed_details:hover {
+            border: 3px skyblue solid !important;
+            transition: .4s;
+        }
+
 
     </style>
 {% endblock %}
@@ -188,15 +231,96 @@
                     <div class="col-md-2" style="height: 100vh;background: #104b92; padding: 0;">
                         <h3 class="text-center"
                             style="color: white;margin: 0; padding: 60px 40px;background: rgba(255, 255, 255, 0.17);font-weight: 600">
-                            <span class="fa fa-database"></span> 南方电网数据源管理
+                            <span class="fa fa-database"></span> 系统数据源管理
                         </h3>
-                        <div class="row">
-                            <ul class="ctl_data">
-                                <li id="bendi"><span class="fa fa-laptop"></span> 本地已导入数据</li>
-                                <li id="waiwang"><span class="fa fa-internet-explorer"></span> 国家统计局外网数据</li>
-                                <li id="gongkai"><span class="fa fa-internet-explorer"></span> 国家经济开发中心公开数据</li>
-                            </ul>
+                        <div class="container-fluid" style="">
+                            <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+                                <div class="ctl_bar panel panel-primary">
+                                    <div class="panel-heading" role="tab" id="headingOne">
+                                        <h4 class="panel-title collapsed" role="button" data-toggle="collapse"
+                                            data-parent="#accordion" href="#collapseOne" aria-controls="collapseOne"
+                                            id="economy">
+                                            经济数据
+                                        </h4>
+                                    </div>
+                                    <div id="collapseOne" class="panel-collapse collapse" role="tabpanel"
+                                         aria-labelledby="headingOne">
+                                        <div class="panel-body">
+                                            <div role="button" class="sed_details">云南省。。。的数据（数据标题）</div>
+                                            <div role="button" class="sed_details">云南省。。。的数据（数据标题）</div>
+                                            <div role="button" class="sed_details">云南省。。。的数据（数据标题）</div>
+                                            <div role="button" class="sed_details">云南省。。。的数据（数据标题）</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="ctl_bar panel panel-primary">
+                                    <div class="panel-heading" role="tab" id="headingTwo">
+                                        <h4 class="panel-title collapsed" role="button" data-toggle="collapse"
+                                            data-parent="#accordion" href="#collapseTwo" aria-expanded="false"
+                                            aria-controls="collapseTwo" id="dianLi">
+                                            电网数据
+                                        </h4>
+                                    </div>
+                                    <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel"
+                                         aria-labelledby="headingTwo">
+                                        <div class="panel-body">
+                                            Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry
+                                            richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard
+                                            dolor
+                                            brunch.
+                                            Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt
+                                            aliqua put a bird on it squid single-origin coffee nulla assumenda
+                                            shoreditch
+                                            et.
+                                            Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt
+                                            sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings
+                                            occaecat
+                                            craft
+                                            beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't
+                                            heard of them accusamus labore sustainable VHS.
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="ctl_bar panel panel-primary">
+                                    <div class="panel-heading" role="tab" id="headingThree">
+                                        <h4 class="panel-title collapsed" role="button" data-toggle="collapse"
+                                            data-parent="#accordion" href="#collapseThree" aria-expanded="false"
+                                            aria-controls="collapseThree">
+                                            简历数据
+                                        </h4>
+                                    </div>
+                                    <div id="collapseThree" class="panel-collapse collapse" role="tabpanel"
+                                         aria-labelledby="headingThree">
+                                        <div class="panel-body">
+                                            Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry
+                                            richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard
+                                            dolor
+                                            brunch.
+                                            Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt
+                                            aliqua put a bird on it squid single-origin coffee nulla assumenda
+                                            shoreditch
+                                            et.
+                                            Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt
+                                            sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings
+                                            occaecat
+                                            craft
+                                            beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't
+                                            heard of them accusamus labore sustainable VHS.
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
+
+                        <div class="container-fluid">
+                            <ul class="ctl_data" style="padding-left: 0">
+                                <li role="button" id="economy"><span class="fa fa-laptop"></span> 本地数据</li>
+                                <li role="button" id="dianLi"><span class="fa fa-internet-explorer"></span> 外网数据</li>
+                                <li role="button" id="gongkai"><span class="fa fa-internet-explorer"></span> 公开数据</li>
+                            </ul>
+
+                        </div>
+
                     </div>
                     <div class="col-md-10" style=" background: #e7e7e7">
                         <div class="container-fluid" style=" margin-top: 15px">
@@ -210,11 +334,13 @@
                                                  style="display: flex;justify-content: space-between;column-gap: 15px;">
                                                 <select class="form-select" aria-label="Default select example">
                                                     <option selected>请选择</option>
-                                                    <option value="1">本地已导入数据</option>
-                                                    <option value="2">国家统计局外网数据</option>
-                                                    <option value="3">国家经济开发中心公开数据</option>
+                                                    <option value="1">经济数据</option>
+                                                    <option value="2">电力数据</option>
+                                                    <option value="3">简历数据</option>
                                                 </select>
-                                                <button button type="button" class="btn btn-primary">提交</button>
+                                                <button button type="button" class="btn btn-primary" id="submit-btn">
+                                                    提交
+                                                </button>
                                             </div>
                                             <div class="bottom" style="flex: 1">
                                                 <div class="card" style="height: 100%;">
@@ -288,9 +414,10 @@
     <script>
         $(function () {
             const table = document.querySelector('#table');
-            const benDi = document.querySelector('#bendi');
-            const waiWang = document.querySelector('#waiwang');
+            const economy = document.querySelector('#economy');
+            const dianLi = document.querySelector('#dianLi');
             const gongKai = document.querySelector('#gongkai');
+            const submitBtn = document.querySelector('#submit-btn')
             const pageSizeInput = $('#page-size')
             const prev = $('.prev-btn')
             const next = $('.next-btn')
@@ -298,11 +425,12 @@
             const uploadInput = document.querySelector('.el-upload__input')
             let page = 1;
             let hasMore = true;
-            const BENDI = 1;
-            const WAIWANG = 2;
+            const ECONOMY = 1;
+            const DIANLI = 2;
             const GONGKAI = 3;
-            let status = BENDI;
+            let status = economy;
             let pageSize = pageSizeInput.val() || 1
+            let files = null;
 
             pageSizeInput.on('change', (e) => {
                 pageSize = +e.target.value
@@ -330,8 +458,22 @@
                 e.stopPropagation()
             })
             uploadInput.addEventListener('change', e => {
+                files = e.target.files[0]
+            })
+
+            submitBtn.addEventListener('click', function (e) {
+                if (!files) {
+                    Swal.fire({
+                        title: '错误',
+                        text: '请先选择文件',
+                        type: 'warning',
+                        confirmButtonText: '确定'
+                    })
+                    return
+                }
+                submitBtn.setAttribute('disabled', true)
                 let formData = new FormData()
-                formData.append('file', e.target.files[0])
+                formData.append('file', files)
                 $.ajax({
                     url: 'http://127.0.0.1:8000/upload/?type=' + status,
                     type: 'POST',
@@ -355,17 +497,18 @@
                                 confirmButtonText: '确定'
                             })
                         }
+                        submitBtn.setAttribute('disabled', false)
                     }
                 })
             })
 
             function getPageData() {
                 switch (status) {
-                    case BENDI:
-                        getBenDiData();
+                    case ECONOMY:
+                        geteconomyData();
                         break;
-                    case WAIWANG:
-                        getWaiWangData()
+                    case DIANLI:
+                        getDianLiData()
                         break;
                     default:
                         return;
@@ -407,9 +550,9 @@
 
             let category = [];
 
-            function getBenDiData() {
-                if (status !== BENDI) {
-                    status = BENDI
+            function geteconomyData() {
+                if (status !== economy) {
+                    status = economy
                     page = 1
                 }
                 getData('edata_year').then(({data: res, next}) => {
@@ -418,17 +561,17 @@
                     category = Object.keys(res[0][Object.keys(res[0])[0]])
                     category.push('全社会用电总量')
                     category.unshift('年份')
-                    let html = generateBenDiTable(res);
+                    let html = generateeconomyTable(res);
                     table.innerHTML = html;
                 })
             }
 
-            getBenDiData()
-            benDi.addEventListener('click', getBenDiData)
+            geteconomyData()
+            economy.addEventListener('click', geteconomyData)
 
-            async function getWaiWangData() {
-                if (status !== WAIWANG) {
-                    status = WAIWANG
+            async function getDianLiData() {
+                if (status !== dianLi) {
+                    status = dianLi
                     page = 1
                 }
                 let {data: cdata, next: cnext} = await getData('cdata_year')
@@ -443,13 +586,13 @@
                     resData[i] = {...cdata[i], ...rdata[i], ...tdata[i]}
                 }
                 category = ['年份'].concat(Object.keys(resData[Object.keys(resData)[0]]))
-                let html = generateWaiWangTable(resData)
+                let html = generateDianLiTable(resData)
                 table.innerHTML = html
             }
 
-            waiWang.addEventListener('click', getWaiWangData)
+            dianLi.addEventListener('click', getDianLiData)
 
-            function generateBenDiTable(data) {
+            function generateeconomyTable(data) {
                 let html = ` <thead class="" style="background: rgba(201,201,201,0.28)"><tr>`
                 category.forEach(item => {
                     html += `<th>${item}</th>`
@@ -473,7 +616,7 @@
                 return html;
             }
 
-            function generateWaiWangTable(data) {
+            function generateDianLiTable(data) {
                 let html = ` <thead class="" style="background: rgba(201,201,201,0.28)"><tr>`
                 category.forEach(item => {
                     html += `<th>${item}</th>`

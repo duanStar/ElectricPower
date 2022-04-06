@@ -349,7 +349,7 @@ def upload(Request):
         myfile = Request.FILES.get('file', None)
         try:
             suffix = str(myfile.name.split('.')[-1])
-            times = str(time.time()).split('.').pop()  # 生成时间戳，取小数点后的值
+            times = str(time.time()).split('.').pop()
             fil = str(myfile.name.split('.')[0])
             filename = times + '_' + fil + '.' + suffix
             filename_dir = settings.MEDIA_ROOT
