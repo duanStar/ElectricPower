@@ -11,10 +11,10 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 """
 import os
 from pathlib import Path
+import logs
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
-
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
@@ -26,7 +26,6 @@ SECRET_KEY = 'django-insecure-k5^kb(yr@1&p!noonkd2i6kbt^(h$fi)=dr%gwvwex^f!ntcpv
 DEBUG = True
 
 ALLOWED_HOSTS = []
-
 
 # Application definition
 
@@ -76,7 +75,7 @@ TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [],
-        'APP_DIRS': True,   # Don't fucking try to change it into False
+        'APP_DIRS': True,  # Don't fucking try to change it into False
         'OPTIONS': {
             'context_processors': [
                 'django.template.context_processors.debug',
@@ -89,7 +88,6 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'ElectricPower.wsgi.application'
-
 
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
@@ -112,7 +110,6 @@ DATABASES = {
         'OPTIONS': {'charset': 'utf8'}
     }
 }
-
 
 """
     If host is set to 127.0.0.1, then the client is forced to use TCP/IP.
@@ -137,7 +134,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
 # Internationalization
 # https://docs.djangoproject.com/en/4.0/topics/i18n/
 
@@ -146,10 +142,9 @@ LANGUAGE_CODE = 'zh-hans'
 
 TIME_ZONE = 'Asia/shanghai'
 
-USE_I18N = True     # https://www.cnblogs.com/alexyuyu/articles/7989800.html
+USE_I18N = True  # https://www.cnblogs.com/alexyuyu/articles/7989800.html
 
 USE_TZ = True
-
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.0/howto/static-files/
@@ -162,9 +157,7 @@ STATIC_URL = '/static/'
 
 STATIC_ROOT = BASE_DIR / 'static'
 
-
 SIMPLEUI_STATIC_OFFLINE = True
-
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
@@ -174,3 +167,64 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'upload')
 FILE_UPLOAD_PERMISSIONS = 0o644
 
+LOG_DIR = os.path.join(BASE_DIR, "logs")
+if not os.path.exists(LOG_DIR):
+    os.mkdir(LOG_DIR)
+LOGGING = {
+    "version": 1,
+    "disable_existing_loggers": True,  # 禁用已经存在的logger实例
+    "filters": {"require_debug_false": {"()": "django.utils.log.RequireDebugFalse"}},
+    "formatters": {  # 定义了两种日志格式
+        "verbose": {  # 详细
+            "format": "%(levelname)s %(asctime)s %(module)s "
+                      "%(process)d %(thread)d %(message)s"
+        },
+        'simple': {  # 简单
+            'format': '[%(levelname)s][%(asctime)s][%(filename)s:%(lineno)d]%(message)s'
+        },
+    },
+    "handlers": {  # 定义了三种日志处理方式
+        "mail_admins": {  # 只有debug=False且Error级别以上发邮件给admin
+            "level": "ERROR",
+            "filters": ["require_debug_false"],
+            "class": "django.utils.log.AdminEmailHandler",
+        },
+        'file': {  # 对DEBUG级别以上信息以日志文件形式保存
+            'level': "DEBUG",
+            'class': 'logging.handlers.RotatingFileHandler',  # 滚动生成日志，切割
+            'filename': os.path.join(LOG_DIR, 'django.log'),  # 日志文件名
+            'maxBytes': 1024 * 1024 * 10,  # 单个日志文件最大为10M
+            'backupCount': 5,  # 日志备份文件最大数量
+            'formatter': 'simple',  # 简单格式
+            'encoding': 'utf-8',  # 放置中文乱码
+        },
+        "console": {  # 打印到终端console
+            "level": "DEBUG",
+            "class": "logging.StreamHandler",
+            "formatter": "verbose",
+        },
+    },
+    "root": {"level": "INFO", "handlers": ["console"]},
+    "loggers": {
+        "django": {
+            "handlers": ["file"],
+            "level": "INFO",
+            "propagate": True,  # 向不向更高级别的logger传递
+        },
+        "django.request": {  # Django的request发生error会自动记录
+            "handlers": ["file"],
+            "level": "ERROR",
+            "propagate": True,  # 向不向更高级别的logger传递
+        },
+        "django.security.DisallowedHost": {  # 对于不在 ALLOWED_HOSTS 中的请求不发送报错邮件
+            "level": "ERROR",
+            "handlers": ["console", "file"],
+            "propagate": True,
+        },
+        'django.db': {
+            'handlers': ['file'],
+            'level': 'DEBUG',
+            'propagate': False,
+        }
+    },
+}

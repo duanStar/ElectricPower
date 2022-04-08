@@ -11,12 +11,39 @@ from datetime import date, datetime
 from app.models import UserInfo
 from app.models import ElectricIndustry
 from app.models import ElectricTotal
+
 from app.models import EconomyIndustry
 from app.models import EconomyResource
 from app.models import EconomyTotal
+from app.models import Resume
+from app.utils.excel_json import excel_To_Json
+from app.utils.data_map import ECONOMY_RESOURCE, ECONOMY_TOTAL, ECONOMY_INDUSTRY, ELECTRIC_INDUSTRY
+import psutil
+
 from django.contrib import auth
+# from utils.json_serializable import ComplexEncoder
+
 from django.conf import settings
 from django.views.decorators.csrf import csrf_exempt
+
+# from utils.json_serializable import ComplexEncoder
+from collections import Counter
+
+from datetime import date, datetime
+import json
+
+
+class ComplexEncoder(json.JSONEncoder):
+    """ Json 序列化数据库中的 Datetime 格式的数据，用于json.dumps """
+
+    def default(self, obj):
+        if isinstance(obj, datetime):
+            return obj.strftime('%Y-%m-%d %H:%M:%S')
+        elif isinstance(obj, date):
+            return obj.strftime('%Y-%m-%d')
+        else:
+            return json.JSONEncoder.default(self, obj)
+
 
 # ---------------------------------------------------------------------------------------------------------------------
 """
@@ -25,7 +52,7 @@ Enter the entrance of the system. Then select which user to login.
 Selection:
     - SuperUser  (root)
     - NormalUser (user)
-    
+
     Password check:
         - root -> 6CH7zM
         - user -> 000000
@@ -90,8 +117,12 @@ def register(Request):
 
 # ------------------------------------------------------------------------------
 def mul_source(Request):
+    ecoCount = EconomyIndustry.objects.all().count()
+    eleCount = ElectricIndustry.objects.all().count()
     return render(Request, 'functions/mul_source.html', {
-        'path': 'mul_source'
+        'path': 'mul_source',
+        'ecoCount': ecoCount,
+        'eleCount': eleCount
     })
 
 
@@ -120,21 +151,24 @@ def dpm_warning(Request):
     })
 
 
+# =============================================================================================================
+#                                           系统三  ： 中长期负荷预测系统
+
 def lod_warning(Request):
     sql = 'select * from electric_industry'
     res = ElectricIndustry.objects.raw(sql)
     arr = []
     for i in res:
         arr.append(i.year)
-    return render(Request, 'functions/lod_warning.html', {'years': arr, 'category': ['全社会用电总量', '农、林、牧、渔业', '工业', '建筑业',
-                                                                                     '交通运输业、仓储邮政业', '信息传输、计算机服务好软件业',
-                                                                                     '商业、住宿餐饮业', '金融、房地产、商务及居民服务业',
-                                                                                     '公共事业及管理组织'], 'path': 'lod_warning'
-                                                          })
-
-
-def res_analysis(Request):
-    return render(Request, 'functions/res_analysis.html', {'path': 'res_analysis'})
+    return render(Request,
+                  'functions/lod_warning.html',
+                  {'years': arr, 'category':
+                      ['全社会用电总量', '农、林、牧、渔业', '工业', '建筑业',
+                       '交通运输业、仓储邮政业', '信息传输、计算机服务好软件业',
+                       '商业、住宿餐饮业', '金融、房地产、商务及居民服务业',
+                       '公共事业及管理组织'
+                       ], 'path': 'lod_warning'
+                   })
 
 
 def edata_year(Request):
@@ -316,6 +350,7 @@ def tdata_total(Request):
         year = i.year
         content = {year: [float(i.primary), float(i.secondary), float(i.tertiary)]}
         arr2.append(content)
+
     return HttpResponse(
         json.dumps({'names': names, 'data': arr, 'lists': lists, 'data2': arr2, 'years': years}, ensure_ascii=False))
 
@@ -346,20 +381,276 @@ def tdata_all(Request):
 @csrf_exempt
 def upload(Request):
     if Request.method == "POST":
+        filePath = ''
         myfile = Request.FILES.get('file', None)
+        stg = Request.GET.get('type')
         try:
             suffix = str(myfile.name.split('.')[-1])
             times = str(time.time()).split('.').pop()
             fil = str(myfile.name.split('.')[0])
             filename = times + '_' + fil + '.' + suffix
             filename_dir = settings.MEDIA_ROOT
-            print(filename_dir)
-            with open(filename_dir + '\\' + filename, 'wb+') as destination:
+            filePath = filename_dir + '\\' + filename
+            with open(filePath, 'wb+') as destination:
                 for chunk in myfile.chunks():
                     destination.write(chunk)
                 destination.close()
         except:
             return HttpResponse(json.dumps({'msg': '上传失败', 'code': 0}))
+        try:
+            data = excel_To_Json(path=filePath)
+            if check_file(stg, data=data):
+                if stg == '1':
+                    generateElectricModel(data)
+                elif stg == '2':
+                    generateEconomyModel(data)
+                else:
+                    pass
+        except:
+            return HttpResponse(json.dumps({'msg': '上传失败', 'code': 0}))
         return HttpResponse(json.dumps({'msg': '上传成功', 'code': 1}))
     else:
         return HttpResponse(json.dumps({'msg': '上传失败', 'code': 0}))
+
+    return HttpResponse(
+        json.dumps({'names': names, 'data': arr, 'lists': lists, 'data2': arr2, 'years': years}, ensure_ascii=False))
+
+
+def check_file(status, data):
+    if status == '1':
+        tab_keys = list(ELECTRIC_INDUSTRY.keys())
+        upload_keys = list(data[0].keys())
+        return tab_keys == upload_keys
+    elif status == '2':
+        tab_keys = list(ECONOMY_INDUSTRY.keys())
+        tab_keys.extend(list(ECONOMY_RESOURCE.keys()))
+        tab_keys.extend(list(ECONOMY_TOTAL.keys()))
+        upload_keys = list(data[0].keys())
+        return tab_keys == upload_keys
+    else:
+        return True
+
+
+def generateElectricModel(data):
+    res = []
+    for i in data:
+        eleModel = ElectricIndustry(year=i['年份'], agr=i['农、林、牧、渔业'], industry=i['工业'], construction=i['建筑业'],
+                                    trans=i['交通运输业、仓储邮政业'], infor=i['信息传输、计算机服务好软件业'], comme=i['商业、住宿餐饮业'],
+                                    financial=i['金融、房地产、商务及居民服务业'], public=i['公共事业及管理组织'])
+        res.append(eleModel)
+    ElectricIndustry.objects.bulk_create(res)
+
+
+def generateEconomyModel(data):
+    res1 = []
+    for i in data:
+        ecoModel = EconomyIndustry(year=i['年份'], primary=i['第一产业'], secondary=i['第二产业'], tertiary=i['第三产业'],
+                                   animal=i['农林牧渔业'], indus=i['工业'], construction=i['建筑业'], wholesale=i['批发和零售业'],
+                                   transport=i['交通运输业、仓储邮政业'], financial=i['金融业'], estate=i['房地产业'],
+                                   others=i['others'], total=i['生产总值'])
+        res1.append(ecoModel)
+    EconomyIndustry.objects.bulk_create(res1)
+    res2 = []
+    for i in data:
+        ecoModel = EconomyResource(year=i['年份'], density=i['人口密度 (人/平方千米)'], pLandArea=i['全省土地面积 (万平方千米)'],
+                                   eLandArea=i['民族自治地方土地面积 (万平方千米)'], tLandArea=i['全省年末耕地总资源 (万公顷)'],
+                                   pastureArea=i['牧草地面积 (万公顷)'], pForestArea=i['全省森林面积 (万公顷)'],
+                                   pForestCoverage=i['全省森林覆盖率(%)'],
+                                   pForestStock=i['全省森林蓄积量 (亿立方米)'], pWaterArea=i['全省水域及水利设施用地面积 (万公顷)'],
+                                   pWaterResource=i['全省水能资源理论蕴藏量 (亿千瓦)'], pWaterAmount=i['全省水资源总量 (亿立方米)'],
+                                   pOreResource=i['全省铁矿保有资源储量 (亿吨)'], pCoalResource=i['全省煤矿保有资源储量 (亿吨)'],
+                                   pPhosphateRes=i['全省磷矿石保有资源储量 (亿吨)'])
+        res2.append(ecoModel)
+    EconomyIndustry.objects.bulk_create(res2)
+    res3 = []
+    for i in data:
+        ecoModel = EconomyTotal(year=i['year'], indusAndAgri=i['工农业总产值  (亿元)'], agricultural=i['农业总产值  (亿元)'],
+                                industrial=i['工业总产值(亿元)'], lightIndustrial=i['轻工业产值(亿元)'],
+                                HeavyIndustrial=i['重工业产值(亿元)'],
+                                AgriAndMachine=i['农业机械总动力(万千瓦)'])
+        res3.append(ecoModel)
+    EconomyIndustry.objects.bulk_create(res3)
+
+
+# =============================================================================================================
+#                                           系统四  ： 简历分析系统
+
+
+def res_analysis(Request):
+    """------------------------------------------
+      * 访问该系统时异步加载数据可视化内容
+        1. 日期行业表（左上）
+        2. 年份总量表（右上）
+        3. 性别数量表（下左）
+        4. 主要行业数量（下中）
+        5. 主要行业占比（下右）
+    ------------------------------------------"""
+
+    return render(Request, 'functions/res_analysis.html', {'path': 'res_analysis'})
+
+
+def res_summary_of_date(Request):
+    # for item in Resume.objects.all().values():
+    #     obj_dict[item['nid']] = \
+    #         {
+    #             'date': item['date'],
+    #             'degree': item['degree'],
+    #             'location': item['location'],
+    #             'industry': item['industry']
+    #         }
+
+    # 获取统计量
+    each_year_sum = {}
+    for item in Resume.objects.all().values().filter().order_by('date'):
+        _DATE_YEAR = str(item['date'].year)
+        _DATE = str(item['date'])
+
+        try:
+            each_year_sum[_DATE] += 1
+        except KeyError:
+            each_year_sum[_DATE] = 0
+
+    return HttpResponse(json.dumps(each_year_sum, ensure_ascii=False, cls=ComplexEncoder))
+
+
+def res_middle_bottom_bar(Request):
+    # for item in Resume.objects.all().values():
+    #     obj_dict[item['nid']] = \
+    #         {
+    #             'date': item['date'],
+    #             'degree': item['degree'],
+    #             'location': item['location'],
+    #             'industry': item['industry']
+    #         }
+
+    # 获取统计量
+    all_items = []
+    for item in Resume.objects.all().values().filter().order_by('date'):
+        _DATE_YEAR = str(item['date'].year)
+        _DATE = str(item['date'])
+        all_items.append(item['location'][:2])
+
+    all_items_dict = dict(Counter(all_items))
+    all_infos = {key: value for key, value in all_items_dict.items() if value > 1}
+    all_infos_sorted = {k: v for k, v in sorted(all_infos.items(), key=lambda item: item[1], reverse=True)}
+
+    return HttpResponse(json.dumps(all_infos_sorted, ensure_ascii=False, cls=ComplexEncoder))
+
+
+def res_right_bottom_pie(Request):
+    # for item in Resume.objects.all().values():
+    #     obj_dict[item['nid']] = \
+    #         {
+    #             'date': item['date'],
+    #             'degree': item['degree'],
+    #             'location': item['location'],
+    #             'industry': item['industry']
+    #         }
+    # 获取统计量
+
+    all_items = []
+    all_jobs_ind = []
+    for item in Resume.objects.all().values().filter().order_by('date'):
+        _DATE_YEAR = str(item['date'].year)
+        _DATE = str(item['date'])
+        all_items.append(item['industry'][:2])
+        if item['industry'] not in all_jobs_ind:
+            all_jobs_ind.append(item['industry'])
+    print(all_jobs_ind)
+    all_items_dict = dict(Counter(all_items))
+    all_infos = {key: value for key, value in all_items_dict.items() if value > 30}
+    all_infos_sorted = {k: v for k, v in sorted(all_infos.items(), key=lambda item: item[1], reverse=True)}
+    return HttpResponse(json.dumps(all_infos_sorted, ensure_ascii=False, cls=ComplexEncoder))
+
+
+def res_dynamic_time_series(Request):
+    all_items = {}
+    for item in Resume.objects.all().values().filter().order_by('date').distinct():
+        _DATE_YEAR = str(item['date'].year)
+        # allData中的每一年的每个领域的简历数量是多少？
+        if int(_DATE_YEAR) < 2015:
+            try:
+                all_items[_DATE_YEAR] = all_items[_DATE_YEAR]
+            except KeyError:
+                all_items[_DATE_YEAR] = {}
+            finally:
+                from django.db import connection
+                sql = f""" select count(*) from electric2022.resume where industry like '{item['industry'][:3]}%' and date like '{_DATE_YEAR}%'; """
+                with connection.cursor() as cursor:
+                    cursor.execute(sql)
+                    dataInfo = cursor.fetchall()
+                all_items[_DATE_YEAR][item['industry'][:]] = dataInfo[0][0]
+
+    return HttpResponse(json.dumps(all_items, ensure_ascii=False, cls=ComplexEncoder))
+
+
+def res_area_line(Request):
+    # for item in Resume.objects.all().values():
+    #     obj_dict[item['nid']] = \
+    #         {
+    #             'date': item['date'],
+    #             'degree': item['degree'],
+    #             'location': item['location'],
+    #             'industry': item['industry']
+    #         }
+
+    # 获取统计量
+    each_year_sum = {}
+    for item in Resume.objects.all().values().filter().order_by('date'):
+        _DATE_YEAR = str(item['date'].year)
+        _DEGREE = item['degree']
+        _DATE = str(item['date'].year)
+        if _DEGREE == '本科':
+            try:
+                each_year_sum[_DATE] += 1
+            except KeyError:
+                each_year_sum[_DATE] = 0
+
+    ret = {}
+    for year_cnt in each_year_sum:
+        try:
+            ret[year_cnt]['year'] = int(year_cnt)
+            ret[year_cnt]['value'] = each_year_sum[year_cnt]
+        except KeyError:
+            ret[year_cnt] = {}
+            ret[year_cnt]['year'] = int(year_cnt)
+            ret[year_cnt]['value'] = each_year_sum[year_cnt]
+    return HttpResponse(json.dumps(ret, ensure_ascii=False, cls=ComplexEncoder))
+
+
+# ===================================== Sys Information =============================================
+def cpuInfo():
+    cpuTimes = psutil.cpu_times()
+
+    def memoryInfo(memory):
+        return {
+            '总内存(total)': str(round((float(memory.total) / 1024 / 1024 / 1024), 2)) + "G",
+            '已使用(used)': str(round((float(memory.used) / 1024 / 1024 / 1024), 2)) + "G",
+            '空闲(free)': str(round((float(memory.free) / 1024 / 1024 / 1024), 2)) + "G",
+            '使用率(percent)': str(memory.percent) + '%',
+            '可用(available)': (memory.available) if hasattr(memory, 'available') else '',
+            '活跃(active)': (memory.active) if hasattr(memory, 'active') else '',
+            '非活跃(inactive)': (memory.inactive) if hasattr(memory, 'inactive') else '',
+            '内核使用(wired)': (memory.wired) if hasattr(memory, 'wired') else ''
+        }
+
+    return {
+        '物理CPU个数': psutil.cpu_count(logical=False),
+        '逻辑CPU个数': psutil.cpu_count(),
+        'CPU使用情况': psutil.cpu_percent(percpu=True),
+        '虚拟内存': memoryInfo(psutil.virtual_memory()),
+        '交换内存': memoryInfo(psutil.swap_memory()),
+        '系统启动到当前时刻': {
+            pro: getattr(cpuTimes, pro) for pro in dir(cpuTimes) if pro[0:1] != '_' and pro not in ('index', 'count')
+        },
+    }
+
+
+def sys_status(Request):
+    computer_info = cpuInfo()
+    cpu_work = round(sum(computer_info['CPU使用情况']) / psutil.cpu_count(logical=False), 2),
+    loc_mem = round((float(psutil.virtual_memory().used) / 1024 / 1024 / 1024), 2)
+    tot_mem = round((float(psutil.virtual_memory().total) / 1024 / 1024 / 1024), 2)
+    info = {'cpu_percent': cpu_work, 'mem_percent': round(loc_mem / tot_mem, 2)}
+
+    return HttpResponse(json.dumps(info, ensure_ascii=False, cls=ComplexEncoder))
