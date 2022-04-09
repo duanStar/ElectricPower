@@ -18,8 +18,8 @@ class ARIMA(ModelDetails):
         super().__init__()
         self.name = 'ARIMA'
         self.params = {
-            'input': self.IO_type[1],
-            'output': self.IO_type[1]
+            'input_info': '参数类型都为 int ，其中 p 为自回归阶数， q 为移动平均阶数， d 为时间成为平稳时 所做的差分次数 。',
+            'param_list': ['p', 'q', 'd'],
         }
         self.expert = self.expert_collections[0]
         self.introduction = """ARIMA(Auto Regressive Integrate Moving AverageModel) 差分自回归移动平均模型是在 ARMA 模型的基础上进行改造的，ARMA 模型是针对 t 期值进行建模的，而 ARIMA 是针对 t 期与 t d 期之间差值进行建模，这种不同期之间做差 即 为差分。 ARIMA 模型也是基于平稳的时间序列的或者差分化后是稳定的。"""
@@ -27,8 +27,8 @@ class ARIMA(ModelDetails):
     def __call__(self):
         return {
             "name": self.name,
-            "input": self.params['input'],
-            "output": self.params['output'],
+            "input_info": self.params['input_info'],
+            "param_list": self.params['param_list'],
             "solve_field": self.expert,
             "intro": self.introduction
         }
