@@ -287,7 +287,7 @@
 
             const allData = await getLData('edata_year');
             var min_year = Object.keys(allData)[0]
-            var max_year = Object.keys(allData)[1]
+            var max_year = Object.keys(allData)[Object.keys(allData).length - 1]
 // https://www.amcharts.com/docs/v5/getting-started/#Root_element
             var root = am5.Root.new("dynamic_dash");
 

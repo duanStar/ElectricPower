@@ -16,6 +16,8 @@ from app.models import EconomyIndustry
 from app.models import EconomyResource
 from app.models import EconomyTotal
 from app.models import Resume
+from app.utils.excel_json import excel_To_Json
+from app.utils.data_map import ECONOMY_RESOURCE, ECONOMY_TOTAL, ECONOMY_INDUSTRY, ELECTRIC_INDUSTRY
 import psutil
 
 from django.contrib import auth
@@ -41,7 +43,6 @@ class ComplexEncoder(json.JSONEncoder):
             return obj.strftime('%Y-%m-%d')
         else:
             return json.JSONEncoder.default(self, obj)
-
 
 
 # ---------------------------------------------------------------------------------------------------------------------
@@ -116,8 +117,12 @@ def register(Request):
 
 # ------------------------------------------------------------------------------
 def mul_source(Request):
+    ecoCount = EconomyIndustry.objects.all().count()
+    eleCount = ElectricIndustry.objects.all().count()
     return render(Request, 'functions/mul_source.html', {
-        'path': 'mul_source'
+        'path': 'mul_source',
+        'ecoCount': ecoCount,
+        'eleCount': eleCount
     })
 
 
@@ -144,6 +149,7 @@ def dpm_warning(Request):
         'years': arr,
         'category': ['生产总值', '第一产业', '第二产业', '第三产业', '农林牧渔业', '工业', '建筑业', '批发和零售业', '交通运输业、仓储邮政业', '金融业', '房地产业', '其他']
     })
+
 
 # =============================================================================================================
 #                                           系统三  ： 中长期负荷预测系统
@@ -375,25 +381,95 @@ def tdata_all(Request):
 @csrf_exempt
 def upload(Request):
     if Request.method == "POST":
+        filePath = ''
         myfile = Request.FILES.get('file', None)
+        stg = Request.GET.get('type')
         try:
             suffix = str(myfile.name.split('.')[-1])
-            times = str(time.time()).split('.').pop()  # 生成时间戳，取小数点后的值
+            times = str(time.time()).split('.').pop()
             fil = str(myfile.name.split('.')[0])
             filename = times + '_' + fil + '.' + suffix
             filename_dir = settings.MEDIA_ROOT
-            print(filename_dir)
-            with open(filename_dir + '\\' + filename, 'wb+') as destination:
+            filePath = filename_dir + '\\' + filename
+            with open(filePath, 'wb+') as destination:
                 for chunk in myfile.chunks():
                     destination.write(chunk)
                 destination.close()
+        except:
+            return HttpResponse(json.dumps({'msg': '上传失败', 'code': 0}))
+        try:
+            data = excel_To_Json(path=filePath)
+            if check_file(stg, data=data):
+                if stg == '1':
+                    generateElectricModel(data)
+                elif stg == '2':
+                    generateEconomyModel(data)
+                else:
+                    pass
         except:
             return HttpResponse(json.dumps({'msg': '上传失败', 'code': 0}))
         return HttpResponse(json.dumps({'msg': '上传成功', 'code': 1}))
     else:
         return HttpResponse(json.dumps({'msg': '上传失败', 'code': 0}))
 
-    return HttpResponse(json.dumps({'names': names, 'data': arr, 'lists': lists, 'data2': arr2, 'years': years}, ensure_ascii=False))
+    return HttpResponse(
+        json.dumps({'names': names, 'data': arr, 'lists': lists, 'data2': arr2, 'years': years}, ensure_ascii=False))
+
+
+def check_file(status, data):
+    if status == '1':
+        tab_keys = list(ELECTRIC_INDUSTRY.keys())
+        upload_keys = list(data[0].keys())
+        return tab_keys == upload_keys
+    elif status == '2':
+        tab_keys = list(ECONOMY_INDUSTRY.keys())
+        tab_keys.extend(list(ECONOMY_RESOURCE.keys()))
+        tab_keys.extend(list(ECONOMY_TOTAL.keys()))
+        upload_keys = list(data[0].keys())
+        return tab_keys == upload_keys
+    else:
+        return True
+
+
+def generateElectricModel(data):
+    res = []
+    for i in data:
+        eleModel = ElectricIndustry(year=i['年份'], agr=i['农、林、牧、渔业'], industry=i['工业'], construction=i['建筑业'],
+                                    trans=i['交通运输业、仓储邮政业'], infor=i['信息传输、计算机服务好软件业'], comme=i['商业、住宿餐饮业'],
+                                    financial=i['金融、房地产、商务及居民服务业'], public=i['公共事业及管理组织'])
+        res.append(eleModel)
+    ElectricIndustry.objects.bulk_create(res)
+
+
+def generateEconomyModel(data):
+    res1 = []
+    for i in data:
+        ecoModel = EconomyIndustry(year=i['年份'], primary=i['第一产业'], secondary=i['第二产业'], tertiary=i['第三产业'],
+                                   animal=i['农林牧渔业'], indus=i['工业'], construction=i['建筑业'], wholesale=i['批发和零售业'],
+                                   transport=i['交通运输业、仓储邮政业'], financial=i['金融业'], estate=i['房地产业'],
+                                   others=i['others'], total=i['生产总值'])
+        res1.append(ecoModel)
+    EconomyIndustry.objects.bulk_create(res1)
+    res2 = []
+    for i in data:
+        ecoModel = EconomyResource(year=i['年份'], density=i['人口密度 (人/平方千米)'], pLandArea=i['全省土地面积 (万平方千米)'],
+                                   eLandArea=i['民族自治地方土地面积 (万平方千米)'], tLandArea=i['全省年末耕地总资源 (万公顷)'],
+                                   pastureArea=i['牧草地面积 (万公顷)'], pForestArea=i['全省森林面积 (万公顷)'],
+                                   pForestCoverage=i['全省森林覆盖率(%)'],
+                                   pForestStock=i['全省森林蓄积量 (亿立方米)'], pWaterArea=i['全省水域及水利设施用地面积 (万公顷)'],
+                                   pWaterResource=i['全省水能资源理论蕴藏量 (亿千瓦)'], pWaterAmount=i['全省水资源总量 (亿立方米)'],
+                                   pOreResource=i['全省铁矿保有资源储量 (亿吨)'], pCoalResource=i['全省煤矿保有资源储量 (亿吨)'],
+                                   pPhosphateRes=i['全省磷矿石保有资源储量 (亿吨)'])
+        res2.append(ecoModel)
+    EconomyIndustry.objects.bulk_create(res2)
+    res3 = []
+    for i in data:
+        ecoModel = EconomyTotal(year=i['year'], indusAndAgri=i['工农业总产值  (亿元)'], agricultural=i['农业总产值  (亿元)'],
+                                industrial=i['工业总产值(亿元)'], lightIndustrial=i['轻工业产值(亿元)'],
+                                HeavyIndustrial=i['重工业产值(亿元)'],
+                                AgriAndMachine=i['农业机械总动力(万千瓦)'])
+        res3.append(ecoModel)
+    EconomyIndustry.objects.bulk_create(res3)
 
 
 # =============================================================================================================
@@ -534,11 +610,11 @@ def res_area_line(Request):
     for year_cnt in each_year_sum:
         try:
             ret[year_cnt]['year'] = int(year_cnt)
-            ret[year_cnt]['value'] =  each_year_sum[year_cnt]
+            ret[year_cnt]['value'] = each_year_sum[year_cnt]
         except KeyError:
             ret[year_cnt] = {}
             ret[year_cnt]['year'] = int(year_cnt)
-            ret[year_cnt]['value'] =  each_year_sum[year_cnt]
+            ret[year_cnt]['value'] = each_year_sum[year_cnt]
     return HttpResponse(json.dumps(ret, ensure_ascii=False, cls=ComplexEncoder))
 
 
@@ -578,5 +654,3 @@ def sys_status(Request):
     info = {'cpu_percent': cpu_work, 'mem_percent': round(loc_mem / tot_mem, 2)}
 
     return HttpResponse(json.dumps(info, ensure_ascii=False, cls=ComplexEncoder))
-
-
