@@ -173,59 +173,34 @@
                         {# 状态栏 #}
                         <div>
                             <div class="container-fluid"
-                                 style="color: white; background: rgba(255,255,255,0.1); height: 190px; margin-top: 50px; border-radius: 9px; padding: 10px; border: none">
-                                <div class="col-md-3">
-                                    <div style="margin-top: 10px; display: flex; justify-content: space-between;flex-wrap: wrap">
-                                        <button style="width: 140px; height: 50px; font-size: 1.4rem" class="btn btn-primary btn-sm" onclick="process_off()"><span class="fa fa-search"></span> 进行下一项任务&emsp;</button>
-                                        <button style="width: 140px; height: 50px; font-size: 1.4rem" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#myModal"><span class="fa fa-search"></span> 全局可视化&emsp;
-                                        </button>              
-                                        <button style="width: 140px; height: 50px; font-size: 1.4rem" class="btn btn-warning btn-sm" onclick="process_on()"><span class="fa fa-search"></span> 系统检查&emsp;</button>
-                                        <button style="width: 140px; height: 50px; font-size: 1.4rem" class="btn btn-default btn-sm"><span class="fa fa-search"></span> 进行预测&emsp;</button>
-                                        <div style="display: flex; margin-top: 7px; opacity: 0.6; line-height: 30px">说明：本系统默认引擎为图网络分析引擎，进入页面后可直接进行主流行业预测；也可以进行简历数据可视化，如出现故障请及时检查系统状态；选定模型后即可进行预测。</div>
-                                    </div>
-                                    <div class="modal fade" id="myModal" tabindex="-1" role="dialog"
-                                         aria-labelledby="myModalLabel" aria-hidden="true">
-                                        <div class="modal-dialog modal-lg" style="width: 90%">
-                                            <div class="modal-content">
-                                                <div class="modal-header">
-                                                    <button type="button" class="close" data-dismiss="modal"
-                                                            aria-hidden="true">&times;
-                                                    </button>
-                                                    <h4 class="modal-title" id="myModalLabel">模态框（Modal）标题</h4>
-                                                </div>
-                                                <div class="modal-body">
-                                                    <div id="network_dash"></div>
-                                                </div>
-                                                <div class="modal-footer">
-                                                    <button type="button" class="btn btn-default"
-                                                            data-dismiss="modal">关闭
-                                                    </button>
-                                                </div>
-                                            </div><!-- /.modal-content -->
-                                        </div><!-- /.modal -->
-                                    </div>
-                                    <br>
-                                </div>
-                                <div class="col-md-2" style="border-left: #a6d4ff solid 1px; height: 12vh">
+                                 style="color: white; background: rgba(255,255,255,0.1); height: 180px; margin-top: 50px; border-radius: 9px; padding: 10px; border: none">
+                                <div class="col-md-4" style="border-left: #a6d4ff solid 1px; height: 12vh">
                                     <h4><span class="fa fa-cubes"></span> 当前模型架构：</h4>
-                                    <div style="width: 100%; padding: 12px; height: 40px; background: rgba(255,255,255,0.15); font-weight: 600">
-                                        Karl-EDGCNN (Opt2022.v3.fp75) Engine:1.10-1 E256.1
+                                    <div style="width: 100%; padding: 12px; height: 60px; background: rgba(255,255,255,0.15); font-weight: 600; line-height: 35px">
+                                        模型名称
                                     </div>
                                     <div>
                                         <label style="display: flex; justify-content: space-between">
                                             <span style="padding-top: 18px;padding-left: 10px">选择模型</span>
-                                            <select class="form-control" style="width: 80%;background: rgba(255,255,255,0.54); margin-top: 10px">
-                                                <option>Karl-EDGCNN (Opt2022.v3.fp75)</option>
-                                                <option>Liner-Regress (Norm2022.v4.fp31)</option>
-                                                <option>Complex Engine:2.21-2 E512.2</option>
+                                            <select class="form-control"
+                                                    style="width: 80%;background: rgba(255,255,255,0.54); margin-top: 10px">
+                                                <option>模型1</option>
+                                                <option>模型2</option>
+                                                <option>模型3</option>
+                                                <option>模型3</option>
                                             </select>
                                         </label>
                                     </div>
                                 </div>
-                                <div class="col-md-2" style="border-left: #a6d4ff solid 1px; height: 12vh">
+                                <div class="col-md-3" style="border-left: #a6d4ff solid 1px; height: 12vh">
                                     <h4><span class="fa fa-cogs"></span> 模型超参数：</h4>
-                                    <div style="border-radius: 9px; width: 100%; height: 90px; background: rgba(255,255,255,0.2)"></div>
+                                    <div style="border-radius: 9px; width: 100%; height: 70px; background: rgba(255,255,255,0.2)">
 
+                                    </div>
+                                    <div class="row"
+                                         style="display: flex; justify-content: space-between; padding-top: 10px">
+                                        <button class="btn btn-info" style="width: 95%;">开始预测</button>
+                                    </div>
                                 </div>
                                 <div class="col-md-3" style="border-left: #a6d4ff solid 1px; height: 12vh">
                                     <h4><span class="fa fa-cloud-download"></span> 分析报告：</h4>
@@ -235,22 +210,44 @@
                                     <div style="padding: 10px; color: #9fc3f5">
                                         当前时间: <span id="current_time" style="padding-left: 10px; color: #f5f0a7"></span>
                                     </div>
-                                    <div style="padding-left:10px; color: #9fc3f5">
-                                        当前系统已存储分析报告: <span id="sum_report" style="padding-left: 10px">18</span>
-                                    </div>
                                 </div>
                                 <div class="col-md-2" style="border-left: #a6d4ff solid 1px; height: 12vh">
                                     <br>
-                                    <div>内存 <span id="mem_txt" style="padding-left: 10px; color: #f3c6b1; font-weight: 800"></span></div>
+                                    <div>内存 <span id="mem_txt"
+                                                  style="padding-left: 10px; color: #f3c6b1; font-weight: 800"></span>
+                                    </div>
                                     <div class="progress" style="background: #5b80b2">
-                                        <div id="mem_status" class="progress-bar progress-bar-info progress-bar-striped" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100" style="width: 20%">
+                                        <div id="mem_status" class="progress-bar progress-bar-info progress-bar-striped"
+                                             role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100"
+                                             style="width: 20%">
                                         </div>
                                     </div>
-                                    <div>CPU <span id="cpu_txt" style="padding-left: 10px; color: #bdf3b1; font-weight: 800"></span></div>
+                                    <div>CPU <span id="cpu_txt"
+                                                   style="padding-left: 10px; color: #bdf3b1; font-weight: 800"></span>
+                                    </div>
                                     <div class="progress" style="background: #5b80b2">
-                                        <div id="cpu_status" class="progress-bar progress-bar-info progress-bar-striped" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100" style="width: 50%">
+                                        <div id="cpu_status" class="progress-bar progress-bar-info progress-bar-striped"
+                                             role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100"
+                                             style="width: 50%">
                                         </div>
                                     </div>
+                                    <script>
+                                        /*
+                                        *   系统状态实时展示： 完毕
+                                        * */
+                                        setInterval(function () {
+                                            $.ajax({
+                                                url: '/sys_status/',
+                                                dataType: 'JSON',
+                                                success: function (sys_data) {
+                                                    $('#mem_status').css('width', sys_data['mem_percent'] + '%')
+                                                    $('#cpu_status').css('width', sys_data['cpu_percent'] + '%')
+                                                    $('#cpu_txt').text(sys_data['cpu_percent'] + '%')
+                                                    $('#mem_txt').text(sys_data['mem_percent'] + '%')
+                                                }
+                                            })
+                                        }, 1000)
+                                    </script>
                                 </div>
                             </div>
 
@@ -266,7 +263,23 @@
                 </div>
             </div>
         </div>
-
+        <div class="modal fade" tabindex="-1" role="dialog">
+            <div class="modal-dialog" role="document" style="width: 90%;">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                                aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title">Modal title</h4>
+                    </div>
+                    <div class="modal-body" style="height: 100%;">
+                        <p>One fine body&hellip;</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default close-btn" data-dismiss="modal">关闭</button>
+                    </div>
+                </div><!-- /.modal-content -->
+            </div><!-- /.modal-dialog -->
+        </div><!-- /.modal -->
     </div>
 {% endblock %}
 
@@ -279,6 +292,17 @@
     <script src="{{ static('plg/jquery-3.6.0.min.js') }}"></script>
 
     <script>
+        let modalTitle = $('.modal-title')
+        let closeBtn = $('.close-btn')
+        let modalBody = $('.modal-body')
+        let close = $('.close')
+        closeBtn.on('click', () => {
+            $('.modal').css('display', 'none');
+        })
+        close.on('click', () => {
+            $('.modal').css('display', 'none');
+        })
+
         function getLData(path) {
             return new Promise(resolve => {
                 $.ajax({
@@ -296,14 +320,7 @@
             })
         }
 
-        am5.ready(async function () {
-
-            const allData = await getLData('edata_year');
-            var min_year = Object.keys(allData)[0]
-            var max_year = Object.keys(allData)[Object.keys(allData).length - 1]
-// https://www.amcharts.com/docs/v5/getting-started/#Root_element
-            var root = am5.Root.new("dynamic_dash");
-
+        function render4(root, min_year, max_year, allData) {
             root.numberFormatter.setAll({
                 numberFormat: "#a",
 
@@ -532,6 +549,23 @@
             series.appear(1000);
             chart.appear(1000, 100);
 
+        }
+
+        am5.ready(async function () {
+
+            const allData = await getLData('edata_year');
+            var min_year = Object.keys(allData)[0]
+            var max_year = Object.keys(allData)[Object.keys(allData).length - 1]
+            var root = am5.Root.new("dynamic_dash");
+            $('#dynamic_dash').on('click', (e) => {
+                if (e.target.tagName === 'SELECT') return;
+                $('.modal').css('display', 'block').css('background-color', 'rgba(0,0,0, .5)').addClass('in');
+                modalTitle.text('')
+                modalBody.html(`<div id="m-dynamic_dash" style="width: 100%;height: 500px;border-radius: 9px;border: 1px silver solid;"></div>`)
+                let root = am5.Root.new('m-dynamic_dash')
+                render4(root, min_year, max_year, allData)
+            })
+            render4(root, min_year, max_year, allData)
         });
         // end am5.ready()
     </script>
@@ -549,14 +583,7 @@
             })
         }
 
-        am5.ready(async function () {
-
-// Create root element
-// https://www.amcharts.com/docs/v5/getting-started/#Root_element
-            var root = am5.Root.new("line_dash");
-
-// Set themes
-// https://www.amcharts.com/docs/v5/concepts/themes/
+        async function render1(root, sid) {
             root.setThemes([
                 am5themes_Animated.new(root)
             ]);
@@ -645,7 +672,7 @@
                 yAxis: sbValueAxis
             }));
             let data = [];
-            const selectCate = document.querySelector("#date-pick-line")
+            const selectCate = document.querySelector(sid)
             selectCate.addEventListener('change', function (e) {
                 generateData(e.target.value)
             })
@@ -685,6 +712,28 @@
             series.appear(1000);
             chart.appear(1000, 100);
 
+        }
+
+        am5.ready(async function () {
+            var root = am5.Root.new("line_dash");
+            $('#line_dash').on('click', (e) => {
+                if (e.target.tagName === 'SELECT') return;
+                $('.modal').css('display', 'block').css('background-color', 'rgba(0,0,0, .5)').addClass('in');
+                modalTitle.text('')
+                modalBody.html(`<div id="m-line_dash" style="margin-top: 10px;width: 100%;height: 500px;border-radius: 9px;border: 1px silver solid;">
+<select class="form-select" id="m-date-pick-line" aria-label="选择日期"
+                                                    style="width: 300px;right: 35px;top: 28px;">
+                                                {% for cate in category %}
+                                                    <option value="{{ cate }}">{{ cate }}</option>
+                                                {% endfor %}
+                                            </select>
+</div>`)
+                let root = am5.Root.new('m-line_dash')
+                render1(root, "#m-date-pick-line")
+            })
+
+            render1(root, "#date-pick-line")
+
         }); // end am5.ready()
     </script>
     <script>
@@ -702,16 +751,9 @@
             })
         }
 
-        const select = document.querySelector('#date-pick-pie')
-        am5.ready(async function () {
 
-// Create root element
-// https://www.amcharts.com/docs/v5/getting-started/#Root_element
-            var root = am5.Root.new("pie_dash");
-
-
-// Set themes
-// https://www.amcharts.com/docs/v5/concepts/themes/
+        async function render2(root, sid) {
+            const select = document.querySelector(sid)
             root.setThemes([
                 am5themes_Animated.new(root)
             ]);
@@ -771,25 +813,40 @@
 // https://www.amcharts.com/docs/v5/concepts/animations/#Animation_of_series
             series.appear(1000, 100);
 
+        }
+
+
+        am5.ready(async function () {
+
+// Create root element
+// https://www.amcharts.com/docs/v5/getting-started/#Root_element
+            var root = am5.Root.new("pie_dash");
+            $('#pie_dash').on('click', (e) => {
+                if (e.target.tagName === 'SELECT') return;
+                $('.modal').css('display', 'block').css('background-color', 'rgba(0,0,0, .5)').addClass('in');
+                modalTitle.text('')
+                modalBody.html(`<div id="m-pie_dash" style="margin-top: 10px;width: 100%;height: 500px;border-radius: 9px;border: 1px silver solid;">
+<select class="form-select" id="m-date-pick-pie" aria-label="选择日期" style="top: 35px;right: 30px;">
+                                                {% for year in years %}
+                                                    <option value="{{ year }}">{{ year }}</option>
+                                                {% endfor %}
+                                            </select>
+</div>`)
+                let root = am5.Root.new('m-pie_dash')
+                render2(root, "#m-date-pick-pie")
+            })
+            render2(root, '#date-pick-pie')
+
         }); // end am5.ready()
     </script>
     <script>
-        am5.ready(async function () {
 
-            // Create root element
-            // https://www.amcharts.com/docs/v5/getting-started/#Root_element
-            var root = am5.Root.new("couple_dash");
-
-
-            // Set themes
-            // https://www.amcharts.com/docs/v5/concepts/themes/
+        async function render3(root) {
             root.setThemes([
                 am5themes_Animated.new(root)
             ]);
 
 
-            // Create chart
-            // https://www.amcharts.com/docs/v5/charts/xy-chart/
             var chart = root.container.children.push(am5xy.XYChart.new(root, {
                 panX: true,
                 panY: true,
@@ -801,14 +858,10 @@
             chart.get("colors").set("step", 3);
 
 
-            // Add cursor
-            // https://www.amcharts.com/docs/v5/charts/xy-chart/cursor/
             var cursor = chart.set("cursor", am5xy.XYCursor.new(root, {}));
             cursor.lineY.set("visible", false);
 
 
-            // Create axes
-            // https://www.amcharts.com/docs/v5/charts/xy-chart/axes/
             var xAxis = chart.xAxes.push(am5xy.DateAxis.new(root, {
                 maxDeviation: 0.3,
                 baseInterval: {
@@ -825,8 +878,6 @@
             }));
 
 
-            // Add series
-            // https://www.amcharts.com/docs/v5/charts/xy-chart/series/
             var series = chart.series.push(am5xy.LineSeries.new(root, {
                 name: "Series 1",
                 xAxis: xAxis,
@@ -883,6 +934,23 @@
             series2.appear(1000);
             chart.appear(1000, 100);
 
+        }
+
+        am5.ready(async function () {
+
+            // Create root element
+            // https://www.amcharts.com/docs/v5/getting-started/#Root_element
+            var root = am5.Root.new("couple_dash");
+
+            $('#couple_dash').on('click', (e) => {
+                if (e.target.tagName === 'SELECT') return;
+                $('.modal').css('display', 'block').css('background-color', 'rgba(0,0,0, .5)').addClass('in');
+                modalTitle.text('')
+                modalBody.html(`<div id="m-couple_dash" style="width: 100%;height: 500px;border-radius: 9px;border: 1px silver solid;"></div>`)
+                let root = am5.Root.new('m-couple_dash')
+                render3(root)
+            })
+            render3(root)
         }); // end am5.ready()
     </script>
 {% endblock %}
